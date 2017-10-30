@@ -9,12 +9,8 @@ export const StudentGroups = new Mongo.Collection('studentGroups');
 if (Meteor.isServer) {
   // This code only runs on the server
   Meteor.publish('studentGroups', function studentGroupsPublication() {
-    return StudentGroups.find({
-      $or: [
-        { private: { $ne: true } },
-        { owner: this.userId },
-      ],
-    });
+    return StudentGroups.find(
+    );
   });
 }
 

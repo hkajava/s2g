@@ -2,20 +2,22 @@ import React, { Component, PropTypes } from 'react';
 // import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
-
 import { StudentGroups } from '../api/studentGroups.js';
-
 import StudentGroup from './StudentGroup.jsx';
+import EditStudentGroup from './EditStudentGroup.jsx';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleHideCompleted = this.toggleHideCompleted.bind(this);
+    this.openStudentGroupEditor = this.openStudentGroupEditor.bind(this);
     this.state = {
       hideCompleted: false,
+      editorSelected: false,
+      selectedGroupID: '',
+      selectedGroupName: '',
     };
   }
   handleSubmit(event) {
@@ -39,22 +41,34 @@ class App extends Component {
     });
   }
 
+  openStudentGroupEditor(studentGroupID, studentGroupName) {
+    this.setState(
+      { editorSelected: true,
+        selectedGroupID: { studentGroupID },
+        selectedGroupName: { studentGroupName } });
+    console.log('openStudentGroupEditor: studentGroupID', studentGroupID);
+    console.log('openStudentGroupEditor: studentGroupName', studentGroupName);
+  }
+
 
   renderStudentGroups() {
     let filteredStudentGroups = this.props.studentGroups;
+    if (filteredStudentGroups === '' ||
+        filteredStudentGroups.length === 0) {
+      return '';
+    }
+
     if (this.state.hideCompleted) {
       filteredStudentGroups = filteredStudentGroups.filter(studentGroup => !studentGroup.checked);
     }
 
     return filteredStudentGroups.map((studentGroup) => {
-      const currentUserId = this.props.currentUser && this.props.currentUser._id;
-      const showPrivateButton = studentGroup.owner === currentUserId;
-
       return (
         <StudentGroup
           key={studentGroup._id}
-          studentGroup={studentGroup}
-          showPrivateButton={showPrivateButton}
+          studentGroupID={studentGroup._id}
+          studentGroupName={studentGroup.studentGroupName}
+          cb={this.openStudentGroupEditor}
         />
       );
     });
@@ -77,17 +91,6 @@ class App extends Component {
           <h1>Students2Groups</h1>
           <AccountsUIWrapper />
           <br />
-          <input
-            type="checkbox"
-            id="hide-completed-checkbox"
-            readOnly
-            checked={this.state.hideCompleted}
-            onClick={this.toggleHideCompleted}
-          />
-          <label htmlFor="hide-completed-checkbox" className="hide-completed">
-            Hide students not present today
-          </label>
-
 
           { this.props.currentUser ?
             <form className="new-studentGroup" onSubmit={this.handleSubmit} >
@@ -100,10 +103,17 @@ class App extends Component {
           }
         </header>
 
-        <ul>
-          {this.renderStudentGroups()}
-        </ul>
-
+        { this.state.editorSelected ?
+          <EditStudentGroup
+            studentGroupID={JSON.stringify(this.state.selectedGroupID)}
+            studentGroupName={JSON.stringify(this.state.selectedGroupName)}
+            students={['Pertti', 'Liisa', 'Kalle']}
+          />
+          :
+          <ul>
+            {this.renderStudentGroups()}
+          </ul>
+        }
       </div>
     );
   }

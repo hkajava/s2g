@@ -10,44 +10,46 @@ export default class StudentGroup extends Component {
 
     this.deleteThisStudentGroup = this.deleteThisStudentGroup.bind(this);
     this.toggleChecked = this.toggleChecked.bind(this);
-    this.togglePrivate = this.togglePrivate.bind(this);
+    this.editThisStudentGroup = this.editThisStudentGroup.bind(this);
+    // this.togglePrivate = this.togglePrivate.bind(this);
   }
 
 
   toggleChecked() {
     // Set the checked property to the opposite of its current value
-    Meteor.call('studentGroups.setChecked', this.props.studentGroup._id, !this.props.studentGroup.checked);
+    // Meteor.call('studentGroups.setChecked', this.props.studentGroup._id,
+    // !this.props.studentGroup.checked);
+    this.props.cb(this.props.studentGroupID);
+  }
+  editThisStudentGroup() {
+    console.log('editThisStudentGroup');
+    this.props.cb(this.props.studentGroupID, this.props.studentGroupName);
   }
   deleteThisStudentGroup() {
-    Meteor.call('studentGroups.remove', this.props.studentGroup._id);
+    Meteor.call('studentGroups.remove', this.props.studentGroupID);
   }
+
+  /*
   togglePrivate() {
-    Meteor.call('studentGroups.setPrivate', this.props.studentGroup._id, !this.props.studentGroup.private);
+    Meteor.call('studentGroups.setPrivate', this.props.studentGroupID,
+                !this.props.studentGroup.private);
   }
+  */
 
 
   render() {
-    // Give studentGroups a different className when they are checked off,
-    // so that we can style them nicely in CSS
-    const studentGroupClassName = classnames({
-      checked: this.props.studentGroup.checked,
-      private: this.props.studentGroup.private,
-    });
     return (
-      <li className={studentGroupClassName}>
-        <button className="delete" onClick={this.deleteThisStudentGroup}>
-          &times;
-        </button>
+      <li>
         <input
           type="checkbox"
           readOnly
-          // HKa how is the checked set... not understanding...
-          checked={this.props.studentGroup.checked}
           onClick={this.toggleChecked}
         />
-
         <span className="text">
-          {this.props.studentGroup.studentGroupName}
+          {this.props.studentGroupName}
+          <button className="edit" onClick={this.editThisStudentGroup}>
+             Edit
+          </button>
         </span>
       </li>
     );
@@ -58,7 +60,9 @@ StudentGroup.propTypes = {
 
   // This component gets the studentGroup to display through a React prop.
   // We can use propTypes to indicate it is required
-  studentGroup: PropTypes.object.isRequired,
+  // key: PropTypes.string.isRequired,
+  studentGroupID: PropTypes.string.isRequired,
+  studentGroupName: PropTypes.string.isRequired,
+  cb: PropTypes.func.isRequired,
   // showPrivateButton: PropTypes.bool.isRequired,
-
 };
