@@ -19,11 +19,11 @@ export default class StudentGroup extends Component {
     // Set the checked property to the opposite of its current value
     // Meteor.call('studentGroups.setChecked', this.props.studentGroup._id,
     // !this.props.studentGroup.checked);
-    this.props.cb(this.props.studentGroupID);
+    this.props.cbSelect(this.props.studentGroupID, this.props.studentGroupName);
   }
   editThisStudentGroup() {
     console.log('editThisStudentGroup');
-    this.props.cb(this.props.studentGroupID, this.props.studentGroupName);
+    this.props.cbEdit(this.props.studentGroupID, this.props.studentGroupName);
   }
   deleteThisStudentGroup() {
     Meteor.call('studentGroups.remove', this.props.studentGroupID);
@@ -40,14 +40,11 @@ export default class StudentGroup extends Component {
   render() {
     return (
       <li>
-        <input
-          type="checkbox"
-          readOnly
-          onClick={this.toggleChecked}
-        />
         <span className="text">
-          {this.props.studentGroupName}
-          <button className="edit" onClick={this.editThisStudentGroup}>
+          <button className="selectGroupButton" onClick={this.toggleChecked}>
+            {this.props.studentGroupName}
+          </button>
+          <button className="editButton" onClick={this.editThisStudentGroup}>
              Edit
           </button>
         </span>
@@ -63,6 +60,7 @@ StudentGroup.propTypes = {
   // key: PropTypes.string.isRequired,
   studentGroupID: PropTypes.string.isRequired,
   studentGroupName: PropTypes.string.isRequired,
-  cb: PropTypes.func.isRequired,
+  cbSelect: PropTypes.func.isRequired,
+  cbEdit: PropTypes.func.isRequired,
   // showPrivateButton: PropTypes.bool.isRequired,
 };

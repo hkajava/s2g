@@ -4,7 +4,7 @@ import classnames from 'classnames';
 export default class Student extends Component {
   constructor(props) {
     super(props);
-    this.toggleImageClicked = this.toggleImageClicked.bind(this);
+    this.toggleStudentNameClicked = this.toggleStudentNameClicked.bind(this);
 
     this.state = {
       checked: false,
@@ -23,11 +23,13 @@ export default class Student extends Component {
     console.log(studentClassName);
 
     return (
-      <button id={this.props.key} onClick={this.toggleStudentNameClicked}>
-        <p>
-          {this.props.studentFirstName} {this.props.studentLastName}
-        </p>
-      </button>
+      <ul>
+        <li>
+          <button className="studentNameButton" id={this.props.key} onClick={this.toggleStudentNameClicked}>
+            {this.props.studentFirstName} {this.props.studentLastName}
+          </button>
+        </li>
+      </ul>
 
     );
   }

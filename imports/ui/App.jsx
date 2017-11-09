@@ -13,11 +13,14 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleHideCompleted = this.toggleHideCompleted.bind(this);
     this.openStudentGroupEditor = this.openStudentGroupEditor.bind(this);
+    this.openStudentGroupView = this.openStudentGroupView.bind(this);
     this.state = {
       hideCompleted: false,
       editorSelected: false,
+      studentGroupViewSelected: false,
       selectedGroupID: '',
       selectedGroupName: '',
+      placeholderForEnteringNewGroup: 'Type to add new group',
     };
   }
   handleSubmit(event) {
@@ -44,12 +47,20 @@ class App extends Component {
   openStudentGroupEditor(studentGroupID, studentGroupName) {
     this.setState(
       { editorSelected: true,
-        selectedGroupID: { studentGroupID },
-        selectedGroupName: { studentGroupName } });
+        selectedGroupID: studentGroupID,
+        selectedGroupName: studentGroupName });
     console.log('openStudentGroupEditor: studentGroupID', studentGroupID);
     console.log('openStudentGroupEditor: studentGroupName', studentGroupName);
   }
 
+  openStudentGroupView(studentGroupID, studentGroupName) {
+    this.setState(
+      { studentGroupViewSelected: true,
+        selectedGroupID: { studentGroupID },
+        selectedGroupName: { studentGroupName } });
+    console.log('openStudentGroupView: studentGroupID', studentGroupID);
+    console.log('openStudentGroupView: studentGroupName', studentGroupName);
+  }
 
   renderStudentGroups() {
     let filteredStudentGroups = this.props.studentGroups;
@@ -68,7 +79,8 @@ class App extends Component {
           key={studentGroup._id}
           studentGroupID={studentGroup._id}
           studentGroupName={studentGroup.studentGroupName}
-          cb={this.openStudentGroupEditor}
+          cbSelect={this.openStudentGroupView}
+          cbEdit={this.openStudentGroupEditor}
         />
       );
     });
@@ -83,6 +95,17 @@ class App extends Component {
     ];
   }
   */
+  placeholderOnFocus () {
+    this.setState({
+      placeholderForEnteringNewGroup: '',
+    });
+  }
+
+  placeholderOnBlur () {
+    this.setState({
+      placeholderForEnteringNewGroup: 'Type to add new group',
+    });
+  }
 
   render() {
     return (
@@ -92,12 +115,14 @@ class App extends Component {
           <AccountsUIWrapper />
           <br />
 
-          { this.props.currentUser ?
+          { this.props.currentUser && !this.state.editorSelected ?
             <form className="new-studentGroup" onSubmit={this.handleSubmit} >
               <input
                 type="text"
                 ref={node => this.textInput = node}
-                placeholder="Type to add new student groups"
+                placeholder={this.state.placeholderForEnteringNewGroup}
+                onFocus={() => this.placeholderOnFocus()}
+                onBlur={() => this.placeholderOnBlur()}
               />
             </form> : ''
           }
@@ -105,14 +130,16 @@ class App extends Component {
 
         { this.state.editorSelected ?
           <EditStudentGroup
-            studentGroupID={JSON.stringify(this.state.selectedGroupID)}
-            studentGroupName={JSON.stringify(this.state.selectedGroupName)}
-            students={['Pertti', 'Liisa', 'Kalle']}
+            studentGroupID={this.state.selectedGroupID}
+            studentGroupName={this.state.selectedGroupName}
           />
-          :
+          : ''
+        }
+        { !this.state.editorSelected && this.props.currentUser ?
           <ul>
             {this.renderStudentGroups()}
           </ul>
+          : ''
         }
       </div>
     );

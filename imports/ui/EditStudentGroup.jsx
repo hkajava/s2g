@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 import Student from './Student.jsx';
+import { StudentGroups } from '../api/studentGroups.js';
 // import classnames from 'classnames';
 
 
@@ -12,9 +13,17 @@ export default class EditStudentGroup extends Component {
 
     this.deleteThisStudent = this.deleteThisStudent.bind(this);
     this.handleStudentClick = this.handleStudentClick.bind(this);
+    this.getStudentsInClient = this.getStudentsInClient.bind(this);
+
+    let studentArray = this.getStudentsInClient();
 
     this.state =
-    { changesSaved: true };
+    { changesSaved: true,
+      studentArray: studentArray };
+    // Meteor.subscribe('studentGroups');
+    //this.getStudentsInClient(this.studentGroupName);
+
+    // this.setState({ changesSaved: false }, this.stateChangeDone);
   }
 
   deleteThisStudent(studentFirstName, studentLastName) {
@@ -26,11 +35,41 @@ export default class EditStudentGroup extends Component {
     this.setState({ changesSaved: false });
   }
 
+  stateChangeDone() {
+  console.log('stateChangeDone');
+}
+
+  getStudentsInClient() {
+    let query = {};
+    query.studentGroupName = this.props.studentGroupName;
+    let currentStudentGroupArray = StudentGroups.find(query).fetch();
+    let currentStudentGroup = currentStudentGroupArray[0];
+    let currentStudentArray = Array.from(currentStudentGroup.students);
+    return currentStudentArray;
+  }
+
   renderStudentGroup() {
-    let filteredStudents = this.props.students;
+
+    if (this.state.studentArray == null) {
+      return '';
+    }
+    let filteredStudents = Array.from(this.state.studentArray);
+    console.log('Meteor.userId()', Meteor.userId());
+    console.log('Meteor.user().username', Meteor.user().username);
+    /*
+    Meteor.userId() PqP3YjyPkHSxQMCJ3
+    EditStudentGroup.jsx:33 Meteor.user().username hkajava
+    */
+
+/*
+    let filteredStudents = StudentGroups.find({
+      studentGroupName: this.props.studentGroupName,
+    }).fetch();
+
     if (this.state.hideAbsent) {
       filteredStudents = filteredStudents.filter(student => !student.checked);
     }
+*/
 
     return filteredStudents.map((student) => {
       // const currentUserId = this.props.currentUser && this.props.currentUser._id;
@@ -39,8 +78,8 @@ export default class EditStudentGroup extends Component {
       return (
         <Student
           key={student._id}
-          studentFirstName={student.studentFirstName}
-          studentLastName={student.studentLastName}
+          studentFirstName={student.firstName}
+          studentLastName={student.lastName}
           cb={this.handleStudentClick}
         />
       );
@@ -70,6 +109,7 @@ export default class EditStudentGroup extends Component {
     return (
       <div>
         <h3>{this.props.studentGroupName}</h3>
+        {this.renderStudentGroup()}
       </div>
     );
   }
@@ -81,9 +121,8 @@ EditStudentGroup.propTypes = {
   // We can use propTypes to indicate it is required
   // studentGroup: PropTypes.object.isRequired,
   // key: PropTypes.string.isRequired,
-  studentGroupID: PropTypes.object.isRequired,
+  studentGroupID: PropTypes.string.isRequired,
   studentGroupName: PropTypes.string.isRequired,
-  students: PropTypes.array.isRequired,
   // cbSaveButtonClicked: PropTypes.func.isRequired,
   // showPrivateButton: PropTypes.bool.isRequired,
 

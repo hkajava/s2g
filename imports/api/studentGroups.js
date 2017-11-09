@@ -66,4 +66,30 @@ Meteor.methods({
 
     StudentGroups.update(groupId, { $set: { private: setToPrivate } });
   },
+  'studentGroups.fetchStudentsToArray'(text) {
+    check(text, String);
+
+    // Make sure the user is logged in before inserting a group
+    if (!Meteor.userId()) {
+      throw new Meteor.Error('not-authorized');
+    }
+    let studentArray = [];
+
+    if (Meteor.isServer) {
+      // console.log('inside server, method fetchStudentsToArray');
+    } else {
+      // console.log('inside client, method fetchStudentsToArray');
+    }
+    /*
+    studentArray = StudentGroups.find({
+      owner: Meteor.userId(),
+      username: Meteor.user().username,
+      studentGroupName: text,
+    }).fetch();
+    */
+    studentArray = StudentGroups.find({
+      studentGroupName: text,
+    }).fetch();
+    return studentArray;
+  },
 });
