@@ -23,6 +23,8 @@ Meteor.methods({
     if (!Meteor.userId()) {
       throw new Meteor.Error('not-authorized');
     }
+    // add checking that it's not possible to add a class/group with
+    // name that already exists for that user
 
     StudentGroups.insert({
       createdAt: new Date(),
@@ -91,5 +93,83 @@ Meteor.methods({
       studentGroupName: text,
     }).fetch();
     return studentArray;
+  },
+  'studentGroup.addStudent'(firstNameParam, lastNameParam, groupName, groupID) {
+    check(firstNameParam, String);
+    check(lastNameParam, String);
+    check(groupName, String);
+    check(groupID, String);
+
+    const newStudent = {};
+    newStudent.firstName = firstNameParam;
+    newStudent.lastName = lastNameParam;
+
+    let tempStudentGroupArray = StudentGroups.find({ _id: groupID }).fetch();
+    let tempStudentArray = [];
+    if (tempStudentGroupArray.length === 1) {
+      if (tempStudentGroupArray[0].students !== undefined) {
+        if (tempStudentGroupArray[0].students.length > 0) {
+          tempStudentArray = Array.from(tempStudentGroupArray[0].students);
+        }
+      }
+    }
+
+    if (tempStudentArray.length > 0) {
+      for (let i = 0; i < tempStudentArray.length; i += 1) {
+        if (tempStudentArray[i].firstName === firstNameParam &&
+            tempStudentArray[i].lastName === lastNameParam) {
+          console.log('studentGroup.addStudent, cannot add. Student with same name already found: ',
+            firstNameParam, lastNameParam);
+          throw new Meteor.Error('studentGroup.addStudent: student with same name already exists in db');
+        }
+      }
+    }
+
+    // Make sure the user is logged in before inserting a group
+    if (!Meteor.userId()) {
+      throw new Meteor.Error('not-authorized');
+    }
+    // only add if there is not a student with same name
+    // feedback needed to calling method
+    if (tempStudentArray.length > 0 ) {
+      StudentGroups.update({ _id: groupID }, { $push: { students: newStudent } });
+    } else {
+      // students array was still missing
+      StudentGroups.update({ _id: groupID }, { $set: { students: [newStudent] } });
+    }
+  },
+  'studentGroup.removeStudent'(firstNameParam, lastNameParam, groupName, groupID) {
+    check(firstNameParam, String);
+    check(lastNameParam, String);
+    check(groupName, String);
+    check(groupID, String);
+
+    const group = StudentGroups.findOne(groupID);
+    if (group.private && group.owner !== Meteor.userId()) {
+      // If the group is private, make sure only the owner can delete it
+      throw new Meteor.Error('not-authorized');
+    }
+    /** This broke studentGroups.tests.js. Meteor.userId() can't be called for some
+        reason in the test.
+    if (group.owner === Meteor.userId()) {
+      StudentGroups.remove(groupId);
+    }
+    */
+    let tempStudentGroupArray = StudentGroups.find({ _id: groupID }).fetch();
+    let tempStudentArray = [];
+    if (tempStudentGroupArray.length === 1 && tempStudentGroupArray[0].students.length > 0) {
+      tempStudentArray = Array.from(tempStudentGroupArray[0].students);
+    }
+
+    if (tempStudentArray.length > 0) {
+      for (let i = 0; i < tempStudentArray.length; i += 1) {
+        if (tempStudentArray[i].firstName === firstNameParam &&
+            tempStudentArray[i].lastName === lastNameParam) {
+          console.log('studentGroup.removeStudent, about to remove student: ', firstNameParam, lastNameParam);
+          tempStudentArray.splice(i, 1);
+          StudentGroups.update({ _id: groupID }, { $set: { students: tempStudentArray } });
+        }
+      }
+    }
   },
 });

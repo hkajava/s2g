@@ -14,13 +14,16 @@ class App extends Component {
     this.toggleHideCompleted = this.toggleHideCompleted.bind(this);
     this.openStudentGroupEditor = this.openStudentGroupEditor.bind(this);
     this.openStudentGroupView = this.openStudentGroupView.bind(this);
+    this.openMainView = this.openMainView.bind(this);
+
     this.state = {
       hideCompleted: false,
       editorSelected: false,
+      selectedView: 'mainView',
       studentGroupViewSelected: false,
       selectedGroupID: '',
       selectedGroupName: '',
-      placeholderForEnteringNewGroup: 'Type to add new group',
+      placeholderForEnteringNewGroup: 'Type to add new class',
     };
   }
   handleSubmit(event) {
@@ -47,6 +50,7 @@ class App extends Component {
   openStudentGroupEditor(studentGroupID, studentGroupName) {
     this.setState(
       { editorSelected: true,
+        selectedView: 'editorView',
         selectedGroupID: studentGroupID,
         selectedGroupName: studentGroupName });
     console.log('openStudentGroupEditor: studentGroupID', studentGroupID);
@@ -56,11 +60,32 @@ class App extends Component {
   openStudentGroupView(studentGroupID, studentGroupName) {
     this.setState(
       { studentGroupViewSelected: true,
+        selectedView: 'studentGroupView',
         selectedGroupID: { studentGroupID },
         selectedGroupName: { studentGroupName } });
     console.log('openStudentGroupView: studentGroupID', studentGroupID);
     console.log('openStudentGroupView: studentGroupName', studentGroupName);
   }
+
+  openMainView() {
+    this.setState(
+      { selectedView: 'mainView',
+        studentGroupViewSelected: false,
+        editorSelected: false });
+  }
+
+  placeholderOnFocus () {
+    this.setState({
+      placeholderForEnteringNewGroup: '',
+    });
+  }
+
+  placeholderOnBlur () {
+    this.setState({
+      placeholderForEnteringNewGroup: 'Type to add new class',
+    });
+  }
+
 
   renderStudentGroups() {
     let filteredStudentGroups = this.props.studentGroups;
@@ -95,17 +120,6 @@ class App extends Component {
     ];
   }
   */
-  placeholderOnFocus () {
-    this.setState({
-      placeholderForEnteringNewGroup: '',
-    });
-  }
-
-  placeholderOnBlur () {
-    this.setState({
-      placeholderForEnteringNewGroup: 'Type to add new group',
-    });
-  }
 
   render() {
     return (
@@ -132,6 +146,8 @@ class App extends Component {
           <EditStudentGroup
             studentGroupID={this.state.selectedGroupID}
             studentGroupName={this.state.selectedGroupName}
+            currentUser={this.props.currentUser}
+            cbGoToMainViewClicked={this.openMainView}
           />
           : ''
         }
@@ -162,7 +178,7 @@ export default createContainer(() => {
   // are passed to App class
   return {
     studentGroups: StudentGroups.find({}, { sort: { createdAt: -1 } }).fetch(),
-    incompleteCount: StudentGroups.find({ checked: { $ne: true } }).count(),
+    // incompleteCount: StudentGroups.find({ checked: { $ne: true } }).count(),
     currentUser: Meteor.user(),
   };
 }, App);

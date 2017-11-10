@@ -17,7 +17,7 @@ body {
 }
 
 .container {
-  max-width: 600px;
+  max-width: 1200px;
   margin: 0 auto;
   min-height: 100%;
   background: white;
@@ -33,6 +33,11 @@ header {
 
 h3 {
   font-size: 1.17em;
+  padding-left: 5px;
+}
+
+h4 {
+  font-size: 1em;
   padding-left: 5px;
 }
 
@@ -78,7 +83,7 @@ h3 {
 	font-family:Arial;
 	font-size:14px;
 	padding:2px 4px;
-  margin-left: 10px;
+  /*margin-left: 10px; */
 	text-decoration:none;
 	text-shadow:0px 1px 0px #283966;
 }
@@ -114,7 +119,54 @@ h3 {
 	top:1px;
 }
 
+.deleteButton {
+	background-color:#7892c2;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:0px;
+	border:1px solid #4e6096;
+	display:inline-block;
+	cursor:pointer;
+	color:#ff0000;
+	font-family:Arial;
+	font-size:10px;
+	padding:2px 4px;
+  margin-left: 10px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #283966;
+}
+.deleteButton:hover {
+	background-color:#476e9e;
+}
+.deleteButton:active {
+	position:relative;
+	top:1px;
+}
 
+.goToMainViewButton {
+	background-color:#7892c2;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:0px;
+	border:1px solid #4e6096;
+	/*display:inline-block;*/
+  display: flex;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	padding:2px 4px;
+  margin-left: 10px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #283966;
+}
+.goToMainViewButton:hover {
+	background-color:#476e9e;
+}
+.goToMainViewButton:active {
+	position:relative;
+	top:1px;
+}
 /*
 h1 {
 
@@ -172,6 +224,27 @@ form {
   outline: 0;
 }
 
+.new-studentToClass input {
+
+  box-sizing: border-box;
+  background: transparent;
+  /** border: none; */
+  border-top: 1px dotted;
+  border-right: 1px dotted;
+  border-left: 1px dotted;
+  border-bottom: 1px dotted;
+  height: 17px;
+  width: 33%;
+  margin-left: 5px;
+  margin-bottom: 10px;
+  padding-right: 80px;
+  font-size: 1em;
+
+}
+
+.new-studentToClass input:focus{
+  outline: 0;
+}
 
 
 ul {
@@ -251,5 +324,10 @@ header .hide-completed {
 
   .new-studentGroup input {
     padding-bottom: 5px;
+  }
+
+  .new-studentToClass input {
+    padding-bottom: 5px;
+    padding-left: 10px;
   }
 }

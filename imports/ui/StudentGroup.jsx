@@ -47,6 +47,9 @@ export default class StudentGroup extends Component {
           <button className="editButton" onClick={this.editThisStudentGroup}>
              Edit
           </button>
+          <button className="deleteButton" onClick={this.deleteThisStudentGroup}>
+             Delete
+          </button>
         </span>
       </li>
     );

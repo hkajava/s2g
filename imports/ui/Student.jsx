@@ -5,6 +5,7 @@ export default class Student extends Component {
   constructor(props) {
     super(props);
     this.toggleStudentNameClicked = this.toggleStudentNameClicked.bind(this);
+    this.deleteThisStudent = this.deleteThisStudent.bind(this);
 
     this.state = {
       checked: false,
@@ -13,20 +14,27 @@ export default class Student extends Component {
 
   toggleStudentNameClicked() {
     this.setState({ checked: false });
-    this.props.cb(this.props.studentFirstName, this.props.studentLastName);
+    this.props.cbClick(this.props.studentFirstName, this.props.studentLastName);
+  }
+
+  deleteThisStudent() {
+    this.props.cbDelete(this.props.studentFirstName, this.props.studentLastName);
   }
 
   render() {
     const studentClassName = classnames({
       checked: this.state.checked,
     });
-    console.log(studentClassName);
+    // console.log(studentClassName);
 
     return (
       <ul>
         <li>
           <button className="studentNameButton" id={this.props.key} onClick={this.toggleStudentNameClicked}>
             {this.props.studentFirstName} {this.props.studentLastName}
+          </button>
+          <button className="deleteButton" onClick={this.deleteThisStudent}>
+             Delete
           </button>
         </li>
       </ul>
@@ -36,8 +44,11 @@ export default class Student extends Component {
 }
 
 Student.propTypes = {
-  // key: PropTypes.string.isRequired,
+  studentGroupID: PropTypes.string.isRequired,
+  studentGroupName: PropTypes.string.isRequired,
+  studentID: PropTypes.string.isRequired,
   studentFirstName: PropTypes.string.isRequired,
   studentLastName: PropTypes.string.isRequired,
-  cb: PropTypes.func.isRequired,
+  cbClick: PropTypes.func.isRequired,
+  cbDelete: PropTypes.func.isRequired,
 };
