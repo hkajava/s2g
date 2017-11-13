@@ -26,7 +26,7 @@ export default class RandomizeStudentGroup extends Component {
     { changesSaved: true,
       selectedView: 'main',
       studentArray: fetchedStudentArray,
-      randomizedStudentArray: [],
+      randomizedStudentArrayOfArrays: [],
       placeholderForEnteringNewStudentToClass: 'Add student',
       minGroupSize: 3 };
 
@@ -82,7 +82,7 @@ export default class RandomizeStudentGroup extends Component {
       }
     }
     this.setState({ selectedView: 'randomized',
-                    randomizedStudentArray: randomizedArrayOfArrays});
+                    randomizedStudentArrayOfArrays: randomizedArrayOfArrays});
   }
 
   deleteThisStudent(studentFirstName, studentLastName) {
@@ -139,12 +139,12 @@ export default class RandomizeStudentGroup extends Component {
   }
 
   renderStudentSmallGroups() {
-    if (this.state.randomizedStudentArray == null ||
-        this.state.randomizedStudentArray === undefined ||
-        this.state.randomizedStudentArray.length === 0) {
+    if (this.state.randomizedStudentArrayOfArrays == null ||
+        this.state.randomizedStudentArrayOfArrays === undefined ||
+        this.state.randomizedStudentArrayOfArrays.length === 0) {
       return (<h4>ERROR: Small groups were empty.</h4>);
     }
-    let tempArrayOfArrays = this.state.randomizedStudentArray;
+    let tempArrayOfArrays = this.state.randomizedStudentArrayOfArrays;
 
     let returnString = '';
 
