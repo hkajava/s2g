@@ -5,7 +5,7 @@ Students2Groups Meteor application. Noticed in Spanish conversation class that t
 
 Do git clone on the project
 ```
-git clone git@github.com:hkajava/s2g.git
+>git clone git@github.com:hkajava/s2g.git
 ```
 
 ### Installing
