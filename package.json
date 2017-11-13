@@ -1,5 +1,5 @@
 {
-  "name": "dfm",
+  "name": "s2g",
   "private": true,
   "scripts": {
     "lint": "eslint .",
