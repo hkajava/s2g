@@ -6,6 +6,7 @@ import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import { StudentGroups } from '../api/studentGroups.js';
 import StudentGroup from './StudentGroup.jsx';
 import EditStudentGroup from './EditStudentGroup.jsx';
+import RandomizeStudentGroup from './RandomizeStudentGroup.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleHideCompleted = this.toggleHideCompleted.bind(this);
     this.openStudentGroupEditor = this.openStudentGroupEditor.bind(this);
-    this.openStudentGroupView = this.openStudentGroupView.bind(this);
+    // this.openStudentGroupView = this.openStudentGroupView.bind(this);
+    this.openRandomizeStudentGroupView = this.openRandomizeStudentGroupView.bind(this);
     this.openMainView = this.openMainView.bind(this);
 
     this.state = {
@@ -57,6 +59,7 @@ class App extends Component {
     console.log('openStudentGroupEditor: studentGroupName', studentGroupName);
   }
 
+/*
   openStudentGroupView(studentGroupID, studentGroupName) {
     this.setState(
       { studentGroupViewSelected: true,
@@ -65,6 +68,16 @@ class App extends Component {
         selectedGroupName: { studentGroupName } });
     console.log('openStudentGroupView: studentGroupID', studentGroupID);
     console.log('openStudentGroupView: studentGroupName', studentGroupName);
+  }
+*/
+  openRandomizeStudentGroupView(studentGroupID, studentGroupName) {
+    this.setState(
+      { randomizeStudentGroupViewSelected: true,
+        selectedView: 'randomizeStudentGroupView',
+        selectedGroupID: studentGroupID,
+        selectedGroupName: studentGroupName });
+    console.log('openRandomizeStudentGroupView: studentGroupID', studentGroupID);
+    console.log('openRandomizeStudentGroupView: studentGroupName', studentGroupName);
   }
 
   openMainView() {
@@ -104,7 +117,7 @@ class App extends Component {
           key={studentGroup._id}
           studentGroupID={studentGroup._id}
           studentGroupName={studentGroup.studentGroupName}
-          cbSelect={this.openStudentGroupView}
+          cbSelect={this.openRandomizeStudentGroupView}
           cbEdit={this.openStudentGroupEditor}
         />
       );
@@ -151,7 +164,14 @@ class App extends Component {
           />
           : ''
         }
-        { !this.state.editorSelected && this.props.currentUser ?
+        { this.state.selectedView === 'randomizeStudentGroupView' &&
+          <RandomizeStudentGroup
+            studentGroupID={this.state.selectedGroupID}
+            studentGroupName={this.state.selectedGroupName}
+            currentUser={this.props.currentUser}
+            cbGoToMainViewClicked={this.openMainView}
+          /> }
+        { this.state.selectedView === 'mainView' && this.props.currentUser ?
           <ul>
             {this.renderStudentGroups()}
           </ul>

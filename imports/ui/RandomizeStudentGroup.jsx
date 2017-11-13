@@ -5,24 +5,30 @@ import { StudentGroups } from '../api/studentGroups.js';
 // import classnames from 'classnames';
 
 
-// EditStudentGroup component - represents an editable list of
-// students belonging to a group.
-export default class EditStudentGroup extends Component {
+// RandomizeStudentGroup component - show a list of students belonging
+// to a course. Those that are not present can be deselected.
+// The remaining students that are present in the class can be split
+// randomly into small groups.
+export default class RandomizeStudentGroup extends Component {
+
   constructor(props) {
     super(props);
 
     this.handleStudentClick = this.handleStudentClick.bind(this);
     this.getStudentsInClient = this.getStudentsInClient.bind(this);
-    this.addStudentToClass = this.addStudentToClass.bind(this);
     this.deleteThisStudent = this.deleteThisStudent.bind(this);
     this.handleGoToMainView = this.handleGoToMainView.bind(this);
+    this.randomizeStudentGroup = this.randomizeStudentGroup.bind(this);
 
     const fetchedStudentArray = this.getStudentsInClient();
 
     this.state =
     { changesSaved: true,
+      selectedView: 'main',
       studentArray: fetchedStudentArray,
-      placeholderForEnteringNewStudentToClass: 'Add student' };
+      randomizedStudentArray: [],
+      placeholderForEnteringNewStudentToClass: 'Add student',
+      minGroupSize: 3 };
 
     // Meteor.subscribe('studentGroups');
   }
@@ -40,50 +46,43 @@ export default class EditStudentGroup extends Component {
     return currentStudentArray;
   }
 
-  placeholderOnFocus () {
-    this.setState({
-      placeholderForEnteringNewStudentToClass: '',
-    });
-  }
+  randomizeStudentGroup() {
+    let randomizedArrayOfArrays = [];
+    let tempStudentsArray = Array.from(this.state.studentArray);
+    let tempMinGroupSize = this.state.minGroupSize;
 
-  placeholderOnBlur () {
-    this.setState({
-      placeholderForEnteringNewStudentToClass: 'Add student',
-    });
-  }
+    // this would tell always how many students would be left out
+    // after splitting the whole student group into equal size small groups
+    let tempRemainingNumberOfStudents = 0;
 
-  addStudentToClass(event) {
-    event.preventDefault();
-    // Find the text field via the React ref
+    tempRemainingNumberOfStudents = tempStudentsArray.length % tempMinGroupSize;
 
-    // const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
-    const text = this.textInput.value.trim();
+    let targetGroupSize = tempMinGroupSize;
 
-    // Clear form
-    // ReactDOM.findDOMNode(this.refs.textInput).value = '';
-    this.textInput.value = '';
-    // add checking that firstname and lastname are correctly given. exactly two
-    // names (first and last) should be given. Or then another possibility would
-    // to have two input text fields
-    const textArray = text.split(' ');
-    if (textArray.length === 0) {
-      // console.log('Could not add student to class. The name was incorrect or missing.');
-      alert('Could not add student to class. The name was incorrect or missing.');
-      return;
-    }
-    const firstName = textArray[0];
-    const lastName = textArray[1];
+    if (tempRemainingNumberOfStudents === 0) {
+      // There is such number of students that they can be split into
+      // equal size groups that have the smallest allowed size
+      let tempNumberOfStudentsInSmallGroup = 0;
+      let tempSmallGroupArray = [];
+      // note that index is not incremented as the array is shrinked
 
-
-    Meteor.call('studentGroup.addStudent', firstName, lastName, this.props.studentGroupName, this.props.studentGroupID, function(error, result) {
-      if (error) {
-        alert(error);
-      } else {
-        // console.log('studentGroup.addStudent successful', result);
-        const fetchedStudentArray = this.getStudentsInClient();
-        this.setState({ studentArray: fetchedStudentArray });
+      for (let i = 0; i < tempStudentsArray.length;) {
+        let removedIndex = Math.floor(Math.random() * tempStudentsArray.length);
+        let tempStudent = tempStudentsArray[removedIndex];
+        tempSmallGroupArray.push(tempStudent);
+        tempNumberOfStudentsInSmallGroup += 1;
+        // time to remove student from origin array
+        tempStudentsArray.splice(removedIndex, 1);
+        if (tempNumberOfStudentsInSmallGroup === targetGroupSize) {
+          randomizedArrayOfArrays.push(tempSmallGroupArray);
+          // let's reset temp type variables
+          tempNumberOfStudentsInSmallGroup = 0;
+          tempSmallGroupArray = [];
+        }
       }
-    }.bind(this));
+    }
+    this.setState({ selectedView: 'randomized',
+                    randomizedStudentArray: randomizedArrayOfArrays});
   }
 
   deleteThisStudent(studentFirstName, studentLastName) {
@@ -108,11 +107,56 @@ export default class EditStudentGroup extends Component {
     this.props.cbGoToMainViewClicked();
   }
 
+// TODO, should ES6 international collation features be used
+// here to get alphabets correctly sorted?
   sortArrayAccordingToLastName(a, b) {
     let textA = a.lastName.toUpperCase();
     let textB = b.lastName.toUpperCase();
     return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
   }
+
+  renderOneStudentSmallGroup(oneStudentGroupArray) {
+    let filteredStudents = Array.from(oneStudentGroupArray);
+    filteredStudents = filteredStudents.sort(this.sortArrayAccordingToLastName);
+
+    return filteredStudents.map((student) => {
+      // const currentUserId = this.props.currentUser && this.props.currentUser._id;
+      // const showPrivateButton = task.owner === currentUserId;
+      return (
+        <Student
+          key={this.props.studentGroupID + student.firstName + student.lastName}
+          studentGroupID={this.props.studentGroupID}
+          studentGroupName={this.props.studentGroupName}
+          studentID={this.props.studentGroupID + student.firstName + student.lastName}
+          studentFirstName={student.firstName}
+          studentLastName={student.lastName}
+          parentView="RandomizeStudentGroup"
+          cbClick={this.handleStudentClick}
+          cbDelete={this.deleteThisStudent}
+        />
+      );
+    });
+  }
+
+  renderStudentSmallGroups() {
+    if (this.state.randomizedStudentArray == null ||
+        this.state.randomizedStudentArray === undefined ||
+        this.state.randomizedStudentArray.length === 0) {
+      return (<h4>ERROR: Small groups were empty.</h4>);
+    }
+    let tempArrayOfArrays = this.state.randomizedStudentArray;
+
+    let returnString = '';
+
+    for (let i = 0; i < tempArrayOfArrays.length; i += 1) {
+      returnString = returnString.concat('SmallGroup Number ', i + 1);
+      returnString = returnString.concat('<br />');
+      returnString = returnString.concat(this.renderOneStudentSmallGroup(tempArrayOfArrays[i]));
+      returnString = returnString.concat('<br />');
+    }
+    return returnString;
+  }
+
 
   renderStudentGroup() {
     if (this.state.studentArray == null ||
@@ -126,7 +170,7 @@ export default class EditStudentGroup extends Component {
     // console.log('Meteor.user().username', Meteor.user().username);
     /*
     Meteor.userId() PqP3YjyPkHSxQMCJ3
-    EditStudentGroup.jsx:33 Meteor.user().username hkajava
+    RandomizeStudentGroup.jsx:33 Meteor.user().username hkajava
     */
     /*
     let filteredStudents = StudentGroups.find({
@@ -149,7 +193,7 @@ export default class EditStudentGroup extends Component {
           studentID={this.props.studentGroupID + student.firstName + student.lastName}
           studentFirstName={student.firstName}
           studentLastName={student.lastName}
-          parentView="EditStudentGroup"
+          parentView="RandomizeStudentGroup"
           cbClick={this.handleStudentClick}
           cbDelete={this.deleteThisStudent}
         />
@@ -180,29 +224,26 @@ export default class EditStudentGroup extends Component {
     return (
       <div>
         <span>
+          <h3>Randomize</h3>
           <h3>{this.props.studentGroupName}</h3>
           <button className="goToMainViewButton" onClick={this.handleGoToMainView}>
             Go To Main View
           </button>
+          <br />
+          <button className="randomizeStudentGroupButton" onClick={this.randomizeStudentGroup}>
+            Randomize into groups of three or four
+          </button>
         </span>
-        { this.props.currentUser ?
-          <form className="new-studentToClass" onSubmit={this.addStudentToClass} >
-            <input
-              type="text"
-              ref={node => this.textInput = node}
-              placeholder={this.state.placeholderForEnteringNewStudentToClass}
-              onFocus={() => this.placeholderOnFocus()}
-              onBlur={() => this.placeholderOnBlur()}
-            />
-          </form> : ''
-        }
-        {this.renderStudentGroup()}
+        {this.state.selectedView === 'main' &&
+         this.renderStudentGroup()}
+        {this.state.selectedView === 'randomized' &&
+         this.renderStudentSmallGroups()}
       </div>
     );
   }
 }
 
-EditStudentGroup.propTypes = {
+RandomizeStudentGroup.propTypes = {
 
   // This component gets the studentGroup to display through a React prop.
   // We can use propTypes to indicate it is required

@@ -9,13 +9,13 @@ export default class StudentGroup extends Component {
     super(props);
 
     this.deleteThisStudentGroup = this.deleteThisStudentGroup.bind(this);
-    this.toggleChecked = this.toggleChecked.bind(this);
+    this.selectThisStudentGroup = this.selectThisStudentGroup.bind(this);
     this.editThisStudentGroup = this.editThisStudentGroup.bind(this);
     // this.togglePrivate = this.togglePrivate.bind(this);
   }
 
 
-  toggleChecked() {
+  selectThisStudentGroup() {
     // Set the checked property to the opposite of its current value
     // Meteor.call('studentGroups.setChecked', this.props.studentGroup._id,
     // !this.props.studentGroup.checked);
@@ -41,7 +41,7 @@ export default class StudentGroup extends Component {
     return (
       <li>
         <span className="text">
-          <button className="selectGroupButton" onClick={this.toggleChecked}>
+          <button className="selectGroupButton" onClick={this.selectThisStudentGroup}>
             {this.props.studentGroupName}
           </button>
           <button className="editButton" onClick={this.editThisStudentGroup}>

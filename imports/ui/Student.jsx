@@ -33,9 +33,11 @@ export default class Student extends Component {
           <button className="studentNameButton" id={this.props.key} onClick={this.toggleStudentNameClicked}>
             {this.props.studentFirstName} {this.props.studentLastName}
           </button>
+          {(this.props.parentView === 'EditStudentGroup') &&
           <button className="deleteButton" onClick={this.deleteThisStudent}>
              Delete
           </button>
+          }
         </li>
       </ul>
 
@@ -49,6 +51,7 @@ Student.propTypes = {
   studentID: PropTypes.string.isRequired,
   studentFirstName: PropTypes.string.isRequired,
   studentLastName: PropTypes.string.isRequired,
+  parentView: PropTypes.string.isRequired,
   cbClick: PropTypes.func.isRequired,
   cbDelete: PropTypes.func.isRequired,
 };
