@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
-import classnames from 'classnames';
-
+// import classnames from 'classnames';
 
 // StudentGroup component - represents a single todo item
 export default class StudentGroup extends Component {
@@ -28,14 +27,6 @@ export default class StudentGroup extends Component {
   deleteThisStudentGroup() {
     Meteor.call('studentGroups.remove', this.props.studentGroupID);
   }
-
-  /*
-  togglePrivate() {
-    Meteor.call('studentGroups.setPrivate', this.props.studentGroupID,
-                !this.props.studentGroup.private);
-  }
-  */
-
 
   render() {
     return (

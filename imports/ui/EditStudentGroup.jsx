@@ -8,6 +8,20 @@ import { StudentGroups } from '../api/studentGroups.js';
 // EditStudentGroup component - represents an editable list of
 // students belonging to a group.
 export default class EditStudentGroup extends Component {
+  static sortArrayAccordingToLastName(a, b) {
+    const textA = a.lastName.toUpperCase();
+    const textB = b.lastName.toUpperCase();
+
+
+    if (textB > textA) {
+      return -1;
+    } else if (textA > textB) {
+      return 1;
+    }
+    return 0;
+    // return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+  }
+
   constructor(props) {
     super(props);
 
@@ -79,7 +93,7 @@ export default class EditStudentGroup extends Component {
       if (error) {
         alert(error);
       } else {
-        // console.log('studentGroup.addStudent successful', result);
+        console.log('studentGroup.addStudent successful', result);
         const fetchedStudentArray = this.getStudentsInClient();
         this.setState({ studentArray: fetchedStudentArray });
       }
@@ -92,7 +106,7 @@ export default class EditStudentGroup extends Component {
         if (error) {
           alert(error);
         } else {
-          // console.log('studentGroup.removeStudent successful', result);
+          console.log('studentGroup.removeStudent successful', result);
           const fetchedStudentArray = this.getStudentsInClient();
           this.setState({ studentArray: fetchedStudentArray });
         }
@@ -100,18 +114,12 @@ export default class EditStudentGroup extends Component {
   }
 
   handleStudentClick(studentFirstName, studentLastName) {
-    // console.log('handleStudentClick: ', studentFirstName, ' ', studentLastName);
+    console.log('handleStudentClick: ', studentFirstName, ' ', studentLastName);
     this.setState({ changesSaved: false });
   }
 
   handleGoToMainView() {
     this.props.cbGoToMainViewClicked();
-  }
-
-  sortArrayAccordingToLastName(a, b) {
-    let textA = a.lastName.toUpperCase();
-    let textB = b.lastName.toUpperCase();
-    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
   }
 
   renderStudentGroup() {
@@ -121,22 +129,7 @@ export default class EditStudentGroup extends Component {
       return (<h4>No students listed as enrolled in this class.</h4>);
     }
     let filteredStudents = Array.from(this.state.studentArray);
-    filteredStudents = filteredStudents.sort(this.sortArrayAccordingToLastName);
-    // console.log('Meteor.userId()', Meteor.userId());
-    // console.log('Meteor.user().username', Meteor.user().username);
-    /*
-    Meteor.userId() PqP3YjyPkHSxQMCJ3
-    EditStudentGroup.jsx:33 Meteor.user().username hkajava
-    */
-    /*
-    let filteredStudents = StudentGroups.find({
-      studentGroupName: this.props.studentGroupName,
-    }).fetch();
-
-    if (this.state.hideAbsent) {
-      filteredStudents = filteredStudents.filter(student => !student.checked);
-    }
-    */
+    filteredStudents = filteredStudents.sort(EditStudentGroup.sortArrayAccordingToLastName);
 
     return filteredStudents.map((student) => {
       // const currentUserId = this.props.currentUser && this.props.currentUser._id;
@@ -158,25 +151,6 @@ export default class EditStudentGroup extends Component {
   }
 
   render() {
-    // Give studentGroups a different className when they are checked off,
-    // so that we can style them nicely in CSS
-    /*
-    const studentGroupClassName = classnames({
-      checked: this.props.studentGroup.checked,
-      private: this.props.studentGroup.private,
-    });
-    <input
-      type="checkbox"
-      id="hide-completed-checkbox"
-      readOnly
-      checked={this.state.hideCompleted}
-      onClick={this.toggleHideCompleted}
-    />
-    <label htmlFor="hide-completed-checkbox" className="hide-completed">
-      Hide students not present today
-    </label>
-        {this.renderStudentGroup()}
-    */
     return (
       <div>
         <span>

@@ -59,17 +59,6 @@ class App extends Component {
     console.log('openStudentGroupEditor: studentGroupName', studentGroupName);
   }
 
-/*
-  openStudentGroupView(studentGroupID, studentGroupName) {
-    this.setState(
-      { studentGroupViewSelected: true,
-        selectedView: 'studentGroupView',
-        selectedGroupID: { studentGroupID },
-        selectedGroupName: { studentGroupName } });
-    console.log('openStudentGroupView: studentGroupID', studentGroupID);
-    console.log('openStudentGroupView: studentGroupName', studentGroupName);
-  }
-*/
   openRandomizeStudentGroupView(studentGroupID, studentGroupName) {
     this.setState(
       { randomizeStudentGroupViewSelected: true,
@@ -123,16 +112,6 @@ class App extends Component {
       );
     });
   }
-
-  /**
-  getStudentGroups() {
-    return [
-      { _id: 1, text: 'This is studentGroup 1. ' },
-      { _id: 2, text: 'This is studentGroup 2' },
-      { _id: 3, text: 'This is studentGroup 3' },
-    ];
-  }
-  */
 
   render() {
     return (

@@ -10,6 +10,22 @@ import { StudentGroups } from '../api/studentGroups.js';
 // The remaining students that are present in the class can be split
 // randomly into small groups.
 export default class RandomizeStudentGroup extends Component {
+  // TODO, should ES6 international collation features be used
+  // here to get alphabets correctly sorted?
+  static sortArrayAccordingToLastName(a, b) {
+    const textA = a.lastName.toUpperCase();
+    const textB = b.lastName.toUpperCase();
+
+
+    if (textB > textA) {
+      return -1;
+    } else if (textA > textB) {
+      return 1;
+    }
+    return 0;
+    // return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+  }
+
   constructor(props) {
     super(props);
 
@@ -47,7 +63,7 @@ export default class RandomizeStudentGroup extends Component {
 
   randomizeStudentGroup() {
     const randomizedArrayOfArrays = [];
-    let tempStudentsArray = Array.from(this.state.studentArray);
+    const tempStudentsArray = Array.from(this.state.studentArray);
     const tempMinGroupSize = this.state.minGroupSize;
 
     // this would tell always how many students would be left out
@@ -66,8 +82,8 @@ export default class RandomizeStudentGroup extends Component {
       // note that index is not incremented as the array is shrinked
 
       for (let i = 0; i < tempStudentsArray.length;) {
-        let removedIndex = Math.floor(Math.random() * tempStudentsArray.length);
-        let tempStudent = tempStudentsArray[removedIndex];
+        const removedIndex = Math.floor(Math.random() * tempStudentsArray.length);
+        const tempStudent = tempStudentsArray[removedIndex];
         tempSmallGroupArray.push(tempStudent);
         tempNumberOfStudentsInSmallGroup += 1;
         // time to remove student from origin array
@@ -81,24 +97,27 @@ export default class RandomizeStudentGroup extends Component {
       }
     }
     this.setState({ selectedView: 'randomized',
-                    randomizedStudentArrayOfArrays: randomizedArrayOfArrays});
+      randomizedStudentArrayOfArrays: randomizedArrayOfArrays });
   }
 
-  deleteThisStudent(studentFirstName, studentLastName) {
+  deleteThisStudent(studentFirstName, studentLastName,
+    studentGroupID, studentGroupName) {
     Meteor.call('studentGroup.removeStudent', studentFirstName, studentLastName,
-      this.props.studentGroupName, this.props.studentGroupID, function(error, result) {
+      studentGroupName, studentGroupID, function(error, result) {
         if (error) {
           alert(error);
         } else {
-          // console.log('studentGroup.removeStudent successful', result);
+          console.log('studentGroup.removeStudent successful', result);
           const fetchedStudentArray = this.getStudentsInClient();
           this.setState({ studentArray: fetchedStudentArray });
         }
       }.bind(this));
   }
 
-  handleStudentClick(studentFirstName, studentLastName) {
-    // console.log('handleStudentClick: ', studentFirstName, ' ', studentLastName);
+  handleStudentClick(studentFirstName, studentLastName,
+    studentGroupID, studentGroupName) {
+    console.log('handleStudentClick: ', studentFirstName, ' ', studentLastName,
+      ' ', studentGroupID, ' ', studentGroupName);
     this.setState({ changesSaved: false });
   }
 
@@ -106,17 +125,9 @@ export default class RandomizeStudentGroup extends Component {
     this.props.cbGoToMainViewClicked();
   }
 
-// TODO, should ES6 international collation features be used
-// here to get alphabets correctly sorted?
-  sortArrayAccordingToLastName(a, b) {
-    let textA = a.lastName.toUpperCase();
-    let textB = b.lastName.toUpperCase();
-    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-  }
-
   renderOneStudentSmallGroup(oneStudentGroupArray) {
     let filteredStudents = Array.from(oneStudentGroupArray);
-    filteredStudents = filteredStudents.sort(this.sortArrayAccordingToLastName);
+    filteredStudents = filteredStudents.sort(RandomizeStudentGroup.sortArrayAccordingToLastName);
 
     return filteredStudents.map((student) => {
       // const currentUserId = this.props.currentUser && this.props.currentUser._id;
@@ -143,7 +154,7 @@ export default class RandomizeStudentGroup extends Component {
         this.state.randomizedStudentArrayOfArrays.length === 0) {
       return (<h4>ERROR: Small groups were empty.</h4>);
     }
-    let tempArrayOfArrays = this.state.randomizedStudentArrayOfArrays;
+    const tempArrayOfArrays = this.state.randomizedStudentArrayOfArrays;
 
     let returnString = '';
 
@@ -164,22 +175,7 @@ export default class RandomizeStudentGroup extends Component {
       return (<h4>No students listed as enrolled in this class.</h4>);
     }
     let filteredStudents = Array.from(this.state.studentArray);
-    filteredStudents = filteredStudents.sort(this.sortArrayAccordingToLastName);
-    // console.log('Meteor.userId()', Meteor.userId());
-    // console.log('Meteor.user().username', Meteor.user().username);
-    /*
-    Meteor.userId() PqP3YjyPkHSxQMCJ3
-    RandomizeStudentGroup.jsx:33 Meteor.user().username hkajava
-    */
-    /*
-    let filteredStudents = StudentGroups.find({
-      studentGroupName: this.props.studentGroupName,
-    }).fetch();
-
-    if (this.state.hideAbsent) {
-      filteredStudents = filteredStudents.filter(student => !student.checked);
-    }
-    */
+    filteredStudents = filteredStudents.sort(RandomizeStudentGroup.sortArrayAccordingToLastName);
 
     return filteredStudents.map((student) => {
       // const currentUserId = this.props.currentUser && this.props.currentUser._id;
@@ -208,17 +204,6 @@ export default class RandomizeStudentGroup extends Component {
       checked: this.props.studentGroup.checked,
       private: this.props.studentGroup.private,
     });
-    <input
-      type="checkbox"
-      id="hide-completed-checkbox"
-      readOnly
-      checked={this.state.hideCompleted}
-      onClick={this.toggleHideCompleted}
-    />
-    <label htmlFor="hide-completed-checkbox" className="hide-completed">
-      Hide students not present today
-    </label>
-        {this.renderStudentGroup()}
     */
     return (
       <div>
@@ -234,8 +219,10 @@ export default class RandomizeStudentGroup extends Component {
           </button>
         </span>
         {this.state.selectedView === 'main' &&
+         this.props.currentUser &&
          this.renderStudentGroup()}
         {this.state.selectedView === 'randomized' &&
+         this.props.currentUser &&
          this.renderStudentSmallGroups()}
       </div>
     );

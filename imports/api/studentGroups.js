@@ -82,13 +82,6 @@ Meteor.methods({
     } else {
       // console.log('inside client, method fetchStudentsToArray');
     }
-    /*
-    studentArray = StudentGroups.find({
-      owner: Meteor.userId(),
-      username: Meteor.user().username,
-      studentGroupName: text,
-    }).fetch();
-    */
     studentArray = StudentGroups.find({
       studentGroupName: text,
     }).fetch();
@@ -104,7 +97,7 @@ Meteor.methods({
     newStudent.firstName = firstNameParam;
     newStudent.lastName = lastNameParam;
 
-    let tempStudentGroupArray = StudentGroups.find({ _id: groupID }).fetch();
+    const tempStudentGroupArray = StudentGroups.find({ _id: groupID }).fetch();
     let tempStudentArray = [];
     if (tempStudentGroupArray.length === 1) {
       if (tempStudentGroupArray[0].students !== undefined) {
@@ -131,7 +124,7 @@ Meteor.methods({
     }
     // only add if there is not a student with same name
     // feedback needed to calling method
-    if (tempStudentArray.length > 0 ) {
+    if (tempStudentArray.length > 0) {
       StudentGroups.update({ _id: groupID }, { $push: { students: newStudent } });
     } else {
       // students array was still missing
@@ -155,7 +148,7 @@ Meteor.methods({
       StudentGroups.remove(groupId);
     }
     */
-    let tempStudentGroupArray = StudentGroups.find({ _id: groupID }).fetch();
+    const tempStudentGroupArray = StudentGroups.find({ _id: groupID }).fetch();
     let tempStudentArray = [];
     if (tempStudentGroupArray.length === 1 && tempStudentGroupArray[0].students.length > 0) {
       tempStudentArray = Array.from(tempStudentGroupArray[0].students);

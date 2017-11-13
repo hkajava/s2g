@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
+// import classnames from 'classnames';
 
 export default class Student extends Component {
   constructor(props) {
@@ -14,23 +14,27 @@ export default class Student extends Component {
 
   toggleStudentNameClicked() {
     this.setState({ checked: false });
-    this.props.cbClick(this.props.studentFirstName, this.props.studentLastName);
+    this.props.cbClick(this.props.studentFirstName, this.props.studentLastName,
+      this.props.studentGroupID, this.props.studentGroupName);
   }
 
   deleteThisStudent() {
-    this.props.cbDelete(this.props.studentFirstName, this.props.studentLastName);
+    this.props.cbDelete(this.props.studentFirstName, this.props.studentLastName,
+      this.props.studentGroupID, this.props.studentGroupName);
   }
 
   render() {
+    /**
     const studentClassName = classnames({
       checked: this.state.checked,
     });
+    */
     // console.log(studentClassName);
 
     return (
       <ul>
         <li>
-          <button className="studentNameButton" id={this.props.key} onClick={this.toggleStudentNameClicked}>
+          <button className="studentNameButton" id={this.props.studentID} onClick={this.toggleStudentNameClicked}>
             {this.props.studentFirstName} {this.props.studentLastName}
           </button>
           {(this.props.parentView === 'EditStudentGroup') &&
