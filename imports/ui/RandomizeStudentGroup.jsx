@@ -10,7 +10,6 @@ import { StudentGroups } from '../api/studentGroups.js';
 // The remaining students that are present in the class can be split
 // randomly into small groups.
 export default class RandomizeStudentGroup extends Component {
-
   constructor(props) {
     super(props);
 
@@ -47,9 +46,9 @@ export default class RandomizeStudentGroup extends Component {
   }
 
   randomizeStudentGroup() {
-    let randomizedArrayOfArrays = [];
+    const randomizedArrayOfArrays = [];
     let tempStudentsArray = Array.from(this.state.studentArray);
-    let tempMinGroupSize = this.state.minGroupSize;
+    const tempMinGroupSize = this.state.minGroupSize;
 
     // this would tell always how many students would be left out
     // after splitting the whole student group into equal size small groups
@@ -57,7 +56,7 @@ export default class RandomizeStudentGroup extends Component {
 
     tempRemainingNumberOfStudents = tempStudentsArray.length % tempMinGroupSize;
 
-    let targetGroupSize = tempMinGroupSize;
+    const targetGroupSize = tempMinGroupSize;
 
     if (tempRemainingNumberOfStudents === 0) {
       // There is such number of students that they can be split into
