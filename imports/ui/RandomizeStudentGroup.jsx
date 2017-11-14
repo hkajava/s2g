@@ -32,7 +32,7 @@ export default class RandomizeStudentGroup extends Component {
     // put it to one of them randomly
     let smallestGroupSize = randomizedArrayOfArrays[0].length;
     let tempSmallGroupIndexArray = [];
-    let tempRandomizedArrayOfArrays = Array.from(randomizedArrayOfArrays);
+    const tempRandomizedArrayOfArrays = Array.from(randomizedArrayOfArrays);
 
     for (let i = 0; i < tempRandomizedArrayOfArrays.length; i += 1) {
       if (tempRandomizedArrayOfArrays[i].length < smallestGroupSize) {
@@ -43,8 +43,8 @@ export default class RandomizeStudentGroup extends Component {
         tempSmallGroupIndexArray.push(i);
       }
     }
-    let chosenIndexIndex = Math.floor(Math.random() * tempSmallGroupIndexArray.length)
-    let chosenIndex = tempSmallGroupIndexArray[chosenIndexIndex];
+    const chosenIndexIndex = Math.floor(Math.random() * tempSmallGroupIndexArray.length);
+    const chosenIndex = tempSmallGroupIndexArray[chosenIndexIndex];
     tempRandomizedArrayOfArrays[chosenIndex].push(student);
     return tempRandomizedArrayOfArrays;
     // console.log('rallallaa');
@@ -113,13 +113,10 @@ export default class RandomizeStudentGroup extends Component {
       // there is not enough students to make small groups with min size
       // then no point continuing algorithm
       randomizedArrayOfArrays[0] = Array.from(tempStudentsArray);
-      return randomizedArrayOfArrays;
+      this.setState({ selectedView: 'randomized',
+        randomizedStudentArrayOfArrays: randomizedArrayOfArrays });
+      return;
     }
-    // this would tell always how many students would be left out
-    // after splitting the whole student group into equal size small groups
-    let tempRemainingNumberOfStudents = 0;
-
-    tempRemainingNumberOfStudents = tempStudentsArray.length % tempMinGroupSize;
 
     const targetGroupSize = tempMinGroupSize;
 
