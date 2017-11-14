@@ -36,6 +36,13 @@ export default class RandomizeStudentGroup extends Component {
     this.randomizeStudentGroup = this.randomizeStudentGroup.bind(this);
 
     const fetchedStudentArray = this.getStudentsInClient();
+    // add local state variable to track absent students for this
+    // particular class session. Initialize to false so that everybody
+    // is assumed to be absent until teacher goes through attendance
+    // checks off those that are not present.
+    for (let i = 0; i < fetchedStudentArray.length; i += 1) {
+      fetchedStudentArray[i].absent = false;
+    }
 
     this.state =
     { changesSaved: true,
@@ -63,9 +70,17 @@ export default class RandomizeStudentGroup extends Component {
 
   randomizeStudentGroup() {
     const randomizedArrayOfArrays = [];
-    const tempStudentsArray = Array.from(this.state.studentArray);
+    const tempStudentsArrayBeforeAbsentChecking = Array.from(this.state.studentArray);
+    const tempStudentsArray = [];
     const tempMinGroupSize = this.state.minGroupSize;
 
+
+    // remove absent students
+    for (let i = 0; i < tempStudentsArrayBeforeAbsentChecking.length; i += 1) {
+      if (tempStudentsArrayBeforeAbsentChecking[i].absent === false) {
+        tempStudentsArray.push(tempStudentsArrayBeforeAbsentChecking[i]);
+      }
+    }
     // this would tell always how many students would be left out
     // after splitting the whole student group into equal size small groups
     let tempRemainingNumberOfStudents = 0;
@@ -114,41 +129,34 @@ export default class RandomizeStudentGroup extends Component {
       }.bind(this));
   }
 
+  findStudentIndex(studentFirstName, studentLastName) {
+    const tempStudentArray = Array.from(this.state.studentArray);
+    for (let i = 0; i < this.state.studentArray.length; i += 1) {
+      if (tempStudentArray[i].firstName === studentFirstName &&
+          tempStudentArray[i].lastName === studentLastName) {
+        return i;
+      }
+    }
+    return null;
+  }
+
   handleStudentClick(studentFirstName, studentLastName,
     studentGroupID, studentGroupName) {
     console.log('handleStudentClick: ', studentFirstName, ' ', studentLastName,
       ' ', studentGroupID, ' ', studentGroupName);
-    this.setState({ changesSaved: false });
+
+    const tempStudentArray = Array.from(this.state.studentArray);
+    const tempIndex = this.findStudentIndex(studentFirstName, studentLastName);
+
+    if (tempIndex !== null) {
+      tempStudentArray[tempIndex].absent = !tempStudentArray[tempIndex].absent;
+      this.setState({ studentArray: tempStudentArray });
+    }
   }
 
   handleGoToMainView() {
     this.props.cbGoToMainViewClicked();
   }
-
-/*
-  renderOneStudentSmallGroup(oneStudentGroupArray) {
-    let filteredStudents = Array.from(oneStudentGroupArray);
-    filteredStudents = filteredStudents.sort(RandomizeStudentGroup.sortArrayAccordingToLastName);
-
-    return filteredStudents.map((student) => {
-      // const currentUserId = this.props.currentUser && this.props.currentUser._id;
-      // const showPrivateButton = task.owner === currentUserId;
-      return (
-        <Student
-          key={this.props.studentGroupID + student.firstName + student.lastName}
-          studentGroupID={this.props.studentGroupID}
-          studentGroupName={this.props.studentGroupName}
-          studentID={this.props.studentGroupID + student.firstName + student.lastName}
-          studentFirstName={student.firstName}
-          studentLastName={student.lastName}
-          parentView="RandomizeStudentGroup"
-          cbClick={this.handleStudentClick}
-          cbDelete={this.deleteThisStudent}
-        />
-      );
-    });
-  }
-  */
 
   renderStudentSmallGroups() {
     if (this.state.randomizedStudentArrayOfArrays == null ||
@@ -173,15 +181,15 @@ export default class RandomizeStudentGroup extends Component {
       // const currentUserId = this.props.currentUser && this.props.currentUser._id;
       // const showPrivateButton = task.owner === currentUserId;
       const tempGroupNumber = index + 1;
-      returnString = `SmallGroup Number ${tempGroupNumber}`;
-      return (<div className="smallGroup" key={returnString}> <h3>{returnString}</h3>{this.renderStudentGroup(tempArrayOfArrays[index])} </div>);
+      returnString = `Small Group Number ${tempGroupNumber} `;
+      return (<div className="smallGroup" key={returnString}> <h3>{returnString}</h3>{this.renderStudentGroup(tempArrayOfArrays[index], false)} </div>);
     });
     // return returnString;
     // return (<div> dangerouslySetInnerHTML={{__html: returnString}} </div>);
   }
 
 
-  renderStudentGroup(studentArrayParam) {
+  renderStudentGroup(studentArrayParam, studentCanBeClickedParam) {
     if (this.state.studentArray == null ||
         this.state.studentArray === undefined ||
         this.state.studentArray.length === 0) {
@@ -202,6 +210,8 @@ export default class RandomizeStudentGroup extends Component {
           studentID={this.props.studentGroupID + student.firstName + student.lastName}
           studentFirstName={student.firstName}
           studentLastName={student.lastName}
+          studentAbsent={student.absent}
+          studentCanBeClicked={studentCanBeClickedParam}
           parentView="RandomizeStudentGroup"
           cbClick={this.handleStudentClick}
           cbDelete={this.deleteThisStudent}
@@ -211,14 +221,6 @@ export default class RandomizeStudentGroup extends Component {
   }
 
   render() {
-    // Give studentGroups a different className when they are checked off,
-    // so that we can style them nicely in CSS
-    /*
-    const studentGroupClassName = classnames({
-      checked: this.props.studentGroup.checked,
-      private: this.props.studentGroup.private,
-    });
-    */
     return (
       <div>
         <span>
@@ -238,12 +240,12 @@ export default class RandomizeStudentGroup extends Component {
         <br />
         {this.state.selectedView === 'main' &&
          this.props.currentUser &&
-         this.renderStudentGroup(this.state.studentArray)}
+         this.renderStudentGroup(this.state.studentArray, true)}
         <div className="smallGroupContainer">
           {this.state.selectedView === 'randomized' &&
           this.props.currentUser &&
           this.renderStudentSmallGroups()}
-       </div>
+        </div>
       </div>
     );
   }

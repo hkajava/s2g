@@ -27,13 +27,15 @@ body {
   display: flex; /* or inline-flex */
   flex-direction: row;
   margin: 0 -5px;
+
 }
 
 .smallGroup {
   display: flex; /* or inline-flex */
   flex-direction: column;
   border: 1px solid #555;
-  margin: 0 5px;
+  margin: 5px;
+  padding: 5px;
 }
 
 header {
@@ -99,6 +101,25 @@ h4 {
   /*margin-left: 10px; */
 	text-decoration:none;
 	text-shadow:0px 1px 0px #283966;
+}
+.studentNameButton.checked {
+	background-color:#dcdcdc;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:0px;
+	border:1px solid #4e6096;
+	display:inline-block;
+	cursor:pointer;
+	color:#dcdcdc;
+	font-family:Arial;
+	font-size:14px;
+	padding:2px 4px;
+  /*margin-left: 10px; */
+	text-shadow:0px 1px 0px #283966;
+  text-decoration: line-through;
+}
+.studentNameButton.checked:hover {
+	background-color:#7892a2;
 }
 .studentNameButton:hover {
 	background-color:#476e9e;
