@@ -19,3 +19,10 @@ and then to start application
 ```
 >meteor npm run
 ```
+
+## Authors
+
+* **Henri Kajava** - *Initial work* - (https://github.com/hkajava)
+* **Renato Moraes De Bonilha** - *Algorithm development*
+
+Dedicated to Spanish teacher Javier Lázaro Ramos.

@@ -125,6 +125,7 @@ export default class RandomizeStudentGroup extends Component {
     this.props.cbGoToMainViewClicked();
   }
 
+/*
   renderOneStudentSmallGroup(oneStudentGroupArray) {
     let filteredStudents = Array.from(oneStudentGroupArray);
     filteredStudents = filteredStudents.sort(RandomizeStudentGroup.sortArrayAccordingToLastName);
@@ -147,6 +148,7 @@ export default class RandomizeStudentGroup extends Component {
       );
     });
   }
+  */
 
   renderStudentSmallGroups() {
     if (this.state.randomizedStudentArrayOfArrays == null ||
@@ -158,23 +160,35 @@ export default class RandomizeStudentGroup extends Component {
 
     let returnString = '';
 
+    /*
     for (let i = 0; i < tempArrayOfArrays.length; i += 1) {
       returnString = returnString.concat('SmallGroup Number ', i + 1);
-      returnString = returnString.concat('<br />');
+      return (<div> <h3>{returnString}</h3>{this.renderStudentGroup(tempArrayOfArrays[i])} </div>);
       returnString = returnString.concat(this.renderOneStudentSmallGroup(tempArrayOfArrays[i]));
       returnString = returnString.concat('<br />');
     }
-    return returnString;
+    */
+
+    return tempArrayOfArrays.map((studentSmallGroup, index) => {
+      // const currentUserId = this.props.currentUser && this.props.currentUser._id;
+      // const showPrivateButton = task.owner === currentUserId;
+      const tempGroupNumber = index + 1;
+      returnString = `SmallGroup Number ${tempGroupNumber}`;
+      return (<div className="smallGroup" key={returnString}> <h3>{returnString}</h3>{this.renderStudentGroup(tempArrayOfArrays[index])} </div>);
+    });
+    // return returnString;
+    // return (<div> dangerouslySetInnerHTML={{__html: returnString}} </div>);
   }
 
 
-  renderStudentGroup() {
+  renderStudentGroup(studentArrayParam) {
     if (this.state.studentArray == null ||
         this.state.studentArray === undefined ||
         this.state.studentArray.length === 0) {
       return (<h4>No students listed as enrolled in this class.</h4>);
     }
-    let filteredStudents = Array.from(this.state.studentArray);
+    // let filteredStudents = Array.from(this.state.studentArray);
+    let filteredStudents = Array.from(studentArrayParam);
     filteredStudents = filteredStudents.sort(RandomizeStudentGroup.sortArrayAccordingToLastName);
 
     return filteredStudents.map((student) => {
@@ -214,16 +228,22 @@ export default class RandomizeStudentGroup extends Component {
             Go To Main View
           </button>
           <br />
-          <button className="randomizeStudentGroupButton" onClick={this.randomizeStudentGroup}>
+          <button
+            className="randomizeStudentGroupButton"
+            onClick={this.randomizeStudentGroup}
+          >
             Randomize into groups of three or four
           </button>
         </span>
+        <br />
         {this.state.selectedView === 'main' &&
          this.props.currentUser &&
-         this.renderStudentGroup()}
-        {this.state.selectedView === 'randomized' &&
-         this.props.currentUser &&
-         this.renderStudentSmallGroups()}
+         this.renderStudentGroup(this.state.studentArray)}
+        <div className="smallGroupContainer">
+          {this.state.selectedView === 'randomized' &&
+          this.props.currentUser &&
+          this.renderStudentSmallGroups()}
+       </div>
       </div>
     );
   }
