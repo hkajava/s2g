@@ -26,6 +26,30 @@ export default class RandomizeStudentGroup extends Component {
     // return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
   }
 
+  static addOddStudentsToOtherGroups(student, randomizedArrayOfArrays) {
+    // Add student to smallest small group.
+    // If there are more than one with the smallest size then
+    // put it to one of them randomly
+    let smallestGroupSize = randomizedArrayOfArrays[0].length;
+    let tempSmallGroupIndexArray = [];
+    let tempRandomizedArrayOfArrays = Array.from(randomizedArrayOfArrays);
+
+    for (let i = 0; i < tempRandomizedArrayOfArrays.length; i += 1) {
+      if (tempRandomizedArrayOfArrays[i].length < smallestGroupSize) {
+        smallestGroupSize = tempRandomizedArrayOfArrays[i].length;
+        tempSmallGroupIndexArray = [];
+        tempSmallGroupIndexArray.push(i);
+      } else if (tempRandomizedArrayOfArrays[i].length === smallestGroupSize) {
+        tempSmallGroupIndexArray.push(i);
+      }
+    }
+    let chosenIndexIndex = Math.floor(Math.random() * tempSmallGroupIndexArray.length)
+    let chosenIndex = tempSmallGroupIndexArray[chosenIndexIndex];
+    tempRandomizedArrayOfArrays[chosenIndex].push(student);
+    return tempRandomizedArrayOfArrays;
+    // console.log('rallallaa');
+  }
+
   constructor(props) {
     super(props);
 
@@ -34,6 +58,7 @@ export default class RandomizeStudentGroup extends Component {
     this.deleteThisStudent = this.deleteThisStudent.bind(this);
     this.handleGoToMainView = this.handleGoToMainView.bind(this);
     this.randomizeStudentGroup = this.randomizeStudentGroup.bind(this);
+    this.updateStudentCounts = this.updateStudentCounts.bind(this);
 
     const fetchedStudentArray = this.getStudentsInClient();
     // add local state variable to track absent students for this
@@ -50,8 +75,10 @@ export default class RandomizeStudentGroup extends Component {
       studentArray: fetchedStudentArray,
       randomizedStudentArrayOfArrays: [],
       placeholderForEnteringNewStudentToClass: 'Add student',
-      minGroupSize: 3 };
-
+      minGroupSize: 3,
+      nbrEnrolledStudents: fetchedStudentArray.length,
+      nbrPresentStudents: fetchedStudentArray.length,
+      nbrAbsentStudents: fetchedStudentArray.length };
     // Meteor.subscribe('studentGroups');
   }
 
@@ -69,7 +96,7 @@ export default class RandomizeStudentGroup extends Component {
   }
 
   randomizeStudentGroup() {
-    const randomizedArrayOfArrays = [];
+    let randomizedArrayOfArrays = [];
     const tempStudentsArrayBeforeAbsentChecking = Array.from(this.state.studentArray);
     const tempStudentsArray = [];
     const tempMinGroupSize = this.state.minGroupSize;
@@ -81,6 +108,13 @@ export default class RandomizeStudentGroup extends Component {
         tempStudentsArray.push(tempStudentsArrayBeforeAbsentChecking[i]);
       }
     }
+
+    if (tempStudentsArray.length < 2 * this.state.minGroupSize) {
+      // there is not enough students to make small groups with min size
+      // then no point continuing algorithm
+      randomizedArrayOfArrays[0] = Array.from(tempStudentsArray);
+      return randomizedArrayOfArrays;
+    }
     // this would tell always how many students would be left out
     // after splitting the whole student group into equal size small groups
     let tempRemainingNumberOfStudents = 0;
@@ -89,28 +123,36 @@ export default class RandomizeStudentGroup extends Component {
 
     const targetGroupSize = tempMinGroupSize;
 
-    if (tempRemainingNumberOfStudents === 0) {
-      // There is such number of students that they can be split into
-      // equal size groups that have the smallest allowed size
-      let tempNumberOfStudentsInSmallGroup = 0;
-      let tempSmallGroupArray = [];
-      // note that index is not incremented as the array is shrinked
+    // There is such number of students that they can be split into
+    // equal size groups that have the smallest allowed size
+    let tempNumberOfStudentsInSmallGroup = 0;
+    let tempSmallGroupArray = [];
+    // note that index is not incremented as the array is shrinked
 
-      for (let i = 0; i < tempStudentsArray.length;) {
-        const removedIndex = Math.floor(Math.random() * tempStudentsArray.length);
-        const tempStudent = tempStudentsArray[removedIndex];
-        tempSmallGroupArray.push(tempStudent);
-        tempNumberOfStudentsInSmallGroup += 1;
-        // time to remove student from origin array
-        tempStudentsArray.splice(removedIndex, 1);
-        if (tempNumberOfStudentsInSmallGroup === targetGroupSize) {
-          randomizedArrayOfArrays.push(tempSmallGroupArray);
-          // let's reset temp type variables
-          tempNumberOfStudentsInSmallGroup = 0;
-          tempSmallGroupArray = [];
-        }
+    for (let i = 0; i < tempStudentsArray.length;) {
+      const removedIndex = Math.floor(Math.random() * tempStudentsArray.length);
+      const tempStudent = tempStudentsArray[removedIndex];
+      tempSmallGroupArray.push(tempStudent);
+      tempNumberOfStudentsInSmallGroup += 1;
+      // time to remove student from origin array
+      tempStudentsArray.splice(removedIndex, 1);
+      if (tempNumberOfStudentsInSmallGroup === targetGroupSize) {
+        randomizedArrayOfArrays.push(tempSmallGroupArray);
+        // let's reset temp type variables
+        tempNumberOfStudentsInSmallGroup = 0;
+        tempSmallGroupArray = [];
       }
     }
+    if (tempSmallGroupArray.length > 0) {
+      // there wasn't even number of students to split
+      // into min group size
+      for (let i = 0; i < tempSmallGroupArray.length; i += 1) {
+        randomizedArrayOfArrays =
+          RandomizeStudentGroup.addOddStudentsToOtherGroups(tempSmallGroupArray[i],
+            randomizedArrayOfArrays);
+      }
+    }
+
     this.setState({ selectedView: 'randomized',
       randomizedStudentArrayOfArrays: randomizedArrayOfArrays });
   }
@@ -140,6 +182,20 @@ export default class RandomizeStudentGroup extends Component {
     return null;
   }
 
+  updateStudentCounts() {
+    let tempNbrPresentStudents = 0;
+    let tempNbrAbsentStudents = 0;
+    for (let i = 0; i < this.state.studentArray.length; i += 1) {
+      if (this.state.studentArray[i].absent === false) {
+        tempNbrPresentStudents += 1;
+      } else {
+        tempNbrAbsentStudents += 1;
+      }
+    }
+    this.setState({ nbrPresentStudents: tempNbrPresentStudents,
+      nbrAbsentStudents: tempNbrAbsentStudents });
+  }
+
   handleStudentClick(studentFirstName, studentLastName,
     studentGroupID, studentGroupName) {
     console.log('handleStudentClick: ', studentFirstName, ' ', studentLastName,
@@ -151,6 +207,7 @@ export default class RandomizeStudentGroup extends Component {
     if (tempIndex !== null) {
       tempStudentArray[tempIndex].absent = !tempStudentArray[tempIndex].absent;
       this.setState({ studentArray: tempStudentArray });
+      this.updateStudentCounts();
     }
   }
 
@@ -224,8 +281,10 @@ export default class RandomizeStudentGroup extends Component {
     return (
       <div>
         <span>
-          <h3>Randomize</h3>
-          <h3>{this.props.studentGroupName}</h3>
+          <h3>{this.props.studentGroupName}
+            (nbr enrolled: {this.state.nbrEnrolledStudents},
+            nbr present: {this.state.nbrPresentStudents})
+          </h3>
           <button className="goToMainViewButton" onClick={this.handleGoToMainView}>
             Go To Main View
           </button>
@@ -234,7 +293,7 @@ export default class RandomizeStudentGroup extends Component {
             className="randomizeStudentGroupButton"
             onClick={this.randomizeStudentGroup}
           >
-            Randomize into groups of three or four
+            Randomize into groups of minimum three
           </button>
         </span>
         <br />
