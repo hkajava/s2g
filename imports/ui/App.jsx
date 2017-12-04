@@ -53,8 +53,7 @@ class App extends Component {
 
   openMainView() {
     this.setState(
-      { selectedView: 'mainView',
-        studentGroupViewSelected: false });
+      { selectedView: 'mainView' });
   }
 
   placeholderOnFocus () {
