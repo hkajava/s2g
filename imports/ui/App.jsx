@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import { StudentGroups } from '../api/studentGroups.js';
 import StudentGroup from './StudentGroup.jsx';
@@ -150,12 +150,10 @@ App.defaultProps = {
   currentUser: {},
 };
 
-export default createContainer(() => {
+export default withTracker(() => {
   Meteor.subscribe('studentGroups');
-  // what is the logic with HOC and how the props (studentGroups in this case)
-  // are passed to App class
   return {
     studentGroups: StudentGroups.find({}, { sort: { createdAt: -1 } }).fetch(),
     currentUser: Meteor.user(),
   };
-}, App);
+})(App);
