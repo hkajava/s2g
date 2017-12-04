@@ -102,7 +102,7 @@ export default class RandomizeStudentGroup extends Component {
       } else {
         console.log('incremented randomization count for a student group', result);
       }
-    }.bind(this));
+    });
   }
 
   randomizeStudentGroup() {
