@@ -33,6 +33,18 @@ Meteor.methods({
       studentGroupName: text,
     });
   },
+  'studentGroups.updateRandomizeStatistic'(groupId) {
+    check(groupId, String);
+
+    // Make sure the user is logged in before updating statistics
+    if (!Meteor.userId()) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    // If the randomization counter doesn't exist yet, let's create it and
+    // initialize to zero
+    StudentGroups.update(groupId, { $inc: { nbrOfRandomizations: 1 } });
+  },
   'studentGroups.remove'(groupId) {
     check(groupId, String);
 

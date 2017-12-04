@@ -95,6 +95,16 @@ export default class RandomizeStudentGroup extends Component {
     return currentStudentArray;
   }
 
+  updateRandomizeStatistic() {
+    Meteor.call('studentGroups.updateRandomizeStatistic', this.props.studentGroupID, function(error, result) {
+      if (error) {
+        alert(error);
+      } else {
+        console.log('incremented randomization count for a student group', result);
+      }
+    }.bind(this));
+  }
+
   randomizeStudentGroup() {
     let randomizedArrayOfArrays = [];
     const tempStudentsArrayBeforeAbsentChecking = Array.from(this.state.studentArray);
@@ -152,6 +162,9 @@ export default class RandomizeStudentGroup extends Component {
 
     this.setState({ selectedView: 'randomized',
       randomizedStudentArrayOfArrays: randomizedArrayOfArrays });
+
+    // update statistics counter that is used to monitor how much s2g app is actually used
+    this.updateRandomizeStatistic();
   }
 
   deleteThisStudent(studentFirstName, studentLastName,
@@ -235,7 +248,7 @@ export default class RandomizeStudentGroup extends Component {
       // const currentUserId = this.props.currentUser && this.props.currentUser._id;
       // const showPrivateButton = task.owner === currentUserId;
       const tempGroupNumber = index + 1;
-      returnString = `Small Group Number ${tempGroupNumber} `;
+      returnString = `Group Number ${tempGroupNumber} `;
       return (<div className="smallGroup" key={returnString}> <h3>{returnString}</h3>{this.renderStudentGroup(tempArrayOfArrays[index], false)} </div>);
     });
     // return returnString;

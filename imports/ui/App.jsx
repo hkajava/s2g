@@ -100,16 +100,21 @@ class App extends Component {
       filteredStudentGroups = filteredStudentGroups.filter(studentGroup => !studentGroup.checked);
     }
 
+    const currentUserId = this.props.currentUser && this.props.currentUser._id;
+
     return filteredStudentGroups.map((studentGroup) => {
-      return (
-        <StudentGroup
-          key={studentGroup._id}
-          studentGroupID={studentGroup._id}
-          studentGroupName={studentGroup.studentGroupName}
-          cbSelect={this.openRandomizeStudentGroupView}
-          cbEdit={this.openStudentGroupEditor}
-        />
-      );
+      if (studentGroup.owner === currentUserId) {
+        return (
+          <StudentGroup
+            key={studentGroup._id}
+            studentGroupID={studentGroup._id}
+            studentGroupName={studentGroup.studentGroupName}
+            cbSelect={this.openRandomizeStudentGroupView}
+            cbEdit={this.openStudentGroupEditor}
+          />
+        );
+      }
+      return '';
     });
   }
 

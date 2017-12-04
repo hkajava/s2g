@@ -80,9 +80,9 @@ export default class EditStudentGroup extends Component {
     // names (first and last) should be given. Or then another possibility would
     // to have two input text fields
     const textArray = text.split(' ');
-    if (textArray.length === 0) {
+    if (textArray.length !== 2) {
       // console.log('Could not add student to class. The name was incorrect or missing.');
-      alert('Could not add student to class. The name was incorrect or missing.');
+      alert('Could not add student to class. Name should contain first and lastname separated by space.');
       return;
     }
     const firstName = textArray[0];
@@ -142,6 +142,8 @@ export default class EditStudentGroup extends Component {
           studentID={this.props.studentGroupID + student.firstName + student.lastName}
           studentFirstName={student.firstName}
           studentLastName={student.lastName}
+          studentAbsent={false}
+          studentCanBeClicked={false}
           parentView="EditStudentGroup"
           cbClick={this.handleStudentClick}
           cbDelete={this.deleteThisStudent}
