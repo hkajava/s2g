@@ -12,14 +12,11 @@ class App extends Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.openStudentGroupEditor = this.openStudentGroupEditor.bind(this);
-    // this.openStudentGroupView = this.openStudentGroupView.bind(this);
     this.openRandomizeStudentGroupView = this.openRandomizeStudentGroupView.bind(this);
     this.openMainView = this.openMainView.bind(this);
 
     this.state = {
-      editorSelected: false,
       selectedView: 'mainView',
-      studentGroupViewSelected: false,
       selectedGroupID: '',
       selectedGroupName: '',
       placeholderForEnteringNewGroup: 'Type to add new class',
@@ -42,8 +39,7 @@ class App extends Component {
 
   openStudentGroupEditor(studentGroupID, studentGroupName) {
     this.setState(
-      { editorSelected: true,
-        selectedView: 'editorView',
+      { selectedView: 'editorView',
         selectedGroupID: studentGroupID,
         selectedGroupName: studentGroupName });
     console.log('openStudentGroupEditor: studentGroupID', studentGroupID);
@@ -63,8 +59,7 @@ class App extends Component {
   openMainView() {
     this.setState(
       { selectedView: 'mainView',
-        studentGroupViewSelected: false,
-        editorSelected: false });
+        studentGroupViewSelected: false });
   }
 
   placeholderOnFocus () {
@@ -113,7 +108,7 @@ class App extends Component {
           <AccountsUIWrapper />
           <br />
 
-          { this.props.currentUser && !this.state.editorSelected ?
+          { this.props.currentUser && this.state.selectedView === 'mainView' ?
             <form className="new-studentGroup" onSubmit={this.handleSubmit} >
               <input
                 type="text"
@@ -126,7 +121,7 @@ class App extends Component {
           }
         </header>
 
-        { this.state.editorSelected ?
+        { this.state.selectedView === 'editorView' ?
           <EditStudentGroup
             studentGroupID={this.state.selectedGroupID}
             studentGroupName={this.state.selectedGroupName}
