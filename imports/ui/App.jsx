@@ -24,11 +24,7 @@ class App extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    // Find the text field via the React ref
-
-    // const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
     const text = this.textInput.value.trim();
-
 
     Meteor.call('studentGroups.insert', text);
 
@@ -48,8 +44,7 @@ class App extends Component {
 
   openRandomizeStudentGroupView(studentGroupID, studentGroupName) {
     this.setState(
-      { randomizeStudentGroupViewSelected: true,
-        selectedView: 'randomizeStudentGroupView',
+      { selectedView: 'randomizeStudentGroupView',
         selectedGroupID: studentGroupID,
         selectedGroupName: studentGroupName });
     console.log('openRandomizeStudentGroupView: studentGroupID', studentGroupID);
