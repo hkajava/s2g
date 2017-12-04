@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-// import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
@@ -12,14 +11,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.toggleHideCompleted = this.toggleHideCompleted.bind(this);
     this.openStudentGroupEditor = this.openStudentGroupEditor.bind(this);
     // this.openStudentGroupView = this.openStudentGroupView.bind(this);
     this.openRandomizeStudentGroupView = this.openRandomizeStudentGroupView.bind(this);
     this.openMainView = this.openMainView.bind(this);
 
     this.state = {
-      hideCompleted: false,
       editorSelected: false,
       selectedView: 'mainView',
       studentGroupViewSelected: false,
@@ -41,12 +38,6 @@ class App extends Component {
     // Clear form
     // ReactDOM.findDOMNode(this.refs.textInput).value = '';
     this.textInput.value = '';
-  }
-
-  toggleHideCompleted() {
-    this.setState({
-      hideCompleted: !this.state.hideCompleted,
-    });
   }
 
   openStudentGroupEditor(studentGroupID, studentGroupName) {
@@ -90,14 +81,10 @@ class App extends Component {
 
 
   renderStudentGroups() {
-    let filteredStudentGroups = this.props.studentGroups;
+    const filteredStudentGroups = this.props.studentGroups;
     if (filteredStudentGroups === '' ||
         filteredStudentGroups.length === 0) {
       return '';
-    }
-
-    if (this.state.hideCompleted) {
-      filteredStudentGroups = filteredStudentGroups.filter(studentGroup => !studentGroup.checked);
     }
 
     const currentUserId = this.props.currentUser && this.props.currentUser._id;
