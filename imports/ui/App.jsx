@@ -22,14 +22,15 @@ class App extends Component {
       placeholderForEnteringNewGroup: 'Type to add new class',
     };
   }
+
   handleSubmit(event) {
     event.preventDefault();
+    // new studentGroup name received in textInput field
     const text = this.textInput.value.trim();
 
     Meteor.call('studentGroups.insert', text);
 
-    // Clear form
-    // ReactDOM.findDOMNode(this.refs.textInput).value = '';
+    // Clear form textInput
     this.textInput.value = '';
   }
 
@@ -56,18 +57,19 @@ class App extends Component {
       { selectedView: 'mainView' });
   }
 
+  // for textInput field that is used to enter new studentGroup
   placeholderOnFocus () {
     this.setState({
       placeholderForEnteringNewGroup: '',
     });
   }
 
+  // for textInput field that is used to enter new studentGroup
   placeholderOnBlur () {
     this.setState({
       placeholderForEnteringNewGroup: 'Type to add new class',
     });
   }
-
 
   renderStudentGroups() {
     const filteredStudentGroups = this.props.studentGroups;
@@ -76,7 +78,7 @@ class App extends Component {
       return '';
     }
 
-    const currentUserId = this.props.currentUser && this.props.currentUser._id;
+    const currentUserId = this.props.currentUser._id;
 
     return filteredStudentGroups.map((studentGroup) => {
       if (studentGroup.owner === currentUserId) {
@@ -101,42 +103,39 @@ class App extends Component {
           <h1>Students2Groups</h1>
           <AccountsUIWrapper />
           <br />
-
-          { this.props.currentUser && this.state.selectedView === 'mainView' ?
-            <form className="new-studentGroup" onSubmit={this.handleSubmit} >
-              <input
-                type="text"
-                ref={node => this.textInput = node}
-                placeholder={this.state.placeholderForEnteringNewGroup}
-                onFocus={() => this.placeholderOnFocus()}
-                onBlur={() => this.placeholderOnBlur()}
-              />
-            </form> : ''
-          }
         </header>
+        { this.props.currentUser && this.state.selectedView === 'mainView' &&
+          <form className="new-studentGroup" onSubmit={this.handleSubmit} >
+            <input
+              type="text"
+              // this ref part is copied from tutorial. strange syntax
+              ref={node => this.textInput = node}
+              placeholder={this.state.placeholderForEnteringNewGroup}
+              onFocus={() => this.placeholderOnFocus()}
+              onBlur={() => this.placeholderOnBlur()}
+            />
+          </form>
+        }
 
-        { this.state.selectedView === 'editorView' ?
+        { this.props.currentUser && this.state.selectedView === 'mainView' &&
+          this.renderStudentGroups()
+        }
+
+        { this.props.currentUser && this.state.selectedView === 'editorView' &&
           <EditStudentGroup
             studentGroupID={this.state.selectedGroupID}
             studentGroupName={this.state.selectedGroupName}
             currentUser={this.props.currentUser}
             cbGoToMainViewClicked={this.openMainView}
           />
-          : ''
         }
-        { this.state.selectedView === 'randomizeStudentGroupView' &&
+        { this.props.currentUser && this.state.selectedView === 'randomizeStudentGroupView' &&
           <RandomizeStudentGroup
             studentGroupID={this.state.selectedGroupID}
             studentGroupName={this.state.selectedGroupName}
             currentUser={this.props.currentUser}
             cbGoToMainViewClicked={this.openMainView}
           /> }
-        { this.state.selectedView === 'mainView' && this.props.currentUser ?
-          <ul>
-            {this.renderStudentGroups()}
-          </ul>
-          : ''
-        }
       </div>
     );
   }
@@ -145,7 +144,6 @@ class App extends Component {
 App.propTypes = {
   studentGroups: PropTypes.array.isRequired,
   currentUser: PropTypes.object,
-  // incompleteCount: PropTypes.number.isRequired,
 };
 
 App.defaultProps = {
@@ -158,7 +156,6 @@ export default createContainer(() => {
   // are passed to App class
   return {
     studentGroups: StudentGroups.find({}, { sort: { createdAt: -1 } }).fetch(),
-    // incompleteCount: StudentGroups.find({ checked: { $ne: true } }).count(),
     currentUser: Meteor.user(),
   };
 }, App);

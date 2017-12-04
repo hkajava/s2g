@@ -272,7 +272,11 @@ form {
 .new-studentGroup input {
 
   box-sizing: border-box;
-  padding: 10px 0;
+  height: 30px;
+  padding-left: 5px;
+  padding-right: 80px;
+  margin-left: 10px;
+  margin-bottom: 10px;
   background: transparent;
   /** border: none; */
   border-top: 1px dotted;
@@ -280,8 +284,7 @@ form {
   border-left: 1px dotted;
   border-bottom: 1px dotted;
   width: 50%;
-  padding-right: 80px;
-  font-size: 1em;
+  font-size: 1.5em;
 
 }
 
