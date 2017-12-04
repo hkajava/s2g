@@ -104,6 +104,7 @@ class App extends Component {
           <AccountsUIWrapper />
           <br />
         </header>
+
         { this.props.currentUser && this.state.selectedView === 'mainView' &&
           <form className="new-studentGroup" onSubmit={this.handleSubmit} >
             <input
@@ -152,8 +153,17 @@ App.defaultProps = {
 
 export default withTracker(() => {
   Meteor.subscribe('studentGroups');
+  const currentUser = Meteor.user();
+
+  if (currentUser !== null && currentUser !== undefined) {
+    return {
+      studentGroups: StudentGroups.find({ owner: currentUser._id },
+        { sort: { createdAt: -1 } }).fetch(),
+      currentUser: Meteor.user(),
+    };
+  }
   return {
-    studentGroups: StudentGroups.find({}, { sort: { createdAt: -1 } }).fetch(),
+    studentGroups: [],
     currentUser: Meteor.user(),
   };
 })(App);

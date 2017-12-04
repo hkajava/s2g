@@ -9,7 +9,7 @@ export const StudentGroups = new Mongo.Collection('studentGroups');
 if (Meteor.isServer) {
   // This code only runs on the server
   Meteor.publish('studentGroups', function studentGroupsPublication() {
-    return StudentGroups.find(
+    return StudentGroups.find({ owner: Meteor.user()._id },
     );
   });
 }
