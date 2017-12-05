@@ -34,7 +34,7 @@ export default class EditStudentGroup extends Component {
 
     this.state =
     { studentArray: fetchedStudentArray,
-      placeholderForEnteringNewStudentToClass: 'Add student' };
+      placeholderForEnteringNewStudentToClass: 'Add student: <firstname> <lastname>' };
   }
 
   getStudentsInClient() {
@@ -60,19 +60,16 @@ export default class EditStudentGroup extends Component {
 
   placeholderOnBlur () {
     this.setState({
-      placeholderForEnteringNewStudentToClass: 'Add student',
+      placeholderForEnteringNewStudentToClass: 'Add student: <firstname> <lastname>',
     });
   }
 
   addStudentToClass(event) {
     event.preventDefault();
-    // Find the text field via the React ref
 
-    // const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
     const text = this.textInput.value.trim();
 
     // Clear form
-    // ReactDOM.findDOMNode(this.refs.textInput).value = '';
     this.textInput.value = '';
     // add checking that firstname and lastname are correctly given. exactly two
     // names (first and last) should be given. Or then another possibility would
