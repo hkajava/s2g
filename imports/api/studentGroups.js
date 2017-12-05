@@ -39,15 +39,18 @@ Meteor.methods({
 
     if (currentStudentGroupArray.find(hasGroupName) !== undefined) {
       // change into something more eloquent than alert box
-      alert('studentGroup with that name already exists! Try different name.');
+      if (Meteor.isClient) {
+        // only in client
+        alert('studentGroup with that name already exists! Try different name.');
+      }
+    } else {
+      StudentGroups.insert({
+        createdAt: new Date(),
+        owner: Meteor.userId(),
+        username: Meteor.user().username,
+        studentGroupName: text,
+      });
     }
-
-    StudentGroups.insert({
-      createdAt: new Date(),
-      owner: Meteor.userId(),
-      username: Meteor.user().username,
-      studentGroupName: text,
-    });
   },
   'studentGroups.updateRandomizeStatistic'(groupId) {
     check(groupId, String);
