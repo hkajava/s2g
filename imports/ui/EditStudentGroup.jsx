@@ -169,15 +169,8 @@ export default class EditStudentGroup extends Component {
 }
 
 EditStudentGroup.propTypes = {
-
-  // This component gets the studentGroup to display through a React prop.
-  // We can use propTypes to indicate it is required
-  // studentGroup: PropTypes.object.isRequired,
-  // key: PropTypes.string.isRequired,
   studentGroupID: PropTypes.string.isRequired,
   studentGroupName: PropTypes.string.isRequired,
   currentUser: PropTypes.object.isRequired,
   cbGoToMainViewClicked: PropTypes.func.isRequired,
-  // showPrivateButton: PropTypes.bool.isRequired,
-
 };
