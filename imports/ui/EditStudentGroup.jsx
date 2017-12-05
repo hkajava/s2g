@@ -120,12 +120,10 @@ export default class EditStudentGroup extends Component {
         this.state.studentArray.length === 0) {
       return (<h4>No students listed as enrolled in this class.</h4>);
     }
-    let filteredStudents = Array.from(this.state.studentArray);
-    filteredStudents = filteredStudents.sort(EditStudentGroup.sortArrayAccordingToLastName);
+    let studentArray = Array.from(this.state.studentArray);
+    studentArray = studentArray.sort(EditStudentGroup.sortArrayAccordingToLastName);
 
-    return filteredStudents.map((student) => {
-      // const currentUserId = this.props.currentUser && this.props.currentUser._id;
-      // const showPrivateButton = task.owner === currentUserId;
+    return studentArray.map((student) => {
       return (
         <Student
           key={this.props.studentGroupID + student.firstName + student.lastName}
