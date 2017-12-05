@@ -35,6 +35,7 @@ Meteor.methods({
       if (element.studentGroupName === text) {
         return element;
       }
+      return undefined;
     }
 
     if (currentStudentGroupArray.find(hasGroupName) !== undefined) {
