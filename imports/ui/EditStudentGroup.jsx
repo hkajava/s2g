@@ -2,8 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 import Student from './Student.jsx';
 import { StudentGroups } from '../api/studentGroups.js';
-// import classnames from 'classnames';
-
 
 // EditStudentGroup component - represents an editable list of
 // students belonging to a group. It is used by teacher when a new course
@@ -109,7 +107,7 @@ export default class EditStudentGroup extends Component {
   }
 
   handleStudentClick(studentFirstName, studentLastName) {
-    console.log('handleStudentClick: ', studentFirstName, ' ', studentLastName);
+    console.log('handleStudentClick: ', studentFirstName, ' ', studentLastName, ' ', this.props.studentGroupName);
   }
 
   handleGoToMainView() {
