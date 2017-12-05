@@ -18,7 +18,6 @@ if (Meteor.isServer) {
   });
 }
 
-
 Meteor.methods({
   'studentGroups.insert'(text) {
     check(text, String);

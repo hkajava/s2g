@@ -12,14 +12,12 @@ export default class EditStudentGroup extends Component {
     const textA = a.lastName.toUpperCase();
     const textB = b.lastName.toUpperCase();
 
-
     if (textB > textA) {
       return -1;
     } else if (textA > textB) {
       return 1;
     }
     return 0;
-    // return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
   }
 
   constructor(props) {
@@ -34,8 +32,7 @@ export default class EditStudentGroup extends Component {
     const fetchedStudentArray = this.getStudentsInClient();
 
     this.state =
-    { changesSaved: true,
-      studentArray: fetchedStudentArray,
+    { studentArray: fetchedStudentArray,
       placeholderForEnteringNewStudentToClass: 'Add student' };
 
     // Meteor.subscribe('studentGroups');
@@ -115,7 +112,6 @@ export default class EditStudentGroup extends Component {
 
   handleStudentClick(studentFirstName, studentLastName) {
     console.log('handleStudentClick: ', studentFirstName, ' ', studentLastName);
-    this.setState({ changesSaved: false });
   }
 
   handleGoToMainView() {
