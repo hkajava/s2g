@@ -6,7 +6,8 @@ import { StudentGroups } from '../api/studentGroups.js';
 
 
 // EditStudentGroup component - represents an editable list of
-// students belonging to a group.
+// students belonging to a group. It is used by teacher when a new course
+// starts.
 export default class EditStudentGroup extends Component {
   static sortArrayAccordingToLastName(a, b) {
     const textA = a.lastName.toUpperCase();
@@ -34,8 +35,6 @@ export default class EditStudentGroup extends Component {
     this.state =
     { studentArray: fetchedStudentArray,
       placeholderForEnteringNewStudentToClass: 'Add student' };
-
-    // Meteor.subscribe('studentGroups');
   }
 
   getStudentsInClient() {
@@ -43,6 +42,8 @@ export default class EditStudentGroup extends Component {
     const query = {};
     query.studentGroupName = this.props.studentGroupName;
     const currentStudentGroupArray = StudentGroups.find(query).fetch();
+    // Here is made assumption that there is only one studentGroup with
+    // a certain name. That has been taken care of in studentGroup addition
     const currentStudentGroup = currentStudentGroupArray[0];
     if (currentStudentGroup.students !== undefined &&
         currentStudentGroup.students !== null) {

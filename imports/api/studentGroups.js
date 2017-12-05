@@ -26,8 +26,21 @@ Meteor.methods({
     if (!Meteor.userId()) {
       throw new Meteor.Error('not-authorized');
     }
-    // add checking that it's not possible to add a class/group with
+
+    // TODO: add checking that it's not possible to add a class/group with
     // name that already exists for that user
+    const currentStudentGroupArray = StudentGroups.find({ owner: Meteor.user()._id }).fetch();
+
+    function hasGroupName(element) {
+      if (element.studentGroupName === text) {
+        return element;
+      }
+    }
+
+    if (currentStudentGroupArray.find(hasGroupName) !== undefined) {
+      // change into something more eloquent than alert box
+      alert('studentGroup with that name already exists! Try different name.');
+    }
 
     StudentGroups.insert({
       createdAt: new Date(),
