@@ -108,22 +108,21 @@ export default class RandomizeStudentGroup extends Component {
 
   randomizeStudentGroup() {
     let randomizedArrayOfArrays = [];
-    const tempStudentsArrayBeforeAbsentChecking = Array.from(this.state.studentArray);
-    const tempStudentsArray = [];
+    const tempStudentArrayBeforeAbsentChecking = Array.from(this.state.studentArray);
+    const tempStudentArray = [];
     const tempMinGroupSize = this.state.minGroupSize;
 
-
     // remove absent students
-    for (let i = 0; i < tempStudentsArrayBeforeAbsentChecking.length; i += 1) {
-      if (tempStudentsArrayBeforeAbsentChecking[i].absent === false) {
-        tempStudentsArray.push(tempStudentsArrayBeforeAbsentChecking[i]);
+    for (let i = 0; i < tempStudentArrayBeforeAbsentChecking.length; i += 1) {
+      if (tempStudentArrayBeforeAbsentChecking[i].absent === false) {
+        tempStudentArray.push(tempStudentArrayBeforeAbsentChecking[i]);
       }
     }
 
-    if (tempStudentsArray.length < 2 * this.state.minGroupSize) {
+    if (tempStudentArray.length < 2 * this.state.minGroupSize) {
       // there is not enough students to make small groups with min size
       // then no point continuing algorithm
-      randomizedArrayOfArrays[0] = Array.from(tempStudentsArray);
+      randomizedArrayOfArrays[0] = Array.from(tempStudentArray);
       this.setState({ selectedView: 'randomized',
         randomizedStudentArrayOfArrays: randomizedArrayOfArrays });
       return;
@@ -137,13 +136,13 @@ export default class RandomizeStudentGroup extends Component {
     let tempSmallGroupArray = [];
     // note that index is not incremented as the array is shrinked
 
-    for (let i = 0; i < tempStudentsArray.length;) {
-      const removedIndex = Math.floor(Math.random() * tempStudentsArray.length);
-      const tempStudent = tempStudentsArray[removedIndex];
+    for (let i = 0; i < tempStudentArray.length;) {
+      const removedIndex = Math.floor(Math.random() * tempStudentArray.length);
+      const tempStudent = tempStudentArray[removedIndex];
       tempSmallGroupArray.push(tempStudent);
       tempNumberOfStudentsInSmallGroup += 1;
       // time to remove student from origin array
-      tempStudentsArray.splice(removedIndex, 1);
+      tempStudentArray.splice(removedIndex, 1);
       if (tempNumberOfStudentsInSmallGroup === targetGroupSize) {
         randomizedArrayOfArrays.push(tempSmallGroupArray);
         // let's reset temp type variables
