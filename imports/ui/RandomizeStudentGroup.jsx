@@ -66,9 +66,9 @@ export default class RandomizeStudentGroup extends Component {
 
     const fetchedStudentArray = this.getStudentsInClient();
     // add local state variable to track absent students for this
-    // particular class session. Initialize to false so that everybody
-    // is assumed to be absent until teacher goes through attendance
-    // checks off those that are not present.
+    // particular class session. Initialize to false so that all students
+    // are assumed to be present until teacher goes through attendance
+    // and checks off those that are not present.
     for (let i = 0; i < fetchedStudentArray.length; i += 1) {
       fetchedStudentArray[i].absent = false;
     }
@@ -83,7 +83,6 @@ export default class RandomizeStudentGroup extends Component {
       nbrEnrolledStudents: fetchedStudentArray.length,
       nbrPresentStudents: fetchedStudentArray.length,
       nbrAbsentStudents: fetchedStudentArray.length };
-    // Meteor.subscribe('studentGroups');
   }
 
   getStudentsInClient() {
@@ -171,6 +170,7 @@ export default class RandomizeStudentGroup extends Component {
     this.updateRandomizeStatistic();
   }
 
+  // deleteThisStudent is not used currently in RandomizeStudentGroup
   deleteThisStudent(studentFirstName, studentLastName,
     studentGroupID, studentGroupName) {
     Meteor.call('studentGroup.removeStudent', studentFirstName, studentLastName,
