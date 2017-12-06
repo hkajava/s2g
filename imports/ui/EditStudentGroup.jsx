@@ -39,10 +39,9 @@ export default class EditStudentGroup extends Component {
     let currentStudentArray = [];
     const query = {};
     query.studentGroupName = this.props.studentGroupName;
-    const currentStudentGroupArray = StudentGroups.find(query).fetch();
     // Here is made assumption that there is only one studentGroup with
     // a certain name. That has been taken care of in studentGroup addition
-    const currentStudentGroup = currentStudentGroupArray[0];
+    const currentStudentGroup = StudentGroups.findOne(query);
     if (currentStudentGroup.students !== undefined &&
         currentStudentGroup.students !== null) {
       currentStudentArray = Array.from(currentStudentGroup.students);
