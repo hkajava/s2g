@@ -74,8 +74,7 @@ export default class RandomizeStudentGroup extends Component {
     }
 
     this.state =
-    { changesSaved: true,
-      selectedView: 'main',
+    { selectedView: 'main',
       studentArray: fetchedStudentArray,
       randomizedStudentArrayOfArrays: [],
       placeholderForEnteringNewStudentToClass: 'Add student',
