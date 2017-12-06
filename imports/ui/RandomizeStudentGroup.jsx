@@ -30,6 +30,9 @@ export default class RandomizeStudentGroup extends Component {
     // Add student to smallest small group.
     // If there are more than one with the smallest size then
     // put it to one of them randomly
+
+    // let's initialize smallesGroupSize to the size of the first
+    // student small group (i.e. randomizedArrayOfArrays[0])
     let smallestGroupSize = randomizedArrayOfArrays[0].length;
     let tempSmallGroupIndexArray = [];
     const tempRandomizedArrayOfArrays = Array.from(randomizedArrayOfArrays);
@@ -47,7 +50,6 @@ export default class RandomizeStudentGroup extends Component {
     const chosenIndex = tempSmallGroupIndexArray[chosenIndexIndex];
     tempRandomizedArrayOfArrays[chosenIndex].push(student);
     return tempRandomizedArrayOfArrays;
-    // console.log('rallallaa');
   }
 
   constructor(props) {
