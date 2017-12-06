@@ -110,7 +110,7 @@ export default class RandomizeStudentGroup extends Component {
     let randomizedArrayOfArrays = [];
     const tempStudentArrayBeforeAbsentChecking = Array.from(this.state.studentArray);
     const tempStudentArray = [];
-    const tempMinGroupSize = this.state.minGroupSize;
+    const targetGroupSize = this.state.minGroupSize;
 
     // remove absent students
     for (let i = 0; i < tempStudentArrayBeforeAbsentChecking.length; i += 1) {
@@ -127,8 +127,6 @@ export default class RandomizeStudentGroup extends Component {
         randomizedStudentArrayOfArrays: randomizedArrayOfArrays });
       return;
     }
-
-    const targetGroupSize = tempMinGroupSize;
 
     // There is such number of students that they can be split into
     // equal size groups that have the smallest allowed size
