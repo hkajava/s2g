@@ -88,8 +88,7 @@ export default class RandomizeStudentGroup extends Component {
     let currentStudentArray = [];
     const query = {};
     query.studentGroupName = this.props.studentGroupName;
-    const currentStudentGroupArray = StudentGroups.find(query).fetch();
-    const currentStudentGroup = currentStudentGroupArray[0];
+    const currentStudentGroup = StudentGroups.findOne(query);
     if (currentStudentGroup.students !== undefined &&
         currentStudentGroup.students !== null) {
       currentStudentArray = Array.from(currentStudentGroup.students);
