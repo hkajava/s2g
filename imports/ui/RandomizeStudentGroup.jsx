@@ -60,6 +60,7 @@ export default class RandomizeStudentGroup extends Component {
     this.handleStudentClick = this.handleStudentClick.bind(this);
     this.getStudentsInClient = this.getStudentsInClient.bind(this);
     this.deleteThisStudent = this.deleteThisStudent.bind(this);
+    this.handleGoToListView = this.handleGoToListView.bind(this);
     this.handleGoToMainView = this.handleGoToMainView.bind(this);
     this.randomizeStudentGroup = this.randomizeStudentGroup.bind(this);
     this.updateStudentCounts = this.updateStudentCounts.bind(this);
@@ -74,7 +75,7 @@ export default class RandomizeStudentGroup extends Component {
     }
 
     this.state =
-    { selectedView: 'main',
+    { selectedView: 'listView',
       studentArray: fetchedStudentArray,
       randomizedStudentArrayOfArrays: [],
       placeholderForEnteringNewStudentToClass: 'Add student',
@@ -123,7 +124,7 @@ export default class RandomizeStudentGroup extends Component {
       // There is not enough students to make small groups with minGroupSize
       // and thus no point continuing algorithm.
       randomizedArrayOfArrays[0] = Array.from(tempStudentArray);
-      this.setState({ selectedView: 'randomized',
+      this.setState({ selectedView: 'randomizedView',
         randomizedStudentArrayOfArrays: randomizedArrayOfArrays });
       return;
     }
@@ -160,7 +161,7 @@ export default class RandomizeStudentGroup extends Component {
       }
     }
 
-    this.setState({ selectedView: 'randomized',
+    this.setState({ selectedView: 'randomizedView',
       randomizedStudentArrayOfArrays: randomizedArrayOfArrays });
 
     // update statistics counter that is used to monitor how much s2g app is actually used
@@ -227,7 +228,7 @@ export default class RandomizeStudentGroup extends Component {
   }
 
   handleGoToListView() {
-    // TODO: set state to list view
+    this.setState({ selectedView: 'listView' });
   }
   renderStudentSmallGroups() {
     if (this.state.randomizedStudentArrayOfArrays == null ||
@@ -302,20 +303,30 @@ export default class RandomizeStudentGroup extends Component {
           <button className="goToMainViewButton" onClick={this.handleGoToMainView}>
             Go To Main View
           </button>
+          {this.state.selectedView === 'randomizedView' &&
+          <br />}
+          {this.state.selectedView === 'randomizedView' &&
+          this.props.currentUser &&
+          <button className="goToListViewButton" onClick={this.handleGoToListView}>
+            Go To List View
+          </button>
+          }
           <br />
           <button
             className="randomizeStudentGroupButton"
             onClick={this.randomizeStudentGroup}
           >
-            Randomize into groups of minimum three
+            {this.state.selectedView === 'listView' ?
+              'Randomize into groups of minimum three' :
+              'Randomize AGAIN into groups of minimum three' }
           </button>
         </span>
         <br />
-        {this.state.selectedView === 'main' &&
+        {this.state.selectedView === 'listView' &&
          this.props.currentUser &&
          this.renderStudentGroup(this.state.studentArray, true)}
         <div className="smallGroupContainer">
-          {this.state.selectedView === 'randomized' &&
+          {this.state.selectedView === 'randomizedView' &&
           this.props.currentUser &&
           this.renderStudentSmallGroups()}
         </div>
