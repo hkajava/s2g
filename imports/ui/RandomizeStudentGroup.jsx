@@ -226,6 +226,9 @@ export default class RandomizeStudentGroup extends Component {
     this.props.cbGoToMainViewClicked();
   }
 
+  handleGoToListView() {
+    // TODO: set state to list view
+  }
   renderStudentSmallGroups() {
     if (this.state.randomizedStudentArrayOfArrays == null ||
         this.state.randomizedStudentArrayOfArrays === undefined ||
