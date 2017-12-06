@@ -120,8 +120,8 @@ export default class RandomizeStudentGroup extends Component {
     }
 
     if (tempStudentArray.length < 2 * this.state.minGroupSize) {
-      // there is not enough students to make small groups with min size
-      // then no point continuing algorithm
+      // There is not enough students to make small groups with minGroupSize
+      // and thus no point continuing algorithm.
       randomizedArrayOfArrays[0] = Array.from(tempStudentArray);
       this.setState({ selectedView: 'randomized',
         randomizedStudentArrayOfArrays: randomizedArrayOfArrays });
