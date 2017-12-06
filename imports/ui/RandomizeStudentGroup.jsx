@@ -150,7 +150,9 @@ export default class RandomizeStudentGroup extends Component {
     }
     if (tempSmallGroupArray.length > 0) {
       // there wasn't an even number of students to split
-      // into min group size
+      // into min group size.
+      // tempSmallGroupArray now contains the left out students
+      // that need to be put into existing small groups.
       for (let i = 0; i < tempSmallGroupArray.length; i += 1) {
         randomizedArrayOfArrays =
           RandomizeStudentGroup.addOddStudentsToOtherGroups(tempSmallGroupArray[i],
