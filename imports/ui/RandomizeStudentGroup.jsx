@@ -6,12 +6,13 @@ import { StudentGroups } from '../api/studentGroups.js';
 
 
 // RandomizeStudentGroup component - show a list of students belonging
-// to a course. Those that are not present can be deselected.
+// to a course. Those that are not present today can be deselected.
 // The remaining students that are present in the class can be split
 // randomly into small groups.
 export default class RandomizeStudentGroup extends Component {
   // TODO, should ES6 international collation features be used
   // here to get alphabets correctly sorted?
+  // With brief testing it looks like Finnish alphabets (ä,ö) work correctly
   static sortArrayAccordingToLastName(a, b) {
     const textA = a.lastName.toUpperCase();
     const textB = b.lastName.toUpperCase();
@@ -23,7 +24,6 @@ export default class RandomizeStudentGroup extends Component {
       return 1;
     }
     return 0;
-    // return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
   }
 
   static addOddStudentsToOtherGroups(student, randomizedArrayOfArrays) {
