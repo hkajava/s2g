@@ -27,7 +27,7 @@ export default class RandomizeStudentGroup extends Component {
   }
 
   static addOddStudentsToOtherGroups(student, randomizedArrayOfArrays) {
-    // Add student to smallest small group.
+    // Add student to the smallest small group.
     // If there are more than one with the smallest size then
     // put it to one of them randomly
 
@@ -43,6 +43,8 @@ export default class RandomizeStudentGroup extends Component {
         tempSmallGroupIndexArray = [];
         tempSmallGroupIndexArray.push(i);
       } else if (tempRandomizedArrayOfArrays[i].length === smallestGroupSize) {
+        // found a group which is as small as the so far smallest found
+        // let's add that to tempSmallGroupIndexArray to keep track of it
         tempSmallGroupIndexArray.push(i);
       }
     }
