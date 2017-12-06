@@ -128,8 +128,8 @@ export default class RandomizeStudentGroup extends Component {
       return;
     }
 
-    // There is such number of students that they can be split into
-    // equal size groups that have the smallest allowed size
+    // There is such a number of students that they can be split into
+    // two or more small groups
     let tempNumberOfStudentsInSmallGroup = 0;
     let tempSmallGroupArray = [];
     // note that index is not incremented as the array is shrinked
@@ -149,7 +149,7 @@ export default class RandomizeStudentGroup extends Component {
       }
     }
     if (tempSmallGroupArray.length > 0) {
-      // there wasn't even number of students to split
+      // there wasn't an even number of students to split
       // into min group size
       for (let i = 0; i < tempSmallGroupArray.length; i += 1) {
         randomizedArrayOfArrays =
