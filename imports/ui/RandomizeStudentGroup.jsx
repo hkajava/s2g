@@ -245,8 +245,6 @@ export default class RandomizeStudentGroup extends Component {
     let returnString = '';
 
     return tempArrayOfArrays.map((studentSmallGroup, index) => {
-      // const currentUserId = this.props.currentUser && this.props.currentUser._id;
-      // const showPrivateButton = task.owner === currentUserId;
       const tempGroupNumber = index + 1;
       returnString = `Group Number ${tempGroupNumber} `;
       return (<div className="smallGroup" key={returnString}> <h3>{returnString}</h3>{this.renderStudentGroup(tempArrayOfArrays[index], false)} </div>);
