@@ -183,6 +183,10 @@ export default class RandomizeStudentGroup extends Component {
       }.bind(this));
   }
 
+  // TODO: perhaps some other data structure than array could be used
+  // for storing students. That way these loopings would not be needed
+  // to write into functions. Investigate if Map datatype would be good.
+  // It could give item based on key and it is iterable. 
   findStudentIndex(studentFirstName, studentLastName) {
     const tempStudentArray = Array.from(this.state.studentArray);
     for (let i = 0; i < this.state.studentArray.length; i += 1) {
