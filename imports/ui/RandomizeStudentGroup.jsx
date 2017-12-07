@@ -186,7 +186,7 @@ export default class RandomizeStudentGroup extends Component {
   // TODO: perhaps some other data structure than array could be used
   // for storing students. That way these loopings would not be needed
   // to write into functions. Investigate if Map datatype would be good.
-  // It could give item based on key and it is iterable. 
+  // It could give item based on key and it is iterable.
   findStudentIndex(studentFirstName, studentLastName) {
     const tempStudentArray = Array.from(this.state.studentArray);
     for (let i = 0; i < this.state.studentArray.length; i += 1) {
@@ -244,15 +244,6 @@ export default class RandomizeStudentGroup extends Component {
 
     let returnString = '';
 
-    /*
-    for (let i = 0; i < tempArrayOfArrays.length; i += 1) {
-      returnString = returnString.concat('SmallGroup Number ', i + 1);
-      return (<div> <h3>{returnString}</h3>{this.renderStudentGroup(tempArrayOfArrays[i])} </div>);
-      returnString = returnString.concat(this.renderOneStudentSmallGroup(tempArrayOfArrays[i]));
-      returnString = returnString.concat('<br />');
-    }
-    */
-
     return tempArrayOfArrays.map((studentSmallGroup, index) => {
       // const currentUserId = this.props.currentUser && this.props.currentUser._id;
       // const showPrivateButton = task.owner === currentUserId;
@@ -260,8 +251,6 @@ export default class RandomizeStudentGroup extends Component {
       returnString = `Group Number ${tempGroupNumber} `;
       return (<div className="smallGroup" key={returnString}> <h3>{returnString}</h3>{this.renderStudentGroup(tempArrayOfArrays[index], false)} </div>);
     });
-    // return returnString;
-    // return (<div> dangerouslySetInnerHTML={{__html: returnString}} </div>);
   }
 
 
