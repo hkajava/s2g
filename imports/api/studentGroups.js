@@ -73,19 +73,8 @@ Meteor.methods({
       // unauthorized users shouldn't even see the group
       throw new Meteor.Error('not-authorized');
     }
-    /** This broke studentGroups.tests.js. Meteor.userId() can't be called for some
-        reason in the test.
-    if (group.owner === Meteor.userId()) {
-      StudentGroups.remove(groupId);
-    }
-    */
-    StudentGroups.remove(groupId);
-  },
-  'studentGroups.setChecked'(groupId, setChecked) {
-    check(groupId, String);
-    check(setChecked, Boolean);
 
-    StudentGroups.update(groupId, { $set: { checked: setChecked } });
+    StudentGroups.remove(groupId);
   },
   'studentGroups.setPrivate'(groupId, setToPrivate) {
     check(groupId, String);
