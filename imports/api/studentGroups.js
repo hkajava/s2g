@@ -86,13 +86,20 @@ Meteor.methods({
     newStudent.firstName = firstNameParam;
     newStudent.lastName = lastNameParam;
 
-    const tempStudentGroupArray = StudentGroups.find({ _id: groupID }).fetch();
+    const tempStudentGroup = StudentGroups.findOne({ _id: groupID });
+    if (tempStudentGroup === null) {
+      throw new Meteor.Error('studentGroup.addStudent: internal error, group missing');
+    }
+    if (tempStudentGroup.owner !== Meteor.userId()) {
+      // only the owner can add students to a group, otherwise throw error because
+      // unauthorized users shouldn't even see the group
+      throw new Meteor.Error('not-authorized');
+    }
+
     let tempStudentArray = [];
-    if (tempStudentGroupArray.length === 1) {
-      if (tempStudentGroupArray[0].students !== undefined) {
-        if (tempStudentGroupArray[0].students.length > 0) {
-          tempStudentArray = Array.from(tempStudentGroupArray[0].students);
-        }
+    if (tempStudentGroup.students !== undefined) {
+      if (tempStudentGroup.students.length > 0) {
+        tempStudentArray = Array.from(tempStudentGroup.students);
       }
     }
 
@@ -105,18 +112,11 @@ Meteor.methods({
           throw new Meteor.Error('studentGroup.addStudent: student with same name already exists in db');
         }
       }
-    }
-
-    // Make sure the user is logged in before inserting a group
-    if (!Meteor.userId()) {
-      throw new Meteor.Error('not-authorized');
-    }
-    // only add if there is not a student with same name
-    // feedback needed to calling method
-    if (tempStudentArray.length > 0) {
+      // only add if there is not a student with same name
+      // feedback needed to calling method
       StudentGroups.update({ _id: groupID }, { $push: { students: newStudent } });
     } else {
-      // students array was still missing
+      // students array for this studentGroup was still missing and need to be created now.
       StudentGroups.update({ _id: groupID }, { $set: { students: [newStudent] } });
     }
   },
