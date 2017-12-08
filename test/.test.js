@@ -1,4 +1,4 @@
-import { sumtwonumbers } from '../imports/ui/WeekDay.jsx';
+import { sumtwonumbers } from '../imports/ui/RandomizeStudentGroup.jsx';
 
 
 const assert = require('assert');
@@ -12,8 +12,8 @@ describe('Array', function() {
   });
 });
 */
-describe('Testing WeekDay.jsx', function() {
-  describe('sumtwonumbers', function() {
+describe('Testing RandomizeStudentGroup.jsx', function() {
+  describe('static sortArrayAccordingToLastName(a, b)', function() {
     it('should return 14', function() {
       assert.equal(14, sumtwonumbers(10, 4));
     });

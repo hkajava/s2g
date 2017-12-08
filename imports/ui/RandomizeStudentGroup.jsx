@@ -11,7 +11,7 @@ export default class RandomizeStudentGroup extends Component {
   // TODO, should ES6 international collation features be used
   // here to get alphabets correctly sorted?
   // With brief testing it looks like Finnish alphabets (ä,ö) work correctly
-  static sortArrayAccordingToLastName(a, b) {
+  static sortAccordingToLastName(a, b) {
     const textA = a.lastName.toUpperCase();
     const textB = b.lastName.toUpperCase();
 
@@ -257,7 +257,7 @@ export default class RandomizeStudentGroup extends Component {
       return (<h4>No students listed as enrolled in this class.</h4>);
     }
     let filteredStudents = Array.from(studentArrayParam);
-    filteredStudents = filteredStudents.sort(RandomizeStudentGroup.sortArrayAccordingToLastName);
+    filteredStudents = filteredStudents.sort(RandomizeStudentGroup.sortAccordingToLastName);
 
     return filteredStudents.map((student) => {
       return (
