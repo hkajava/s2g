@@ -127,7 +127,7 @@ Meteor.methods({
     check(groupID, String);
 
     const group = StudentGroups.findOne(groupID);
-    if (group.private && group.owner !== Meteor.userId()) {
+    if (group.owner !== Meteor.userId()) {
       // If the group is private, make sure only the owner can delete it
       throw new Meteor.Error('not-authorized');
     }
