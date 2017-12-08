@@ -26,7 +26,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
-    // TODO: add checking that it's not possible to add a class/group with
+    // TODO: add checking so that it's not possible to add a class/group with
     // name that already exists for that user
     const currentStudentGroupArray = StudentGroups.find({ owner: Meteor.user()._id }).fetch();
 
