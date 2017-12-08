@@ -9,6 +9,8 @@ if (Meteor.isServer) {
     const currentUser = Meteor.user();
 
     if (currentUser !== null && currentUser !== undefined) {
+      // Only publish to client those studentGroups that are owned
+      // by the logged in user. This achieves better privacy and performance.
       return StudentGroups.find({ owner: Meteor.user()._id });
     }
     return '';
@@ -36,9 +38,9 @@ Meteor.methods({
     }
 
     if (currentStudentGroupArray.find(hasGroupName) !== undefined) {
-      // change into something more eloquent than alert box
       if (Meteor.isClient) {
         // only in client
+        // TODO change into something more eloquent than alert box
         alert('studentGroup with that name already exists! Try different name.');
       }
     } else {
@@ -59,15 +61,16 @@ Meteor.methods({
     }
 
     // If the randomization counter doesn't exist yet, let's create it and
-    // initialize to zero
+    // initialize to one. If it already exists then just increment it.
     StudentGroups.update(groupId, { $inc: { nbrOfRandomizations: 1 } });
   },
   'studentGroups.remove'(groupId) {
     check(groupId, String);
 
     const group = StudentGroups.findOne(groupId);
-    if (group.private && group.owner !== Meteor.userId()) {
-      // If the group is private, make sure only the owner can delete it
+    if (group.owner !== Meteor.userId()) {
+      // only the owner can delete it, otherwise throw error because
+      // unauthorized users shouldn't even see the group
       throw new Meteor.Error('not-authorized');
     }
     /** This broke studentGroups.tests.js. Meteor.userId() can't be called for some
