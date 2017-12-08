@@ -4,10 +4,7 @@ import { check } from 'meteor/check';
 
 export const StudentGroups = new Mongo.Collection('studentGroups');
 
-// export default StudentGroups;
-
 if (Meteor.isServer) {
-  // This code only runs on the server
   Meteor.publish('studentGroups', function studentGroupsPublication() {
     const currentUser = Meteor.user();
 
