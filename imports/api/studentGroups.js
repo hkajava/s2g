@@ -76,19 +76,6 @@ Meteor.methods({
 
     StudentGroups.remove(groupId);
   },
-  'studentGroups.setPrivate'(groupId, setToPrivate) {
-    check(groupId, String);
-    check(setToPrivate, Boolean);
-
-    const group = StudentGroups.findOne(groupId);
-
-    // Make sure only the group owner can make a group private
-    if (group.owner !== Meteor.userId()) {
-      throw new Meteor.Error('not-authorized');
-    }
-
-    StudentGroups.update(groupId, { $set: { private: setToPrivate } });
-  },
   'studentGroups.fetchStudentsToArray'(text) {
     check(text, String);
 
