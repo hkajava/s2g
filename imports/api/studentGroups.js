@@ -128,19 +128,15 @@ Meteor.methods({
 
     const group = StudentGroups.findOne(groupID);
     if (group.owner !== Meteor.userId()) {
-      // If the group is private, make sure only the owner can delete it
+      // only owner can remove group
       throw new Meteor.Error('not-authorized');
     }
-    /** This broke studentGroups.tests.js. Meteor.userId() can't be called for some
-        reason in the test.
-    if (group.owner === Meteor.userId()) {
-      StudentGroups.remove(groupId);
-    }
-    */
-    const tempStudentGroupArray = StudentGroups.find({ _id: groupID }).fetch();
+
+    const tempStudentGroup = StudentGroups.findOne({ _id: groupID });
     let tempStudentArray = [];
-    if (tempStudentGroupArray.length === 1 && tempStudentGroupArray[0].students.length > 0) {
-      tempStudentArray = Array.from(tempStudentGroupArray[0].students);
+    if (tempStudentGroup !== null && tempStudentGroup.students !== null &&
+        tempStudentGroup.students.length > 0) {
+      tempStudentArray = Array.from(tempStudentGroup.students);
     }
 
     if (tempStudentArray.length > 0) {
@@ -152,6 +148,8 @@ Meteor.methods({
           StudentGroups.update({ _id: groupID }, { $set: { students: tempStudentArray } });
         }
       }
+    } else {
+      throw new Meteor.Error('studentGroup.removeStudent: internal error, student not found');
     }
   },
 });
