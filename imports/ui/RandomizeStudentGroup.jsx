@@ -2,8 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 import Student from './Student.jsx';
 import { StudentGroups } from '../api/studentGroups.js';
-// import classnames from 'classnames';
-
 
 // RandomizeStudentGroup component - show a list of students belonging
 // to a course. Those that are not present today can be deselected.
