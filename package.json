@@ -10,10 +10,12 @@
     "bootstrap": "^4.0.0-beta.2",
     "classnames": "^2.2.5",
     "meteor-node-stubs": "~0.2.4",
+    "popper.js": "^1.12.9",
     "react": "^15.6.2",
     "react-addons-pure-render-mixin": "^15.6.0",
     "react-dom": "^15.6.2",
-    "reactstrap": "^5.0.0-alpha.4"
+    "reactstrap": "^5.0.0-alpha.4",
+    "tooltip.js": "^1.1.7"
   },
   "eslintConfig": {
     "extends": "@meteorjs/eslint-config-meteor"
