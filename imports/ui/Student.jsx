@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types'; // ES6
 import classnames from 'classnames';
 
 export default class Student extends Component {
