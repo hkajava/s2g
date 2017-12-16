@@ -25,6 +25,54 @@ export default class RandomizeStudentGroup extends Component {
     return 0;
   }
 
+  // New algorithm
+  static randomizeStudentArray(studentArray) {
+    const randomizedStudentArray = [];
+
+    for (let i = 0; i < studentArray.length;) {
+      // take one student randomly
+      const removedIndex = Math.floor(Math.random() * studentArray.length);
+      const tempStudent = studentArray[removedIndex];
+
+      // ... and put it to randomized array
+      randomizedStudentArray.push(tempStudent);
+
+      // time to remove student from original array
+      studentArray.splice(removedIndex, 1);
+    }
+    return randomizedStudentArray;
+  }
+
+  // New algorithm
+  static findNbrOfSmallGroups(nbrPresentStudents, minGroupSize) {
+    // TODO: if nbrPresentStudents <= 3, then return nbrOfGroups == 1
+    let nbrOfGroups = 0;
+    if (nbrPresentStudents % minGroupSize === 0) {
+      nbrOfGroups = (nbrPresentStudents / minGroupSize);
+      return nbrOfGroups;
+    }
+    nbrOfGroups = Math.round(nbrPresentStudents / (minGroupSize + 1));
+    return nbrOfGroups;
+  }
+
+  // New algorithm
+  static generateRandomGroups(numberOfGroups, randomizedStudentArray) {
+    const studentArrayOfArrays = [];
+    for (let i = 0, j = 0; i < randomizedStudentArray.length; i += 1) {
+      // take one student and put into small group
+      if (studentArrayOfArrays[j] === undefined) {
+        studentArrayOfArrays[j] = [];
+      }
+      studentArrayOfArrays[j].push(randomizedStudentArray[i]);
+      if (j === numberOfGroups - 1) {
+        j = 0;
+      } else {
+        j += 1;
+      }
+    }
+    return studentArrayOfArrays;
+  }
+
   static addOddStudentsToOtherGroups(student, randomizedArrayOfArrays) {
     // Add student to the smallest small group.
     // If there are more than one with the smallest size then
