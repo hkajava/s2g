@@ -155,6 +155,25 @@ export default class RandomizeStudentGroup extends Component {
   }
 
   randomizeStudentGroup() {
+    let tempStudentArrayOfArrays = [];
+    let nbrOfSmallGroups = 0;
+
+    let tempStudentArray = Array.from(this.state.randomizedStudentArrayOfArrays);
+    tempStudentArray = RandomizeStudentGroup.randomizeStudentArray(tempStudentArray);
+    nbrOfSmallGroups = RandomizeStudentGroup.findNbrOfSmallGroups(this.state.nbrPresentStudents,
+      this.state.minGroupSize);
+    tempStudentArrayOfArrays = RandomizeStudentGroup.generateRandomGroups(nbrOfSmallGroups,
+      tempStudentArray);
+
+    this.setState({ selectedView: 'randomizedView',
+      randomizedStudentArrayOfArrays: tempStudentArrayOfArrays });
+
+    // update statistics counter that is used to monitor how much s2g app is actually used
+    this.updateRandomizeStatistic();
+  }
+
+  /*
+  randomizeStudentGroup() {
     let randomizedArrayOfArrays = [];
     const tempStudentArrayBeforeAbsentChecking = Array.from(this.state.studentArray);
     const tempStudentArray = [];
@@ -214,6 +233,7 @@ export default class RandomizeStudentGroup extends Component {
     // update statistics counter that is used to monitor how much s2g app is actually used
     this.updateRandomizeStatistic();
   }
+  */
 
   // deleteThisStudent is not used currently in RandomizeStudentGroup
   deleteThisStudent(studentFirstName, studentLastName,
@@ -285,6 +305,7 @@ export default class RandomizeStudentGroup extends Component {
     if (this.state.randomizedStudentArrayOfArrays == null ||
         this.state.randomizedStudentArrayOfArrays === undefined ||
         this.state.randomizedStudentArrayOfArrays.length === 0) {
+          debugger;
       return (<h4>ERROR: Small groups were empty.</h4>);
     }
     const tempArrayOfArrays = this.state.randomizedStudentArrayOfArrays;
