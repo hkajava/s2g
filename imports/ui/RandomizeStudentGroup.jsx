@@ -26,7 +26,7 @@ export default class RandomizeStudentGroup extends Component {
   }
 
   // New algorithm
-  static randomizeStudentArray(studentArray) {
+  static randomizeArray(studentArray) {
     const randomizedStudentArray = [];
 
     for (let i = 0; i < studentArray.length;) {
@@ -45,13 +45,17 @@ export default class RandomizeStudentGroup extends Component {
 
   // New algorithm
   static findNbrOfSmallGroups(nbrPresentStudents, minGroupSize) {
-    // TODO: if nbrPresentStudents <= 3, then return nbrOfGroups == 1
+    debugger;
+    if (nbrPresentStudents <= 2 * minGroupSize) {
+      // there is not enough present students to divide them into small groups.
+      return 1;
+    }
     let nbrOfGroups = 0;
     if (nbrPresentStudents % minGroupSize === 0) {
       nbrOfGroups = (nbrPresentStudents / minGroupSize);
       return nbrOfGroups;
     }
-    nbrOfGroups = Math.round(nbrPresentStudents / (minGroupSize + 1));
+    nbrOfGroups = Math.floor(nbrPresentStudents / minGroupSize);
     return nbrOfGroups;
   }
 
@@ -155,15 +159,23 @@ export default class RandomizeStudentGroup extends Component {
   }
 
   randomizeStudentGroup() {
+    debugger;
     let tempStudentArrayOfArrays = [];
     let nbrOfSmallGroups = 0;
 
-    let tempStudentArray = Array.from(this.state.randomizedStudentArrayOfArrays);
-    tempStudentArray = RandomizeStudentGroup.randomizeStudentArray(tempStudentArray);
+    let tempStudentArray = Array.from(this.state.studentArray);
+    tempStudentArray = RandomizeStudentGroup.randomizeArray(tempStudentArray);
     nbrOfSmallGroups = RandomizeStudentGroup.findNbrOfSmallGroups(this.state.nbrPresentStudents,
       this.state.minGroupSize);
     tempStudentArrayOfArrays = RandomizeStudentGroup.generateRandomGroups(nbrOfSmallGroups,
       tempStudentArray);
+
+    // Randomize the order of small groups. For example if there would be
+    // 19 present students and minGroupSize 3, there would be 5 groups of three
+    // and 1 groups of four. But that group of four with this algorithm would
+    // always be groups number 1. And that doesn't look random (even though in a
+    // sense the students have been divided to random groups)
+    tempStudentArrayOfArrays = RandomizeStudentGroup.randomizeArray(tempStudentArrayOfArrays);
 
     this.setState({ selectedView: 'randomizedView',
       randomizedStudentArrayOfArrays: tempStudentArrayOfArrays });
@@ -305,7 +317,7 @@ export default class RandomizeStudentGroup extends Component {
     if (this.state.randomizedStudentArrayOfArrays == null ||
         this.state.randomizedStudentArrayOfArrays === undefined ||
         this.state.randomizedStudentArrayOfArrays.length === 0) {
-          debugger;
+      debugger;
       return (<h4>ERROR: Small groups were empty.</h4>);
     }
     const tempArrayOfArrays = this.state.randomizedStudentArrayOfArrays;
