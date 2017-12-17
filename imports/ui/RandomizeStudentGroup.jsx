@@ -159,7 +159,6 @@ export default class RandomizeStudentGroup extends Component {
   }
 
   randomizeStudentGroup() {
-    debugger;
     let tempStudentArrayOfArrays = [];
     let nbrOfSmallGroups = 0;
 
@@ -317,7 +316,6 @@ export default class RandomizeStudentGroup extends Component {
     if (this.state.randomizedStudentArrayOfArrays == null ||
         this.state.randomizedStudentArrayOfArrays === undefined ||
         this.state.randomizedStudentArrayOfArrays.length === 0) {
-      debugger;
       return (<h4>ERROR: Small groups were empty.</h4>);
     }
     const tempArrayOfArrays = this.state.randomizedStudentArrayOfArrays;
