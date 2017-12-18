@@ -7,6 +7,7 @@ import { StudentGroups } from '../api/studentGroups.js';
 import StudentGroup from './StudentGroup.jsx';
 import EditStudentGroup from './EditStudentGroup.jsx';
 import RandomizeStudentGroup from './RandomizeStudentGroup.jsx';
+import { version } from '../../package.json';
 
 class App extends Component {
   constructor(props) {
@@ -102,6 +103,7 @@ class App extends Component {
       <div className="container">
         <header>
           <h1>Students2Groups</h1>
+          <h5>Version: {version}</h5>
           <AccountsUIWrapper />
           <br />
         </header>

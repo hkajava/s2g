@@ -58,6 +58,7 @@ h4 {
 h5 {
   font-size: 0.75em;
   padding-left: 5px;
+  margin-top: -15px;
 }
 
 #login-buttons {
