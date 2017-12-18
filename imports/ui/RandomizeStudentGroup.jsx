@@ -89,6 +89,12 @@ export default class RandomizeStudentGroup extends Component {
     const query = {};
     query.studentGroupName = this.props.studentGroupName;
     const currentStudentGroup = StudentGroups.findOne(query);
+
+    if (currentStudentGroup === undefined ||
+        currentStudentGroup === null) {
+      currentStudentArray = [];
+    }
+
     if (currentStudentGroup.students !== undefined &&
         currentStudentGroup.students !== null) {
       currentStudentArray = Array.from(currentStudentGroup.students);
@@ -104,6 +110,7 @@ export default class RandomizeStudentGroup extends Component {
         console.log('incremented randomization count for a student group', result);
       }
     });
+    mixpanel.track('User pressed randomize button.');
   }
 
   randomizeStudentGroup() {
