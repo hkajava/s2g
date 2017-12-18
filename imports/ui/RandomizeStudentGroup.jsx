@@ -77,34 +77,6 @@ export default class RandomizeStudentGroup extends Component {
     return studentArrayOfArrays;
   }
 
-  static addOddStudentsToOtherGroups(student, randomizedArrayOfArrays) {
-    // Add student to the smallest small group.
-    // If there are more than one with the smallest size then
-    // put it to one of them randomly
-
-    // let's initialize smallesGroupSize to the size of the first
-    // student small group (i.e. randomizedArrayOfArrays[0])
-    let smallestGroupSize = randomizedArrayOfArrays[0].length;
-    let tempSmallGroupIndexArray = [];
-    const tempRandomizedArrayOfArrays = Array.from(randomizedArrayOfArrays);
-
-    for (let i = 0; i < tempRandomizedArrayOfArrays.length; i += 1) {
-      if (tempRandomizedArrayOfArrays[i].length < smallestGroupSize) {
-        smallestGroupSize = tempRandomizedArrayOfArrays[i].length;
-        tempSmallGroupIndexArray = [];
-        tempSmallGroupIndexArray.push(i);
-      } else if (tempRandomizedArrayOfArrays[i].length === smallestGroupSize) {
-        // found a group which is as small as the so far smallest found
-        // let's add that to tempSmallGroupIndexArray to keep track of it
-        tempSmallGroupIndexArray.push(i);
-      }
-    }
-    const chosenIndexIndex = Math.floor(Math.random() * tempSmallGroupIndexArray.length);
-    const chosenIndex = tempSmallGroupIndexArray[chosenIndexIndex];
-    tempRandomizedArrayOfArrays[chosenIndex].push(student);
-    return tempRandomizedArrayOfArrays;
-  }
-
   constructor(props) {
     super(props);
 
@@ -182,69 +154,6 @@ export default class RandomizeStudentGroup extends Component {
     // update statistics counter that is used to monitor how much s2g app is actually used
     this.updateRandomizeStatistic();
   }
-
-  /*
-  randomizeStudentGroup() {
-    let randomizedArrayOfArrays = [];
-    const tempStudentArrayBeforeAbsentChecking = Array.from(this.state.studentArray);
-    const tempStudentArray = [];
-    const targetGroupSize = this.state.minGroupSize;
-
-    // remove absent students
-    for (let i = 0; i < tempStudentArrayBeforeAbsentChecking.length; i += 1) {
-      if (tempStudentArrayBeforeAbsentChecking[i].absent === false) {
-        tempStudentArray.push(tempStudentArrayBeforeAbsentChecking[i]);
-      }
-    }
-
-    if (tempStudentArray.length < 2 * this.state.minGroupSize) {
-      // There is not enough students to make small groups with minGroupSize
-      // and thus no point continuing algorithm.
-      randomizedArrayOfArrays[0] = Array.from(tempStudentArray);
-      this.setState({ selectedView: 'randomizedView',
-        randomizedStudentArrayOfArrays: randomizedArrayOfArrays });
-      return;
-    }
-
-    // There is such a number of students that they can be split into
-    // two or more small groups
-    let tempNumberOfStudentsInSmallGroup = 0;
-    let tempSmallGroupArray = [];
-    // note that index is not incremented as the array is shrinked
-
-    for (let i = 0; i < tempStudentArray.length;) {
-      const removedIndex = Math.floor(Math.random() * tempStudentArray.length);
-      const tempStudent = tempStudentArray[removedIndex];
-      tempSmallGroupArray.push(tempStudent);
-      tempNumberOfStudentsInSmallGroup += 1;
-      // time to remove student from origin array
-      tempStudentArray.splice(removedIndex, 1);
-      if (tempNumberOfStudentsInSmallGroup === targetGroupSize) {
-        randomizedArrayOfArrays.push(tempSmallGroupArray);
-        // let's reset temp type variables
-        tempNumberOfStudentsInSmallGroup = 0;
-        tempSmallGroupArray = [];
-      }
-    }
-    if (tempSmallGroupArray.length > 0) {
-      // there wasn't an even number of students to split
-      // into min group size.
-      // tempSmallGroupArray now contains the left out students
-      // that need to be put into existing small groups.
-      for (let i = 0; i < tempSmallGroupArray.length; i += 1) {
-        randomizedArrayOfArrays =
-          RandomizeStudentGroup.addOddStudentsToOtherGroups(tempSmallGroupArray[i],
-            randomizedArrayOfArrays);
-      }
-    }
-
-    this.setState({ selectedView: 'randomizedView',
-      randomizedStudentArrayOfArrays: randomizedArrayOfArrays });
-
-    // update statistics counter that is used to monitor how much s2g app is actually used
-    this.updateRandomizeStatistic();
-  }
-  */
 
   // deleteThisStudent is not used currently in RandomizeStudentGroup
   deleteThisStudent(studentFirstName, studentLastName,
