@@ -25,3 +25,4 @@ practicalmeteor:mocha
 practicalmeteor:chai
 practicalmeteor:mocha-console-runner
 test-in-console@1.1.0
+okgrow:analytics
