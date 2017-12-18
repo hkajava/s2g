@@ -1,5 +1,7 @@
 {
   "public": {
-
+    "analyticsSettings": {
+      "Mixpanel"         : {"token":  "...", "people": true},
+    }
   }
 }
