@@ -36,9 +36,9 @@ describe('Testing RandomizeStudentGroup.jsx', function() {
       assert.equal(1, RandomizeStudentGroup.sortAccordingToLastName({ firstName: 'Wes', lastName: 'Montgomery' },
         { firstName: 'John', lastName: 'McLaughlinall' }));
     });
-  });
-  it('should return -1', function() {
-    assert.equal(-1, RandomizeStudentGroup.sortAccordingToLastName({ firstName: 'Pat', lastName: 'Metheny' },
-      { firstName: 'Joe', lastName: 'Pass' }));
+    it('should return -1', function() {
+      assert.equal(-1, RandomizeStudentGroup.sortAccordingToLastName({ firstName: 'Pat', lastName: 'Metheny' },
+        { firstName: 'Joe', lastName: 'Pass' }));
+    });
   });
 });
