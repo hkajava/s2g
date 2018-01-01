@@ -134,6 +134,7 @@ export default class RandomizeStudentGroup extends Component {
         console.log('incremented randomization count for a student group', result);
       }
     });
+    mixpanel.track('User pressed randomize button.');
   }
 
   randomizeStudentGroup() {
