@@ -8,5 +8,4 @@ import '../imports/startup/accounts-config.js';
 
 Meteor.startup(() => {
   render(<App />, document.getElementById('render-target-app'));
-  // render(<Weekday />, document.getElementById('render-target-weekday'));
 });
