@@ -1,6 +1,6 @@
 {
   "name": "s2g",
-  "version": "0.1.0 mixpanel",
+  "version": "0.1.1-mixin",
   "private": true,
   "scripts": {
     "lint": "eslint .",
@@ -10,13 +10,15 @@
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",
+    "bootstrap": "^4.0.0-beta.3",
     "classnames": "^2.2.5",
     "meteor-node-stubs": "~0.2.4",
     "prop-types": "^15.6.0",
-    "react": "^15.6.1",
-    "react-addons-pure-render-mixin": "^15.6.0",
-    "react-dom": "^15.6.1",
-    "react-test-renderer": "^16.2.0"
+    "react": "^16.2.0",
+    "react-addons-pure-render-mixin": "^16.0.0-alpha.3",
+    "react-dom": "^16.2.0",
+    "react-test-renderer": "^16.2.0",
+    "reactstrap": "^5.0.0-alpha.4"
   },
   "eslintConfig": {
     "extends": "@meteorjs/eslint-config-meteor"
