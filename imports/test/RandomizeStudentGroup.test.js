@@ -1,8 +1,8 @@
 // import React from 'react';
 // import { shallow, mount, render } from 'enzyme';
 jest.mock('meteor/meteor');
-jest.mock('../api/studentGroups.js', () => ({
-}));
+jest.mock('../api/studentGroups.js', () => {
+});
 // import PropTypes from 'prop-types'; // ES6
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -22,10 +22,12 @@ let randomizedStudentArray1 = [{ firstName: 'John', lastName: 'Doe' },
   { firstName: 'Gary', lastName: 'Gregson' },
   { firstName: 'Jimmy', lastName: 'Carter' }];
 
+/**
 let randomizedStudentArray2 = [{ firstName: 'Joonas', lastName: 'Kokkonen' },
   { firstName: 'Jean', lastName: 'Sibelius' },
   { firstName: 'Marjatta', lastName: 'Meritähti' },
   { firstName: 'Oscar', lastName: 'Merikanto' }];
+*/
 
 function flatten(ary) {
   let ret = [];
@@ -64,11 +66,14 @@ beforeEach(() => {
     { firstName: 'Gary', lastName: 'Gregson' },
     { firstName: 'Jimmy', lastName: 'Carter' }];
 
+/**
   randomizedStudentArray2 = [{ firstName: 'Joonas', lastName: 'Kokkonen' },
     { firstName: 'Jean', lastName: 'Sibelius' },
     { firstName: 'Marjatta', lastName: 'Meritähti' },
     { firstName: 'Oscar', lastName: 'Merikanto' }];
+    */
 });
+
 
 describe('Testing RandomizeStudentGroup.jsx', function() {
   describe('static randomizeArray()', function() {
@@ -105,7 +110,8 @@ describe('Testing RandomizeStudentGroup.jsx', function() {
   describe('static generateRandomGroups()', function() {
     test('number of small groups 3, number of present students 9: should return an array that contains three arrays (i.e. smallgroups)', function() {
       // numberOfGroups 3
-      expect(RandomizeStudentGroup.generateRandomGroups(3, randomizedStudentArray1)).toHaveLength(3);
+      expect(RandomizeStudentGroup.generateRandomGroups(3,
+        randomizedStudentArray1)).toHaveLength(3);
     });
     test('number of small groups 3, number of present students 9: check that all 9 students can be found from the three subarrays', function() {
       // numberOfGroups 3
