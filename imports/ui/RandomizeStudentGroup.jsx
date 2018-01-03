@@ -1,6 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'; // ES6
 import { Meteor } from 'meteor/meteor';
+// import { Button } from 'reactstrap';
+/**
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem } from 'reactstrap';
+*/
 import Student from './Student.jsx';
 import { StudentGroups } from '../api/studentGroups.js';
 
@@ -134,7 +149,7 @@ export default class RandomizeStudentGroup extends Component {
         console.log('incremented randomization count for a student group', result);
       }
     });
-    mixpanel.track('User pressed randomize button.');
+    mixpanel.track('User pressed randomize button.'); // eslint-disable-line no-undef
   }
 
   randomizeStudentGroup() {
