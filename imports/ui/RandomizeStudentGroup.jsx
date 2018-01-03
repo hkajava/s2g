@@ -155,8 +155,17 @@ export default class RandomizeStudentGroup extends Component {
   randomizeStudentGroup() {
     let tempStudentArrayOfArrays = [];
     let nbrOfSmallGroups = 0;
+    let tempStudentArray = [];
 
-    let tempStudentArray = Array.from(this.state.studentArray);
+    // debugger;
+
+    // only take into account students that are present
+    for (let i = 0; i < this.state.studentArray.length; i += 1) {
+      if (this.state.studentArray[i].absent === false) {
+        tempStudentArray.push(this.state.studentArray[i]);
+      }
+    }
+
     tempStudentArray = RandomizeStudentGroup.randomizeArray(tempStudentArray);
     nbrOfSmallGroups = RandomizeStudentGroup.findNbrOfSmallGroups(this.state.nbrPresentStudents,
       this.state.minGroupSize);
