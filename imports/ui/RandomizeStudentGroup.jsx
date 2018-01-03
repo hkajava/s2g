@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'; // ES6
 import { Meteor } from 'meteor/meteor';
-import { Button } from 'reactstrap';
+// import { Button } from 'reactstrap';
 import Student from './Student.jsx';
 import { StudentGroups } from '../api/studentGroups.js';
 
@@ -279,8 +279,6 @@ export default class RandomizeStudentGroup extends Component {
     return (
       <div>
         <span>
-          <Button color="danger">BootStrap 4 button!</Button>
-          <br />
           <h3>{this.props.studentGroupName}
             (nbr enrolled: {this.state.nbrEnrolledStudents},
             nbr present: {this.state.nbrPresentStudents})
