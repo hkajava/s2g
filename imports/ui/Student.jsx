@@ -27,28 +27,27 @@ export default class Student extends Component {
 
     const studentClassName = classnames({
       studentNameButton: true,
+      canBeClicked: this.props.studentCanBeClicked,
       checked: this.props.studentAbsent,
     });
 
     // console.log(studentClassName);
 
     return (
-      <ul>
-        <li>
-          <button
-            className={studentClassName}
-            id={this.props.studentID}
-            onClick={this.toggleStudentNameClicked}
-          >
-            {this.props.studentFirstName} {this.props.studentLastName}
-          </button>
-          {(this.props.parentView === 'EditStudentGroup') &&
-          <button className="deleteButton" onClick={this.deleteThisStudent}>
-             Delete
-          </button>
-          }
-        </li>
-      </ul>
+      <div id="studentID">
+        <button
+          className={studentClassName}
+          id={this.props.studentID}
+          onClick={this.toggleStudentNameClicked}
+        >
+          {this.props.studentFirstName} {this.props.studentLastName}
+        </button>
+        {(this.props.parentView === 'EditStudentGroup') &&
+        <button className="deleteButton" onClick={this.deleteThisStudent}>
+          Delete
+        </button>
+        }
+      </div>
 
     );
   }

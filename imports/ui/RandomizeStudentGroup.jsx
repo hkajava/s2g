@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'; // ES6
 import { Meteor } from 'meteor/meteor';
+import Slider from 'react-rangeslider';
+// To include the default styles
+import 'react-rangeslider/lib/index.css';
 // import { Button } from 'reactstrap';
 /**
 import {
@@ -141,6 +144,12 @@ export default class RandomizeStudentGroup extends Component {
     return currentStudentArray;
   }
 
+  handleSliderChange = (value) => {
+    this.setState({
+      minGroupSize: value,
+    });
+  }
+
   updateRandomizeStatistic() {
     Meteor.call('studentGroups.updateRandomizeStatistic', this.props.studentGroupID, function(error, result) {
       if (error) {
@@ -269,6 +278,33 @@ export default class RandomizeStudentGroup extends Component {
     });
   }
 
+  renderSliderForMinGroupSize() {
+    const horizontalLabels = {
+      1: 'Individuals',
+      5: 'Medium',
+      10: 'SuperGroup',
+    };
+
+    return (
+      <div className="sliderComboCSSGridWrapper">
+        <br />
+        <div className="gridItemSlider" >
+          <Slider
+            value={this.state.minGroupSize}
+            orientation="horizontal"
+            labels={horizontalLabels}
+            min={1}
+            max={10}
+            onChange={this.handleSliderChange}
+          />
+        </div>
+        <div className="gridItemNumberBox" >
+          <div className="numberBox" >
+            {this.state.minGroupSize}
+          </div>
+        </div>
+      </div>);
+  }
 
   renderStudentGroup(studentArrayParam, studentCanBeClickedParam) {
     if (this.state.studentArray == null ||
@@ -303,11 +339,13 @@ export default class RandomizeStudentGroup extends Component {
       <div>
         <span>
           <h3>{this.props.studentGroupName}
-            (nbr enrolled: {this.state.nbrEnrolledStudents},
-            nbr present: {this.state.nbrPresentStudents})
           </h3>
+          <h5>Number of present students: {this.state.nbrPresentStudents}<br />
+            Number of absent students: {this.state.nbrAbsentStudents}
+          </h5>
+
           <button className="goToMainViewButton" onClick={this.handleGoToMainView}>
-            Go To Main View
+            Main View
           </button>
           {this.state.selectedView === 'randomizedView' &&
           <br />}
@@ -318,24 +356,31 @@ export default class RandomizeStudentGroup extends Component {
           </button>
           }
           <br />
-          <button
-            className="randomizeStudentGroupButton"
-            onClick={this.randomizeStudentGroup}
-          >
-            {this.state.selectedView === 'listView' ?
-              'Randomize into groups of minimum three' :
-              'Randomize AGAIN into groups of minimum three' }
-          </button>
+          {this.state.selectedView === 'listView' &&
+            this.props.currentUser &&
+            this.renderSliderForMinGroupSize()}
         </span>
         <br />
-        {this.state.selectedView === 'listView' &&
-         this.props.currentUser &&
-         this.renderStudentGroup(this.state.studentArray, true)}
+        <div className="studentListCSSGridWrapper">
+          {this.state.selectedView === 'listView' &&
+          this.props.currentUser &&
+          this.renderStudentGroup(this.state.studentArray, true)}
+        </div>
         <div className="smallGroupContainer">
           {this.state.selectedView === 'randomizedView' &&
           this.props.currentUser &&
           this.renderStudentSmallGroups()}
         </div>
+        <br />
+        <br />
+        <button
+          className="randomizeStudentGroupButton"
+          onClick={this.randomizeStudentGroup}
+        >
+          {this.state.selectedView === 'listView' ?
+            'Randomize!' :
+            'Randomize AGAIN!' }
+        </button>
       </div>
     );
   }
