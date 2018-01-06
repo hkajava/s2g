@@ -29,10 +29,17 @@ export default class EditStudentGroup extends Component {
     this.deleteThisStudent = this.deleteThisStudent.bind(this);
     this.handleGoToMainView = this.handleGoToMainView.bind(this);
 
+    let tempNbrEnrolledStudents = 0;
     const fetchedStudentArray = this.getStudentsInClient();
+
+    if (fetchedStudentArray !== null &&
+        fetchedStudentArray !== []) {
+      tempNbrEnrolledStudents = fetchedStudentArray.length;
+    }
 
     this.state =
     { studentArray: fetchedStudentArray,
+      nbrEnrolledStudents: tempNbrEnrolledStudents,
       placeholderForEnteringNewStudentToClass: 'Add student: <firstname> <lastname>' };
   }
 
@@ -88,7 +95,14 @@ export default class EditStudentGroup extends Component {
       } else {
         console.log('studentGroup.addStudent successful', result);
         const fetchedStudentArray = this.getStudentsInClient();
-        this.setState({ studentArray: fetchedStudentArray });
+        let tempNbrEnrolledStudents = 0;
+
+        if (fetchedStudentArray !== null &&
+            fetchedStudentArray !== []) {
+          tempNbrEnrolledStudents = fetchedStudentArray.length;
+        }
+        this.setState({ studentArray: fetchedStudentArray,
+          nbrEnrolledStudents: tempNbrEnrolledStudents });
       }
     }.bind(this));
   }
@@ -101,7 +115,14 @@ export default class EditStudentGroup extends Component {
         } else {
           console.log('studentGroup.removeStudent successful', result);
           const fetchedStudentArray = this.getStudentsInClient();
-          this.setState({ studentArray: fetchedStudentArray });
+          let tempNbrEnrolledStudents = 0;
+
+          if (fetchedStudentArray !== null &&
+              fetchedStudentArray !== []) {
+            tempNbrEnrolledStudents = fetchedStudentArray.length;
+          }
+          this.setState({ studentArray: fetchedStudentArray,
+            nbrEnrolledStudents: tempNbrEnrolledStudents });
         }
       }.bind(this));
   }
@@ -147,6 +168,8 @@ export default class EditStudentGroup extends Component {
       <div>
         <span>
           <h3>{this.props.studentGroupName}</h3>
+          <h5>Number of enrolled students: {this.state.nbrEnrolledStudents}<br />
+          </h5>
           <button className="goToMainViewButton" onClick={this.handleGoToMainView}>
             Go To Main View
           </button>
