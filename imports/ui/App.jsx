@@ -26,12 +26,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const s = document.createElement('script');
-    s.type = 'text/javascript';
-    s.async = true;
-    s.src = '//ra.revolvermaps.com/0/0/8.js?i=0paxcz5fm5z&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33';
-    s.innerHTML = '';
-    this.instance.appendChild(s);
+    // enabled only when user is not logged in
+    if (!this.props.currentUser) {
+      const s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = '//ra.revolvermaps.com/0/0/8.js?i=0paxcz5fm5z&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33';
+      s.innerHTML = '';
+      this.instance.appendChild(s);
+    }
   }
 
   handleSubmit(event) {
@@ -152,8 +155,11 @@ class App extends Component {
         <br />
         <br />
         <br />
-        <h5>Student2Groups application user locations:</h5>
-        <div className="revolvermapContainer" ref={el => (this.instance = el)} />
+        { !this.props.currentUser &&
+          <div>
+            <h5>Student2Groups application user locations:</h5>
+            <div className="revolvermapContainer" ref={el => (this.instance = el)} />
+          </div>}
       </div>
     );
   }

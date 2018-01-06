@@ -146,7 +146,7 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  height: 800px;
+  min-height: 650px;
   background: #f2894a;
   /* background: white; */
 }
@@ -536,6 +536,11 @@ ul {
   list-style: none;
   /* padding: 10px; */
   margin: 10px;
+}
+
+li{
+  margin: 10px 15px;
+  list-style: none;
 }
 
 /*

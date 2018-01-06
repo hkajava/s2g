@@ -282,7 +282,7 @@ export default class RandomizeStudentGroup extends Component {
     const horizontalLabels = {
       1: 'Individuals',
       5: 'Medium',
-      10: 'SuperGroup',
+      10: 'SuperGroups',
     };
 
     return (
@@ -361,11 +361,12 @@ export default class RandomizeStudentGroup extends Component {
             this.renderSliderForMinGroupSize()}
         </span>
         <br />
-        <div className="studentListCSSGridWrapper">
-          {this.state.selectedView === 'listView' &&
-          this.props.currentUser &&
-          this.renderStudentGroup(this.state.studentArray, true)}
-        </div>
+        { this.state.selectedView === 'listView' &&
+        this.props.currentUser &&
+          <div className="studentListCSSGridWrapper">
+            { this.renderStudentGroup(this.state.studentArray, true) }
+          </div>
+        }
         <div className="smallGroupContainer">
           {this.state.selectedView === 'randomizedView' &&
           this.props.currentUser &&
