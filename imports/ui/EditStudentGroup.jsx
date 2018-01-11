@@ -166,14 +166,10 @@ export default class EditStudentGroup extends Component {
   render() {
     return (
       <div>
-        <span>
-          <h3>{this.props.studentGroupName}</h3>
-          <h5>Number of enrolled students: {this.state.nbrEnrolledStudents}<br />
-          </h5>
-          <button className="goToMainViewButton" onClick={this.handleGoToMainView}>
-            Go To Main View
-          </button>
-        </span>
+
+        <h3>{this.props.studentGroupName}</h3>
+        <h5>Number of enrolled students: {this.state.nbrEnrolledStudents}<br />
+        </h5>
         { this.props.currentUser ?
           <form className="new-studentToClass" onSubmit={this.addStudentToClass} >
             <input
@@ -185,7 +181,16 @@ export default class EditStudentGroup extends Component {
             />
           </form> : ''
         }
-        {this.renderStudentGroup()}
+
+        <button className="goToMainViewButton" onClick={this.handleGoToMainView}>
+          Go To Main View
+        </button>
+
+
+        <br />
+        <div className="studentListEditStudentGroupCSSGridWrapper">
+          {this.renderStudentGroup()}
+        </div>
       </div>
     );
   }

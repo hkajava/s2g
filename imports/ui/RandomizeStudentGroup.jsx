@@ -336,36 +336,37 @@ export default class RandomizeStudentGroup extends Component {
 
   render() {
     return (
-      <div>
-        <span>
+      <div className="randomizeStudentGroupCSSGridWrapper">
+        <div className="gridItem_StudentGroupName_randomizeStudentGroupCSSGridWrapper">
           <h3>{this.props.studentGroupName}
           </h3>
           <h5>Number of present students: {this.state.nbrPresentStudents}<br />
             Number of absent students: {this.state.nbrAbsentStudents}
           </h5>
-
-          <button className="goToMainViewButton" onClick={this.handleGoToMainView}>
-            Main View
-          </button>
-          {this.state.selectedView === 'randomizedView' &&
-          <br />}
-          {this.state.selectedView === 'randomizedView' &&
+        </div>
+        <button className="goToMainViewButton" onClick={this.handleGoToMainView}>
+          Main View
+        </button>
+        {this.state.selectedView === 'randomizedView' &&
+        <br />}
+        {this.state.selectedView === 'randomizedView' &&
+        this.props.currentUser &&
+        <button className="goToListViewButton" onClick={this.handleGoToListView}>
+          Go To List View
+        </button>
+        }
+        <br />
+        {this.state.selectedView === 'listView' &&
           this.props.currentUser &&
-          <button className="goToListViewButton" onClick={this.handleGoToListView}>
-            Go To List View
-          </button>
-          }
-          <br />
-          {this.state.selectedView === 'listView' &&
-            this.props.currentUser &&
-            this.renderSliderForMinGroupSize()}
-        </span>
+          this.renderSliderForMinGroupSize()}
         <br />
         { this.state.selectedView === 'listView' &&
         this.props.currentUser &&
-          <div className="studentListCSSGridWrapper">
+        <div className="gridItem_StudentList_randomizeStudentGroupCSSGridWrapper">
+          <div className="studentListRandomizeStudentGroupCSSGridWrapper">
             { this.renderStudentGroup(this.state.studentArray, true) }
           </div>
+        </div>
         }
         <div className="smallGroupContainer">
           {this.state.selectedView === 'randomizedView' &&
