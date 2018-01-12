@@ -288,7 +288,7 @@ export default class RandomizeStudentGroup extends Component {
     return (
       <div className="sliderComboCSSGridWrapper">
         <br />
-        <div className="gridItemSlider" >
+        <div className="gridItem_Slider_sliderComboCSSGridWrapper" >
           <Slider
             value={this.state.minGroupSize}
             orientation="horizontal"
@@ -298,7 +298,7 @@ export default class RandomizeStudentGroup extends Component {
             onChange={this.handleSliderChange}
           />
         </div>
-        <div className="gridItemNumberBox" >
+        <div className="gridItem_NumberBox_sliderComboCSSGridWrapper" >
           <div className="numberBox" >
             {this.state.minGroupSize}
           </div>
@@ -344,6 +344,7 @@ export default class RandomizeStudentGroup extends Component {
             Number of absent students: {this.state.nbrAbsentStudents}
           </h5>
         </div>
+        {/**
         <button className="goToMainViewButton" onClick={this.handleGoToMainView}>
           Main View
         </button>
@@ -356,9 +357,13 @@ export default class RandomizeStudentGroup extends Component {
         </button>
         }
         <br />
+        */}
         {this.state.selectedView === 'listView' &&
           this.props.currentUser &&
-          this.renderSliderForMinGroupSize()}
+          <div className="gridItem_sliderCombo_randomizeStudentGroupCSSGridWrapper">
+            {this.renderSliderForMinGroupSize()}
+          </div>
+        }
         <br />
         { this.state.selectedView === 'listView' &&
         this.props.currentUser &&
@@ -373,16 +378,17 @@ export default class RandomizeStudentGroup extends Component {
           this.props.currentUser &&
           this.renderStudentSmallGroups()}
         </div>
-        <br />
-        <br />
-        <button
-          className="randomizeStudentGroupButton"
-          onClick={this.randomizeStudentGroup}
-        >
-          {this.state.selectedView === 'listView' ?
-            'Randomize!' :
-            'Randomize AGAIN!' }
-        </button>
+
+        <div className="gridItem_randomizeStudentGroupButton_randomizeStudentGroupCSSGridWrapper">
+          <button
+            className="randomizeStudentGroupButton"
+            onClick={this.randomizeStudentGroup}
+          >
+            {this.state.selectedView === 'listView' ?
+              'Randomize!' :
+              'Randomize AGAIN!' }
+          </button>
+        </div>
       </div>
     );
   }

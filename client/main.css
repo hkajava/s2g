@@ -47,8 +47,61 @@ body {
   */
 }
 
-.studentListRandomizeStudentGroupCSSGridWrapper {
+.randomizeStudentGroupCSSGridWrapper {
+
+  border-style: solid;
+  border-width: 5px;
+  border-color: black;
+
+  min-width: 1100px;
+  max-height: 450px;
+  position:relative;
+  float:left;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(11, 100px);
+  /*
+  grid-gap: 1px;
+  grid-auto-rows: 100px;
+  */
+  grid-auto-rows: minmax(auto, 200px);
+  grid-template-rows: repeat(10, 1fr);
+  /*
+  grid-auto-columns: fit-content(400px);
+  grid-auto-columns: min-content;
+  */
+}
+
+.gridItem_StudentGroupName_randomizeStudentGroupCSSGridWrapper {
+  /*
+  grid-row: 1;
+  */
+  border-style: solid;
+  border-width: 3px;
+  border-color: green;
+  grid-row: 1;
+  grid-column: 1 / 6;
+}
+
+.gridItem_StudentList_randomizeStudentGroupCSSGridWrapper {
+  /*
+  grid-row: 1;
+  */
+  border-style: solid;
+  border-width: 3px;
+  border-color: blue;
+
+
+  overflow: hidden;
+
   min-width: 400px;
+
+  grid-row: 2 / 9;
+  grid-column: 1 / 6;
+
+}
+
+.studentListRandomizeStudentGroupCSSGridWrapper {
   position:relative;
   float:left;
   display: grid;
@@ -64,46 +117,39 @@ body {
   */
 }
 
-.randomizeStudentGroupCSSGridWrapper {
-  min-width: 800px;
-  position:relative;
-  float:left;
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: repeat(10, 1fr);
-  grid-gap: 10px;
-  /* grid-auto-rows: 100px;*/
-  grid-auto-rows: minmax(50px, auto);
-  grid-template-rows: repeat(10, 1fr);
-  /*
-  grid-auto-columns: fit-content(400px);
-  grid-auto-columns: min-content;
-  */
-}
+.gridItem_sliderCombo_randomizeStudentGroupCSSGridWrapper {
 
-.gridItem_StudentGroupName_randomizeStudentGroupCSSGridWrapper {
-  /*
-  grid-row: 1;
-  */
-  grid-row: 1;
-  grid-column: 1 / 2;
-}
+  border-style: solid;
+  border-width: 3px;
+  border-color: red;
 
-.gridItem_StudentList_randomizeStudentGroupCSSGridWrapper {
-  /*
-  grid-row: 1;
-  */
-  grid-row: 5 / 10;
-  grid-column: 1 / 6;
+
+  overflow: hidden;
+
+  grid-row: 2 / 8;
+  grid-column: 6 / 12;
+
 }
 
 .sliderComboCSSGridWrapper {
+
+
+  border-style: solid;
+  border-width: 3px;
+  border-color: orange;
+
+  /*
   width: 50%;
+  */
   position:relative;
+  /*
   float:right;
+  */
   display: grid;
+  /*
   grid-template-columns: 100px 100px 100px;
-  grid-gap: 3px;
+  */
+  grid-template-columns: 1fr 1fr 1fr;
   grid-auto-rows: minmax(100px, auto);
   /*
   grid-auto-columns: fit-content(400px);
@@ -111,16 +157,86 @@ body {
   */
 }
 
-.gridItemNumberBox {
+.gridItem_Slider_sliderComboCSSGridWrapper {
+  grid-row: 1;
+  grid-column: 1 / 3;
+}
+
+
+.gridItem_NumberBox_sliderComboCSSGridWrapper {
   /*
   grid-row: 1;
   */
   grid-row: 1;
-  grid-column: 4;
+  grid-column: 3;
 }
-.gridItemSlider {
-  grid-row: 1;
-  grid-column: 1 / 4;
+
+.numberBox {
+    /* border-radius: 50%; */
+
+    width: 180px;
+    height: 180px;
+    /*padding: 8px;*/
+    position: relative;
+    float:right;
+
+    /*
+    position:absolute;
+    right: 320px;
+
+    */
+
+    background: #a50d11;
+    border: 2px solid #666;
+    color: #000000;
+    text-align: center;
+
+    font: 150px Arial, sans-serif;
+}
+
+.gridItem_randomizeStudentGroupButton_randomizeStudentGroupCSSGridWrapper {
+
+  border-style: solid;
+  border-width: 3px;
+  border-color: grey;
+
+
+  overflow: hidden;
+
+  grid-row: 8 / 10;
+  grid-column: 9 / 12;
+
+}
+
+.randomizeStudentGroupButton {
+	/* background-color:#00cc66; */
+  background-color:#f9d072;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:0px;
+	border:1px solid #4e6096;
+	/*display:inline-block;*/
+  display: flex;
+    /*
+  float: right;
+  margin-top: 200px; */
+	cursor:pointer;
+	color:#000000;
+	font-family:Arial;
+	font-size:50px;
+  /*
+	padding:2px 4px;
+  margin-left: 10px;
+  */
+	text-decoration:none;
+	text-shadow:0px 1px 0px #283966;
+}
+.randomizeStudentGroupButton:hover {
+	background-color:#00aa77;
+}
+.randomizeStudentGroupButton:active {
+	position:relative;
+	top:1px;
 }
 
 .revolvermapContainer {
@@ -150,6 +266,7 @@ body {
     height: 80px;
     /*padding: 8px;*/
     position: relative;
+    margin-top: 5px;
     float:right;
 
     background:#f9d072;
@@ -170,29 +287,6 @@ body {
 	background-color:#476e9e;
 }
 
-
-.numberBox {
-    /* border-radius: 50%; */
-
-    width: 180px;
-    height: 180px;
-    /*padding: 8px;*/
-    position: relative;
-    float:right;
-
-    /*
-    position:absolute;
-    right: 320px;
-
-    */
-
-    background: #a50d11;
-    border: 2px solid #666;
-    color: #000000;
-    text-align: center;
-
-    font: 150px Arial, sans-serif;
-}
 
 .container {
   max-width: 1200px;
@@ -447,34 +541,6 @@ h6 {
 	background-color:#00aa77;
 }
 .goToListViewButton:active {
-	position:relative;
-	top:1px;
-}
-
-.randomizeStudentGroupButton {
-	/* background-color:#00cc66; */
-  background-color:#f9d072;
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	border-radius:0px;
-	border:1px solid #4e6096;
-	/*display:inline-block;*/
-  display: flex;
-  float: right;
-  /* margin-top: 200px; */
-	cursor:pointer;
-	color:#000000;
-	font-family:Arial;
-	font-size:50px;
-	padding:2px 4px;
-  margin-left: 10px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #283966;
-}
-.randomizeStudentGroupButton:hover {
-	background-color:#00aa77;
-}
-.randomizeStudentGroupButton:active {
 	position:relative;
 	top:1px;
 }

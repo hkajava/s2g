@@ -114,9 +114,9 @@ class App extends Component {
     return (
       <div className="container">
         <header>
+          <div className="loginCircle"><AccountsUIWrapper /></div>
           <h1>Students2Groups</h1>
           <h5>Version: {version}</h5>
-          <div className="loginCircle"><AccountsUIWrapper /></div>
           <br />
         </header>
 
