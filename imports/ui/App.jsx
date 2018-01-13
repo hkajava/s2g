@@ -158,8 +158,10 @@ class App extends Component {
         { !this.props.currentUser &&
           <div>
             <h5>Student2Groups application user locations:</h5>
-            <div className="revolvermapContainer" ref={el => (this.instance = el)} />
-          </div>}
+            <div className="revolvermapContainer" ref={el => (this.instance = el)} >
+            </div>
+          </div>
+        }
       </div>
     );
   }

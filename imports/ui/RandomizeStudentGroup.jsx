@@ -280,14 +280,17 @@ export default class RandomizeStudentGroup extends Component {
 
   renderSliderForMinGroupSize() {
     const horizontalLabels = {
-      1: 'Individuals',
-      5: 'Medium',
-      10: 'SuperGroups',
+      1: '1',
+      5: '5',
+      10: '10',
     };
 
     return (
       <div className="sliderComboCSSGridWrapper">
         <br />
+        <div className="gridItem_Instructions_sliderComboCSSGridWrapper" >
+          Select minimum group size:
+        </div>
         <div className="gridItem_Slider_sliderComboCSSGridWrapper" >
           <Slider
             value={this.state.minGroupSize}
@@ -337,6 +340,19 @@ export default class RandomizeStudentGroup extends Component {
   render() {
     return (
       <div className="randomizeStudentGroupCSSGridWrapper">
+        <div className="gridItem_goToMainViewButton_randomizeStudentGroupCSSGridWrapper">
+          <button className="goToMainViewButton" onClick={this.handleGoToMainView}>
+            MainView
+          </button>
+          {this.state.selectedView === 'randomizedView' &&
+          <br />}
+          {this.state.selectedView === 'randomizedView' &&
+          this.props.currentUser &&
+          <button className="goToListViewButton" onClick={this.handleGoToListView}>
+            Go To List View
+          </button>
+          }
+        </div>
         <div className="gridItem_StudentGroupName_randomizeStudentGroupCSSGridWrapper">
           <h3>{this.props.studentGroupName}
           </h3>
@@ -344,20 +360,6 @@ export default class RandomizeStudentGroup extends Component {
             Number of absent students: {this.state.nbrAbsentStudents}
           </h5>
         </div>
-        {/**
-        <button className="goToMainViewButton" onClick={this.handleGoToMainView}>
-          Main View
-        </button>
-        {this.state.selectedView === 'randomizedView' &&
-        <br />}
-        {this.state.selectedView === 'randomizedView' &&
-        this.props.currentUser &&
-        <button className="goToListViewButton" onClick={this.handleGoToListView}>
-          Go To List View
-        </button>
-        }
-        <br />
-        */}
         {this.state.selectedView === 'listView' &&
           this.props.currentUser &&
           <div className="gridItem_sliderCombo_randomizeStudentGroupCSSGridWrapper">
