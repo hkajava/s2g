@@ -10,6 +10,8 @@ meteor v.16+
 eslint v.4+
 node v. 8+
 lessc v. 2.7+
+jest v. 21.2+
+
 
 ## Installation
 
