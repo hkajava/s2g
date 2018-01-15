@@ -4,24 +4,37 @@ Students2Groups Meteor application. Noticed in Spanish conversation class that t
 ![s2g screen cast](imports/filesforgithubREADME/s2g_screencast_20171116.gif "Students2Groups (css part not polished I know...)")
 The UI is not yet polished, responsive or otherwise cool. Let's see if there is time to furher develop this app.
 
+## Prerequisites for installation
 
-## Getting Started
+meteor v.16+
+eslint v.4+
+node v. 8+
+lessc v. 2.7+
+
+## Installation
 
 Do git clone on the project
 ```
 >git clone git@github.com:hkajava/s2g.git
 ```
 
-### Installing
+A custom version of react-rangeslider is needed.
+In s2g folder
+```
+>npm install
+>cd node_modules
+>rm -rf react-rangeslider
+>git clone git@github.com:hkajava/react-rangeslider
+>cd react-rangeslider
+>npm install
+>npm run build
+```
 
-git clone
+
 run
+go to s2g main level
 ```
->meteor npm install
-```
-and then to start application
-```
->meteor npm run
+>meteor run
 ```
 
 ## Authors
