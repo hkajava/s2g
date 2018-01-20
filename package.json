@@ -22,7 +22,12 @@
     "reactstrap": "^5.0.0-alpha.4"
   },
   "eslintConfig": {
-    "extends": "@meteorjs/eslint-config-meteor"
+    "extends": "airbnb",
+    "env": {
+      "browser": true,
+      "node": true,
+      "jest": true
+    }
   },
   "devDependencies": {
     "@meteorjs/eslint-config-meteor": "^1.0.5",

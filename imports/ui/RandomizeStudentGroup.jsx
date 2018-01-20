@@ -274,7 +274,7 @@ export default class RandomizeStudentGroup extends Component {
     return tempArrayOfArrays.map((studentSmallGroup, index) => {
       const tempGroupNumber = index + 1;
       returnString = `Group Number ${tempGroupNumber} `;
-      return (<div className="smallGroup" key={returnString}> <h3>{returnString}</h3>{this.renderStudentGroup(tempArrayOfArrays[index], false)} </div>);
+      return (<div className="smallGroupCSSGridWrapper" key={returnString}> <h3>{returnString}</h3>{this.renderStudentGroup(tempArrayOfArrays[index], false)} </div>);
     });
   }
 
@@ -344,15 +344,18 @@ export default class RandomizeStudentGroup extends Component {
           <button className="goToMainViewButton" onClick={this.handleGoToMainView}>
             MainView
           </button>
+        </div>
           {this.state.selectedView === 'randomizedView' &&
           <br />}
           {this.state.selectedView === 'randomizedView' &&
           this.props.currentUser &&
-          <button className="goToListViewButton" onClick={this.handleGoToListView}>
-            Go To List View
-          </button>
+          <div className="gridItem_goToListViewButton_randomizeStudentGroupCSSGridWrapper">
+            <button className="goToListViewButton" onClick={this.handleGoToListView}>
+              Go To List View
+            </button>
+          </div>
           }
-        </div>
+        <br />
         <div className="gridItem_StudentGroupName_randomizeStudentGroupCSSGridWrapper">
           <h3>{this.props.studentGroupName}
           </h3>
@@ -375,7 +378,7 @@ export default class RandomizeStudentGroup extends Component {
           </div>
         </div>
         }
-        <div className="smallGroupContainer">
+        <div className="smallGroupContainerCSSGridWrapper">
           {this.state.selectedView === 'randomizedView' &&
           this.props.currentUser &&
           this.renderStudentSmallGroups()}
