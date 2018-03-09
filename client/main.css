@@ -62,6 +62,7 @@ body {
 .studentListEditStudentGroupCSSGridWrapper {
 
   margin-top: 5px;
+  margin-left: 5px;
 
   min-width: 800px;
   position:relative;
@@ -145,6 +146,7 @@ body {
   margin-top: 100px;
   */
   margin-right: 50px;
+  margin-left: 5px;
 	cursor:pointer;
 	color:#000000;
 	font-family:Arial;
@@ -455,7 +457,7 @@ header {
   /* background: #d2edf4;*/
   /* background: #e2994a; */
   /* background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%); */
-  padding: 2px 15px 15px 15px;
+  padding: 2px 15px 15px 5px;
   margin-top: 20px;
   position: relative;
 }
@@ -632,6 +634,7 @@ h6 {
 .goToListViewButton {
   /* background-color:#00cc66; */
   width: 80px;
+  margin-left: 5px;
 
   background-color:#f9d072;
 	-moz-border-radius:4px;
@@ -720,18 +723,20 @@ form {
 .new-studentToClass input {
 
   box-sizing: border-box;
-  background: transparent;
+  background: #f9d072;
   /** border: none; */
   border-top: 1px dotted;
   border-right: 1px dotted;
   border-left: 1px dotted;
   border-bottom: 1px dotted;
-  height: 17px;
+  height: 25px;
   width: 33%;
   margin-left: 5px;
   margin-bottom: 10px;
   padding-right: 80px;
-  font-size: 0.9em;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: 0.8em;
 
 }
 

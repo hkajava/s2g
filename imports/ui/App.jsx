@@ -116,7 +116,7 @@ class App extends Component {
         <header>
           <div className="loginCircle"><AccountsUIWrapper /></div>
           <h1>Students2Groups</h1>
-          <h5>Version: {version}</h5>
+          <h6>Version: {version}</h6>
           <br />
         </header>
 

@@ -170,6 +170,9 @@ export default class EditStudentGroup extends Component {
         <h3>{this.props.studentGroupName}</h3>
         <h5>Number of enrolled students: {this.state.nbrEnrolledStudents}<br />
         </h5>
+        <button className="goToMainViewButton" onClick={this.handleGoToMainView}>
+          MainView
+        </button>
         { this.props.currentUser ?
           <form className="new-studentToClass" onSubmit={this.addStudentToClass} >
             <input
@@ -181,11 +184,6 @@ export default class EditStudentGroup extends Component {
             />
           </form> : ''
         }
-
-        <button className="goToMainViewButton" onClick={this.handleGoToMainView}>
-          Go To Main View
-        </button>
-
 
         <br />
         <div className="studentListEditStudentGroupCSSGridWrapper">
