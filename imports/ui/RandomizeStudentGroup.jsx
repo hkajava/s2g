@@ -375,7 +375,7 @@ export default class RandomizeStudentGroup extends Component {
           </div>
         </div>
         }
-        <div className="smallGroupContainer">
+        <div className="smallGroupContainerGrid">
           {this.state.selectedView === 'randomizedView' &&
           this.props.currentUser &&
           this.renderStudentSmallGroups()}
