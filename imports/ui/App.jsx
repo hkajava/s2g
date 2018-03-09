@@ -112,7 +112,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container_test">
         <header>
           <div className="loginCircle"><AccountsUIWrapper /></div>
           <h1>Students2Groups</h1>

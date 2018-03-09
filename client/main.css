@@ -20,8 +20,26 @@ body {
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
+  min-width: 1000px;
+  width: auto ! important;
+  /* max-width: 1200px; */
+  /* margin: 0 auto; */
+  min-height: 650px;
+  height: auto;
+  background: #f2894a;
+  /*
+  overflow: hidden;
+  background: white; */
+}
+
+.container_test {
+  margin: 2%;
+  padding: 1%;
+  min-width: 1000px;
+  width: auto ! important;
+  max-width: 1400px;
+  /* max-width: 1200px; */
+  /* margin: 0 auto; */
   min-height: 650px;
   height: auto;
   background: #f2894a;
@@ -42,7 +60,7 @@ body {
 */
 
 .studentListEditStudentGroupCSSGridWrapper {
-  min-width: 1000px;
+  min-width: 800px;
   position:relative;
   float:left;
   display: grid;
@@ -72,9 +90,11 @@ body {
   float:left;
   display: grid;
   grid-auto-flow: column;
-  grid-auto-rows: min-content max-content auto;
+
   grid-template-columns: repeat(11, 100px);
+  grid-template-rows: repeat(6, 100px) auto;
   /*
+  grid-auto-rows: min-content max-content auto;
   grid-gap: 1px;
   grid-auto-rows: 100px;
   grid-auto-rows: minmax(auto, 200px); */
@@ -286,11 +306,10 @@ body {
   border-width: 3px;
   border-color: grey;
 
-
   overflow: hidden;
 
-  grid-row: 8;
-  grid-column: 9 / 12;
+  grid-row: 4 / 6;
+  grid-column: 9 / span 5;
 
 }
 
@@ -311,7 +330,7 @@ body {
 	cursor:pointer;
 	color:#000000;
 	font-family:Arial;
-	font-size:50px;
+	font-size:40px;
   /*
 	padding:2px 4px;
   margin-left: 10px;
@@ -758,7 +777,7 @@ header .hide-completed {
 
 
 
-@media (max-width: 600px) {
+@media (max-width: 2000px) {
   li {
     padding: 12px 15px;
   }
