@@ -5,8 +5,9 @@ body {
   background-color: #f2994a;
   /*
   background-color: #315481;
-  background-image: linear-gradient(to bottom, #315481, #918e82 100%);
   */
+  background-image: linear-gradient(to bottom, #315481, #918e82 100%);
+
   background-attachment: fixed;
   position: absolute;
   top: 0;
@@ -323,6 +324,8 @@ body {
 
 .randomizeStudentGroupButton {
 	/* background-color:#00cc66; */
+  margin-left: 15px;
+
   background-color:#f9d072;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
@@ -398,7 +401,7 @@ body {
 }
 
 .loginCircle:hover {
-	background-color:#476e9e;
+	background-color: #00aa77;
 }
 
 .smallGroupContainerGrid {
@@ -407,6 +410,7 @@ body {
   flex-direction: row;
   */
   margin-left: 5px;
+  margin-right: 10px;
 
   display: grid;
   grid-auto-flow: row;
@@ -479,7 +483,7 @@ h5 {
 }
 
 h6 {
-  font-size: 0.75em;
+  font-size: 0.50em;
   padding-left: 5px;
   /* margin-top: -15px; */
 }
@@ -647,8 +651,10 @@ h6 {
 	color:#000000;
 	font-family:Arial;
 	font-size:15px;
-	padding:2px 4px;
-  margin-top: 2px;
+	/*
+  padding:2px 4px;
+  */
+  margin-top: 5px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #283966;
 }
@@ -660,18 +666,21 @@ h6 {
 	top:1px;
 }
 
-/*
+
 h1 {
 
-  font-size: 1.5em;
+  font-size: 5rem ! important;
+  font-family: Arial;
   color: black;
   margin: 0;
+  /*
   margin-bottom: 10px;
+  */
   display: inline-block;
   margin-right: 1em;
 
 }
-*/
+
 
 label {
   /* display: block; */
@@ -703,6 +712,7 @@ form {
   height: 30px;
   padding-left: 5px;
   padding-right: 80px;
+  padding-bottom: 2px;
   margin-left: 10px;
   margin-bottom: 10px;
   background: #f9d072;
@@ -713,6 +723,7 @@ form {
   border-bottom: 1px dotted;
   width: 50%;
   font-size: 1.5em;
+  font-family: Arial;
 
 }
 

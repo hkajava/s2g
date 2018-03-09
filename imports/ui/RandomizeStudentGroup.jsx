@@ -345,8 +345,6 @@ export default class RandomizeStudentGroup extends Component {
             MainView
           </button>
           {this.state.selectedView === 'randomizedView' &&
-          <br />}
-          {this.state.selectedView === 'randomizedView' &&
           this.props.currentUser &&
           <button className="goToListViewButton" onClick={this.handleGoToListView}>
             ListView
