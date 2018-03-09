@@ -120,7 +120,7 @@ export default class RandomizeStudentGroup extends Component {
       studentArray: fetchedStudentArray,
       randomizedStudentArrayOfArrays: [],
       placeholderForEnteringNewStudentToClass: 'Add student',
-      minGroupSize: 3,
+      minGroupSize: 4,
       nbrEnrolledStudents: fetchedStudentArray.length,
       nbrPresentStudents: fetchedStudentArray.length,
       nbrAbsentStudents: fetchedStudentArray.length };
