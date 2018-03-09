@@ -273,7 +273,7 @@ export default class RandomizeStudentGroup extends Component {
 
     return tempArrayOfArrays.map((studentSmallGroup, index) => {
       const tempGroupNumber = index + 1;
-      returnString = `Group Number ${tempGroupNumber} `;
+      returnString = `Group ${tempGroupNumber} `;
       return (<div className="smallGroup" key={returnString}> <h3>{returnString}</h3>{this.renderStudentGroup(tempArrayOfArrays[index], false)} </div>);
     });
   }
@@ -349,7 +349,7 @@ export default class RandomizeStudentGroup extends Component {
           {this.state.selectedView === 'randomizedView' &&
           this.props.currentUser &&
           <button className="goToListViewButton" onClick={this.handleGoToListView}>
-            Go To List View
+            ListView
           </button>
           }
         </div>

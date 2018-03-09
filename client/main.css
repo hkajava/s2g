@@ -33,8 +33,8 @@ body {
 }
 
 .container_test {
-  margin: 2%;
-  padding: 1%;
+  margin: 5%;
+  padding: 2%;
   min-width: 1000px;
   width: auto ! important;
   max-width: 1400px;
@@ -60,6 +60,9 @@ body {
 */
 
 .studentListEditStudentGroupCSSGridWrapper {
+
+  margin-top: 5px;
+
   min-width: 800px;
   position:relative;
   float:left;
@@ -86,8 +89,10 @@ body {
   width: auto;
   min-height: 450px;
 
+  /*
   position:relative;
   float:left;
+  */
   display: grid;
   grid-auto-flow: column;
 
@@ -130,7 +135,7 @@ body {
 	border-radius:0px;
 	border:1px solid #4e6096;
 	/*display:inline-block;*/
-
+  width: 80px;
   position:relative;
   /*
   float:left;
@@ -150,9 +155,11 @@ body {
   transform: rotate(-90deg);
   */
 }
+
 .goToMainViewButton:hover {
 	background-color:#00aa77;
 }
+
 .goToMainViewButton:active {
 	position:relative;
 	top:1px;
@@ -176,7 +183,6 @@ body {
   border-style: none;
   border-width: 3px;
   border-color: blue;
-
 
   overflow: hidden;
 
@@ -298,8 +304,6 @@ body {
   grid-column: 1 / 4;
 }
 
-
-
 .gridItem_randomizeStudentGroupButton_randomizeStudentGroupCSSGridWrapper {
 
   border-style: none;
@@ -395,20 +399,43 @@ body {
 	background-color:#476e9e;
 }
 
-
 .smallGroupContainer {
-  display: flex; /* or inline-flex */
+  display: flex;
   flex-direction: row;
   margin-left: 5px;
+
+  /*
+  grid-auto-columns: fit-content(400px);
+  grid-auto-columns: min-content;
+  */
 }
 
-
 .smallGroup {
-  display: flex; /* or inline-flex */
+
+  /*
+  display: flex;
   flex-direction: column;
   border: 1px solid #555;
   margin: 5px;
   padding: 5px;
+  */
+  min-width: 150px;
+  height: auto;
+  border: 1px solid #555;
+  margin-right: 5px;
+  padding: 5px;
+
+  position:relative;
+  float:left;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: 1fr;
+  grid-gap: 5px;
+  /* grid-auto-rows: 100px;*/
+  grid-auto-rows: minmax(30px, auto);
+
+  grid-template-rows: repeat(8, 1fr);
+
 }
 
 header {
@@ -475,7 +502,7 @@ h6 {
 }
 
 .studentNameButton {
-	background-color:#7892a2;
+	background-color:green;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:0px;
@@ -591,6 +618,8 @@ h6 {
 
 .goToListViewButton {
   /* background-color:#00cc66; */
+  width: 80px;
+
   background-color:#f9d072;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
@@ -603,7 +632,7 @@ h6 {
 	font-family:Arial;
 	font-size:15px;
 	padding:2px 4px;
-  margin-left: 10px;
+  margin-top: 2px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #283966;
 }
@@ -642,13 +671,13 @@ input {
   vertical-align: bottom;
   position: relative;
   top: -1px;
-  *overflow: hidden;
+  overflow: hidden;
 }
 
 
 form {
   margin-top: 10px;
-  margin-bottom: -10px;
+  margin-bottom: 5px;
   position: relative;
 }
 
@@ -660,7 +689,7 @@ form {
   padding-right: 80px;
   margin-left: 10px;
   margin-bottom: 10px;
-  background: transparent;
+  background: #f9d072;
   /** border: none; */
   border-top: 1px dotted;
   border-right: 1px dotted;
@@ -689,7 +718,7 @@ form {
   margin-left: 5px;
   margin-bottom: 10px;
   padding-right: 80px;
-  font-size: 1em;
+  font-size: 0.9em;
 
 }
 
@@ -776,7 +805,6 @@ header .hide-completed {
 }
 
 
-
 @media (max-width: 2000px) {
   li {
     padding: 12px 15px;
@@ -788,11 +816,11 @@ header .hide-completed {
   }
 
   .new-studentGroup input {
-    padding-bottom: 5px;
+    /* padding-bottom: 5px; */
   }
 
   .new-studentToClass input {
-    padding-bottom: 5px;
+    /* padding-bottom: 5px; */
     padding-left: 10px;
   }
 }
