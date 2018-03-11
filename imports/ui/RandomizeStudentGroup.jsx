@@ -123,7 +123,7 @@ export default class RandomizeStudentGroup extends Component {
       minGroupSize: 4,
       nbrEnrolledStudents: fetchedStudentArray.length,
       nbrPresentStudents: fetchedStudentArray.length,
-      nbrAbsentStudents: fetchedStudentArray.length };
+      nbrAbsentStudents: 0 };
   }
 
   getStudentsInClient() {
