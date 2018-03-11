@@ -64,7 +64,7 @@ export default class RandomizeStudentGroup extends Component {
   // New algorithm
   static findNbrOfSmallGroups(nbrPresentStudents, minGroupSize) {
     // debugger;
-    if (nbrPresentStudents <= 2 * minGroupSize) {
+    if (nbrPresentStudents < 2 * minGroupSize) {
       // there is not enough present students to divide them into small groups.
       return 1;
     }
