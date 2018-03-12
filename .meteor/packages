@@ -26,3 +26,4 @@ practicalmeteor:chai
 practicalmeteor:mocha-console-runner
 test-in-console@1.2.1
 okgrow:analytics
+fourseven:scss
