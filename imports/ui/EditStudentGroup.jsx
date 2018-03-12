@@ -186,7 +186,7 @@ export default class EditStudentGroup extends Component {
         }
 
         <br />
-        <div className="studentListEditStudentGroupCSSGridWrapper">
+        <div className="editStudentGroupCSSGridWrapper">
           {this.renderStudentGroup()}
         </div>
       </div>

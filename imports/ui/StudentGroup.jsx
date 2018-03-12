@@ -29,10 +29,10 @@ export default class StudentGroup extends Component {
           <button className="selectGroupButton" onClick={this.selectThisStudentGroup}>
             {this.props.studentGroupName}
           </button>
-          <button className="editButton" onClick={this.editThisStudentGroup}>
+          <button className="editStudentGroupButton" onClick={this.editThisStudentGroup}>
              Edit
           </button>
-          <button className="deleteButton" onClick={this.deleteThisStudentGroup}>
+          <button className="deleteStudentGroupButton" onClick={this.deleteThisStudentGroup}>
              Delete
           </button>
         </span>

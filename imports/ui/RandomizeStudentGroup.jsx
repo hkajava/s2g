@@ -261,6 +261,7 @@ export default class RandomizeStudentGroup extends Component {
   handleGoToListView() {
     this.setState({ selectedView: 'listView' });
   }
+
   renderStudentSmallGroups() {
     if (this.state.randomizedStudentArrayOfArrays == null ||
         this.state.randomizedStudentArrayOfArrays === undefined ||
@@ -351,7 +352,7 @@ export default class RandomizeStudentGroup extends Component {
           </button>
           }
         </div>
-        <div className="gridItem_StudentGroupName_randomizeStudentGroupCSSGridWrapper">
+        <div className="gridItem_studentGroupName_randomizeStudentGroupCSSGridWrapper">
           <h3>{this.props.studentGroupName}
           </h3>
           <h5>Number of present students: {this.state.nbrPresentStudents}<br />
@@ -367,17 +368,18 @@ export default class RandomizeStudentGroup extends Component {
         <br />
         { this.state.selectedView === 'listView' &&
         this.props.currentUser &&
-        <div className="gridItem_StudentList_randomizeStudentGroupCSSGridWrapper">
+        <div className="gridItem_studentList_randomizeStudentGroupCSSGridWrapper">
           <div className="studentListRandomizeStudentGroupCSSGridWrapper">
             { this.renderStudentGroup(this.state.studentArray, true) }
           </div>
         </div>
         }
-        <div className="smallGroupContainerGrid">
-          {this.state.selectedView === 'randomizedView' &&
-          this.props.currentUser &&
-          this.renderStudentSmallGroups()}
+        {this.state.selectedView === 'randomizedView' &&
+        this.props.currentUser &&
+        <div className="gridItem_smallGroupContainerGrid_randomizeStudentGroupCSSGridWrapper">
+          {this.renderStudentSmallGroups()}
         </div>
+        }
 
         <div className="gridItem_randomizeStudentGroupButton_randomizeStudentGroupCSSGridWrapper">
           <button
