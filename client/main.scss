@@ -1,4 +1,10 @@
 /* CSS declarations go here */
+
+$interactivity-color: #f9d072;
+/*
+$interactivity-color: yellow;
+*/
+
 body {
 
   font-family: sans-serif;
@@ -131,7 +137,7 @@ body {
 .goToMainViewButton {
   /* background-color:#00cc66; */
 
-  background-color:#f9d072;
+  background-color:$interactivity-color;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:0px;
@@ -326,7 +332,7 @@ body {
 	/* background-color:#00cc66; */
   margin-left: 15px;
 
-  background-color:#f9d072;
+  background-color:$interactivity-color;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:0px;
@@ -364,7 +370,7 @@ body {
     float:left;
 
 /*
-    background:#f9d072;
+    background:$interactivity-color;
     -moz-border-radius:4px;
     -webkit-border-radius:4px;
     border-radius: 100%;
@@ -386,7 +392,7 @@ body {
     /* margin-right: 100px; */
     float:right;
 
-    background:#f9d072;
+    background:$interactivity-color;
     -moz-border-radius:4px;
     -webkit-border-radius:4px;
     border-radius: 100%;
@@ -493,18 +499,16 @@ h6 {
   margin-top: 30px;
 }
 
-
-
 .selectGroupButton {
 	/*background-color:#7892a2;*/
-  background-color:#f9d072;
+  background-color:$interactivity-color;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:0px;
 	border:1px solid #4e6096;
 	display:inline-block;
 	cursor:pointer;
-	color:#00000000;
+	color:#000000;
 	font-family:Arial;
 	font-size:16px;
 	padding:2px 4px;
@@ -538,7 +542,7 @@ h6 {
 }
 
 .studentNameButton.canBeClicked {
-  background-color:#f9d072;
+  background-color:$interactivity-color;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:0px;
@@ -586,7 +590,7 @@ h6 {
 
 .editButton {
   /*background-color:#7892a2;*/
-  background-color:#f9d072;
+  background-color:$interactivity-color;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:0px;
@@ -611,7 +615,7 @@ h6 {
 
 .deleteButton {
   /*background-color:#7892a2;*/
-  background-color:#f9d072;
+  background-color:$interactivity-color;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:0px;
@@ -640,7 +644,7 @@ h6 {
   width: 80px;
   margin-left: 5px;
 
-  background-color:#f9d072;
+  background-color:$interactivity-color;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:0px;
@@ -715,7 +719,7 @@ form {
   padding-bottom: 2px;
   margin-left: 10px;
   margin-bottom: 10px;
-  background: #f9d072;
+  background: $interactivity-color;
   /** border: none; */
   border-top: 1px dotted;
   border-right: 1px dotted;
@@ -734,7 +738,7 @@ form {
 .new-studentToClass input {
 
   box-sizing: border-box;
-  background: #f9d072;
+  background: $interactivity-color;
   /** border: none; */
   border-top: 1px dotted;
   border-right: 1px dotted;
@@ -814,20 +818,14 @@ li.checked .text {
   text-decoration: line-through;
 }
 
-
-
 li.private {
   background: #eee;
   border-color: #ddd;
 }
 
-
-
 header .hide-completed {
   /* float: right; */
 }
-
-
 
 .toggle-private {
   margin-left: 5px;
