@@ -1,6 +1,7 @@
 /* CSS declarations go here */
 
 $interactivity-color: #f9d072;
+$used-font-family: Verdana;
 /*
 $interactivity-color: yellow;
 */
@@ -39,7 +40,7 @@ header .hide-completed {
 
 h1 {
   font-size: 5rem ! important;
-  font-family: Arial;
+  font-family: $used-font-family;
   color: black;
   margin: 0;
   /*
@@ -102,26 +103,26 @@ h6 {
 
 .loginCircle {
 
-    width: 80px;
-    height: 80px;
-    /*padding: 8px;*/
-    position: relative;
-    margin-top: 5px;
-    /* margin-right: 100px; */
-    float:right;
+  width: 80px;
+  height: 80px;
+  /*padding: 8px;*/
+  position: relative;
+  margin-top: 5px;
+  /* margin-right: 100px; */
+  float: right;
 
-    background:$interactivity-color;
-    -moz-border-radius:4px;
-    -webkit-border-radius:4px;
-    border-radius: 100%;
+  background: $interactivity-color;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 100%;
 
-    /* background: #a50d11; */
-    /*
-    border: 2px solid #666;
-    color: #000000;
-    text-align: center;
-    */
-    /* font: 150px Arial, sans-serif; */
+  /* background: #a50d11; */
+  /*
+  border: 2px solid #666;
+  color: #000000;
+  text-align: center;
+  */
+  /* font: 150px Arial, sans-serif; */
 }
 
 .loginCircle:hover {
@@ -290,7 +291,6 @@ h6 {
 }
 
 .gridItem_sliderCombo_randomizeStudentGroupCSSGridWrapper {
-
   border-style: none;
   border-width: 3px;
   border-color: red;
@@ -299,7 +299,6 @@ h6 {
 
   grid-row: 2 / 6;
   grid-column: 8 / 12;
-
 }
 
 .sliderComboCSSGridWrapper {
@@ -349,28 +348,28 @@ h6 {
 }
 
 .numberBox {
-    /* border-radius: 50%; */
-    width: 100px;
-    height: 100px;
-    /*padding: 8px;*/
-    position: relative;
-    float:right;
+  /* border-radius: 50%; */
+  width: 100px;
+  height: 100px;
+  /*padding: 8px;*/
+  position: relative;
+  float:right;
 
-    /*
-    position:absolute;
-    right: 320px;
+  /*
+  position:absolute;
+  right: 320px;
 
-    */
+  */
 
-    background: #a50d11;
-    /*
-    border: 2px solid #666;
-    */
-    border-style: solid;
-    border-width: 4px;
-    color: #000000;
-    text-align: center;
-    font: 80px Arial, sans-serif;
+  background: #a50d11;
+  /*
+  border: 2px solid #666;
+  */
+  border-style: solid;
+  border-width: 4px;
+  color: #000000;
+  text-align: center;
+  font: 80px Arial, sans-serif;
 }
 
 
@@ -396,35 +395,35 @@ h6 {
 	/* background-color:#00cc66; */
   margin-left: 15px;
 
-  background-color:$interactivity-color;
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	border-radius:0px;
+  background-color: $interactivity-color;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 0px;
 	border:1px solid #4e6096;
 	/*display:inline-block;*/
   display: flex;
     /*
   float: right;
   margin-top: 200px; */
-	cursor:pointer;
-	color:#000000;
-	font-family:Arial;
-	font-size:40px;
+	cursor: pointer;
+	color: #000000;
+	font-family: $used-font-family;
+	font-size: 40px;
   /*
 	padding:2px 4px;
   margin-left: 10px;
   */
-	text-decoration:none;
-	text-shadow:0px 1px 0px #283966;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #283966;
 }
 
 .randomizeStudentGroupButton:hover {
-	background-color:#00aa77;
+	background-color: #00aa77;
 }
 
 .randomizeStudentGroupButton:active {
-	position:relative;
-	top:1px;
+	position: relative;
+	top: 1px;
 }
 
 .revolvermapContainer {
@@ -432,7 +431,7 @@ h6 {
     height: 341px;
     /*padding: 8px;*/
     position: relative;
-    float:left;
+    float: left;
 /*
     background:$interactivity-color;
     -moz-border-radius:4px;
@@ -504,141 +503,141 @@ h6 {
 
 .selectGroupButton {
 	/*background-color:#7892a2;*/
-  background-color:$interactivity-color;
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	border-radius:0px;
+  background-color: $interactivity-color;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 0px;
 	border:1px solid #4e6096;
-	display:inline-block;
-	cursor:pointer;
-	color:#000000;
-	font-family:Arial;
-	font-size:16px;
-	padding:2px 4px;
+	display: inline-block;
+	cursor: pointer;
+	color: #000000;
+	font-family: $used-font-family;
+	font-size: 16px;
+	padding: 2px 4px;
   margin-left: 10px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #283966;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #283966;
 }
 .selectGroupButton:hover {
-	background-color:#476e9e;
+	background-color: #476e9e;
 }
 .selectGroupButton:active {
-	position:relative;
-	top:1px;
+	position: relative;
+	top: 1px;
 }
 
 .studentNameButton {
-	background-color:green;
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	border-radius:0px;
-	border:1px solid #4e6096;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:14px;
-	padding:2px 4px;
+	background-color: green;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 0px;
+	border: 1px solid #4e6096;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-family: $used-font-family;
+	font-size: 14px;
+	padding: 2px 4px;
   /*margin-left: 10px; */
-	text-decoration:none;
-	text-shadow:0px 1px 0px #283966;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #283966;
 }
 
 .studentNameButton.canBeClicked {
-  background-color:$interactivity-color;
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	border-radius:0px;
-	border:1px solid #4e6096;
-	display:inline-block;
-	cursor:pointer;
-	color:#000000;
-	font-family:Arial;
-	font-size:14px;
-	padding:2px 4px;
+  background-color: $interactivity-color;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 0px;
+	border: 1px solid #4e6096;
+	display: inline-block;
+	cursor: pointer;
+	color: #000000;
+	font-family: $used-font-family;
+	font-size: 14px;
+	padding: 2px 4px;
   /*margin-left: 10px; */
-	text-decoration:none;
+	text-decoration: none;
 	/*
   text-shadow:0px 1px 0px #283966;
   */
 }
 
 .studentNameButton.checked {
-  background-color:#7892a2;
+  background-color: #7892a2;
 	/*background-color:#dcdcdc;*/
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	border-radius:0px;
-	border:1px solid #4e6096;
-	display:inline-block;
-	cursor:pointer;
-	color:#dcdcdc;
-	font-family:Arial;
-	font-size:14px;
-	padding:2px 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 0px;
+	border: 1px solid #4e6096;
+	display: inline-block;
+	cursor: pointer;
+	color: #dcdcdc;
+	font-family: $used-font-family;
+	font-size: 14px;
+	padding: 2px 4px;
   /*margin-left: 10px; */
-	text-shadow:0px 1px 0px #283966;
+	text-shadow: 0px 1px 0px #283966;
   text-decoration: line-through;
 }
 .studentNameButton.checked:hover {
-	background-color:#0892a2;
+	background-color: #0892a2;
 }
 .studentNameButton:hover {
-	background-color:#476e9e;
+	background-color: #476e9e;
 }
 .studentNameButton:active {
-	position:relative;
-	top:1px;
+	position: relative;
+	top: 1px;
 }
 
 .editStudentGroupButton {
   /*background-color:#7892a2;*/
-  background-color:$interactivity-color;
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	border-radius:0px;
+  background-color: $interactivity-color;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 0px;
 	border:1px solid #4e6096;
-	display:inline-block;
-	cursor:pointer;
-	color:#000000;
-	font-family:Arial;
-	font-size:10px;
-	padding:2px 4px;
+	display: inline-block;
+	cursor: pointer;
+	color: #000000;
+	font-family: $used-font-family;
+	font-size: 10px;
+	padding: 2px 4px;
   margin-left: 10px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #283966;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #283966;
 }
 .editStudentGroupButton:hover {
-	background-color:#476e9e;
+	background-color: #476e9e;
 }
 .editStudentGroupButton:active {
-	position:relative;
-	top:1px;
+	position: relative;
+	top: 1px;
 }
 
 .deleteStudentGroupButton {
   /*background-color:#7892a2;*/
-  background-color:$interactivity-color;
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	border-radius:0px;
-	border:1px solid #4e6096;
-	display:inline-block;
-	cursor:pointer;
-	color:#ff0000;
-	font-family:Arial;
-	font-size:10px;
-	padding:2px 4px;
+  background-color: $interactivity-color;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 0px;
+	border: 1px solid #4e6096;
+	display: inline-block;
+	cursor: pointer;
+	color: #ff0000;
+	font-family: $used-font-family;
+	font-size: 10px;
+	padding: 2px 4px;
   margin-left: 10px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #283966;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #283966;
 }
 .deleteStudentGroupButton:hover {
-	background-color:#476e9e;
+	background-color: #476e9e;
 }
 .deleteStudentGroupButton:active {
-	position:relative;
-	top:1px;
+	position: relative;
+	top: 1px;
 }
 
 .goToListViewButton {
@@ -647,29 +646,29 @@ h6 {
   margin-left: 5px;
 
   background-color:$interactivity-color;
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	border-radius:0px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 0px;
 	border:1px solid #4e6096;
 	/*display:inline-block;*/
   display: flex;
-	cursor:pointer;
-	color:#000000;
-	font-family:Arial;
-	font-size:15px;
+	cursor: pointer;
+	color: #000000;
+	font-family: $used-font-family;
+	font-size: 15px;
 	/*
   padding:2px 4px;
   */
   margin-top: 5px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #283966;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #283966;
 }
 .goToListViewButton:hover {
-	background-color:#00aa77;
+	background-color: #00aa77;
 }
 .goToListViewButton:active {
-	position:relative;
-	top:1px;
+	position: relative;
+	top: 1px;
 }
 
 label {
@@ -682,7 +681,7 @@ input {
   width: 13px;
   height: 13px;
   padding: 0;
-  margin:0;
+  margin: 0;
   vertical-align: bottom;
   position: relative;
   top: -1px;
@@ -713,7 +712,7 @@ form {
   border-bottom: 1px dotted;
   width: 50%;
   font-size: 1.5em;
-  font-family: Arial;
+  font-family: $used-font-family;
 
 }
 
