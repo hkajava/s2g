@@ -177,10 +177,10 @@ export default class EditStudentGroup extends Component {
           <form className="new-studentToClass" onSubmit={this.addStudentToClass} >
             <input
               type="text"
-              ref={node => this.textInput = node}
+              ref={(node) => { this.textInput = node; return this.textInput; }}
               placeholder={this.state.placeholderForEnteringNewStudentToClass}
-              onFocus={() => this.placeholderOnFocus()}
-              onBlur={() => this.placeholderOnBlur()}
+              onFocus={() => { return this.placeholderOnFocus(); }}
+              onBlur={() => { return this.placeholderOnBlur(); }}
             />
           </form> : ''
         }

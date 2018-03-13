@@ -1,0 +1,7 @@
+{
+  "extends": "@meteorjs/eslint-config-meteor",
+  "rules": {
+      "react/forbid-prop-types": "['off', { forbid: ['any', 'array', 'object'] }]",
+       'arrow-body-style': ['error', 'always']
+      }
+}

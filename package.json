@@ -22,9 +22,6 @@
     "react-test-renderer": "^16.2.0",
     "reactstrap": "^5.0.0-alpha.4"
   },
-  "eslintConfig": {
-    "extends": "@meteorjs/eslint-config-meteor"
-  },
   "devDependencies": {
     "@meteorjs/eslint-config-meteor": "^1.0.5",
     "babel-core": "^6.26.0",

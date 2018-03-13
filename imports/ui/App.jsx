@@ -125,10 +125,10 @@ class App extends Component {
             <input
               type="text"
               // this ref part is copied from tutorial. strange syntax
-              ref={node => this.textInput = node}
+              ref={(node) => { this.textInput = node; return this.textInput; }}
               placeholder={this.state.placeholderForEnteringNewGroup}
-              onFocus={() => this.placeholderOnFocus()}
-              onBlur={() => this.placeholderOnBlur()}
+              onFocus={() => { return this.placeholderOnFocus(); }}
+              onBlur={() => { return this.placeholderOnBlur(); }}
             />
           </form>
         }
@@ -158,8 +158,7 @@ class App extends Component {
         { !this.props.currentUser &&
           <div>
             <h5>Student2Groups application user locations:</h5>
-            <div className="revolvermapContainer" ref={el => (this.instance = el)} >
-            </div>
+            <div className="revolvermapContainer" ref={(el) => { this.instance = el; return this.instance; }} />
           </div>
         }
       </div>

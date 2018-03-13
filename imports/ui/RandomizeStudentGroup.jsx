@@ -338,6 +338,7 @@ export default class RandomizeStudentGroup extends Component {
     });
   }
 
+
   render() {
     return (
       <div className="randomizeStudentGroupCSSGridWrapper">
