@@ -7,7 +7,7 @@
     "debugjest": "meteor node --inspect --inspect-brk node_modules/.bin/jest --runInBand",
     "test": "NODE_ENV=test jest",
     "precommit": "npm test",
-    "prepush": "npm test --verbose"
+    "prepush": "npm test"
   },
   "dependencies": {
     "babel-preset-env": "^1.6.1",
