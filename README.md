@@ -6,7 +6,7 @@ The UI is not yet polished, responsive or otherwise cool. Let's see if there is 
 
 ## Prerequisites for installation
 
-meteor v.16+
+meteor v.1.6+
 eslint v.4+
 node v. 8+
 lessc v. 2.7+
