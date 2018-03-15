@@ -6,7 +6,7 @@ $interactivity-color: yellow;
 */
 
 body {
-  font-family: sans-serif;
+  font-family: $used-font-family;
   background-color: #f2994a;
   /*
   background-color: #315481;
@@ -38,8 +38,8 @@ header .hide-completed {
 }
 
 h1 {
-  font-size: 5rem ! important;
-  font-family: $used-font-family;
+  font-size: 5rem !important;
+  font-family: $used-font-family!important;
   color: black;
   margin: 0;
   /*
@@ -50,23 +50,27 @@ h1 {
 }
 
 h3 {
-  font-size: 1.17em;
+  font-size: 1.17em!important;
+  font-family: $used-font-family! important;
   padding-left: 5px;
 }
 
 h4 {
-  font-size: 1em;
+  font-size: 1em!important;
+  font-family: $used-font-family! important;
   padding-left: 5px;
 }
 
 h5 {
-  font-size: 0.75em;
+  font-size: 0.75em!important;
+  font-family: $used-font-family! important;
   padding-left: 5px;
   margin-top: -15px;
 }
 
 h6 {
-  font-size: 0.50em;
+  font-size: 0.8em!important;
+  font-family: $used-font-family! important;
   padding-left: 5px;
   /* margin-top: -15px; */
 }
@@ -216,7 +220,7 @@ h6 {
 	border-radius: 0px;
 	border: 1px solid #4e6096;
 	/*display:inline-block;*/
-  width: 80px;
+  width: 95px;
   position: relative;
   /*
   float:left;
@@ -650,12 +654,39 @@ h6 {
 	top: 1px;
 }
 
+.deleteStudentButton {
+  /*background-color:#7892a2;*/
+  background-color: $interactivity-color;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 0px;
+	border: 1px solid #4e6096;
+	display: inline-block;
+	cursor: pointer;
+	color: #ff0000;
+
+	font-family: $used-font-family;
+	font-size: 10px;
+
+  padding: 2px 4px;
+  margin-left: 10px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #283966;
+}
+.deleteStudentButton:hover {
+	background-color: #476e9e;
+}
+.deleteStudentButton:active {
+	position: relative;
+	top: 1px;
+}
 .goToListViewButton {
   /* background-color:#00cc66; */
-  width: 80px;
+  width: 95px;
   margin-left: 5px;
+  padding-left: 12px;
 
-  background-color:$interactivity-color;
+  background-color: $interactivity-color;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 	border-radius: 0px;
@@ -743,6 +774,7 @@ form {
   width: 33%;
   margin-left: 5px;
   margin-bottom: 10px;
+  padding-left: 5px;
   padding-right: 80px;
   padding-top: 2px;
   padding-bottom: 2px;
@@ -785,10 +817,173 @@ li.private {
 
 /* CHECK THESE AND PUT SOMETHING THAT MAKES SENSE INTO @media */
 
-@media (max-width: 600px) {
+@media (max-width: 1250px) {
+
+  h1 {
+    font-size: 2.3rem ! important;
+    font-family: $used-font-family;
+    color: black;
+    margin: 0;
+    /*
+    margin-bottom: 10px;
+    */
+    display: inline-block;
+    margin-right: 1em;
+  }
+
+  .new-studentGroup input {
+
+    box-sizing: border-box;
+    height: 30px;
+    padding-left: 5px;
+    padding-right: 80px;
+    padding-bottom: 2px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background: $interactivity-color;
+    /** border: none; */
+    border-top: 1px dotted;
+    border-right: 1px dotted;
+    border-left: 1px dotted;
+    border-bottom: 1px dotted;
+    width: 50%;
+
+    font-size: 0.8em;
+    font-family: $used-font-family;
+  }
+
+  .new-studentGroup input:focus{
+    outline: 0;
+  }
+
+  .new-studentToClass input {
+    box-sizing: border-box;
+    background: $interactivity-color;
+    /** border: none; */
+    border-top: 1px dotted;
+    border-right: 1px dotted;
+    border-left: 1px dotted;
+    border-bottom: 1px dotted;
+    height: 25px;
+    width: 33%;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 80px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+    font-size: 0.5em;
+    font-family: $used-font-family;
+  }
+
+  .goToMainViewButton {
+    /* background-color:#00cc66; */
+
+    background-color: $interactivity-color;
+  	-moz-border-radius: 4px;
+  	-webkit-border-radius: 4px;
+  	border-radius: 0px;
+  	border: 1px solid #4e6096;
+  	/*display:inline-block;*/
+    width: 95px;
+    position: relative;
+    /*
+    float:left;
+    display: flex;
+    padding:2px 4px;
+    margin-left: -35px;
+    margin-top: 100px;
+    */
+    margin-right: 50px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+  	cursor: pointer;
+  	color: #000000;
+  	font-family: $used-font-family;
+  	font-size: 15px;
+  	text-decoration: none;
+  	text-shadow: 0px 1px 0px #283966;
+    /*
+    transform: rotate(-90deg);
+    */
+  }
+
+  .editStudentGroupCSSGridWrapper {
+    margin-top: 5px;
+    margin-left: 5px;
+   /*
+    min-width: 800px;
+    position:relative;
+    float:left;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    grid-template-rows: repeat(7, 1fr);
+  */
+
+    position:relative;
+    float:left;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
+    /* grid-auto-rows: 100px;*/
+    grid-auto-rows: minmax(100px, auto);
+    grid-template-rows: repeat(16, 1fr);
+
+    /*
+    grid-auto-columns: fit-content(400px);
+    grid-auto-columns: min-content;
+    */
+  }
+
+  .randomizeStudentGroupCSSGridWrapper {
+    border-style: none;
+    border-width: 5px;
+    border-color: black;
+
+    width: auto;
+    /*
+    min-height: 450px;
+
+    position:relative;
+    float:left;
+    */
+    display: grid;
+    grid-auto-flow: column;
+
+    grid-template-columns: repeat(7, 100px);
+    grid-template-rows: auto;
+    /*
+    grid-template-rows: repeat(6, 100px) auto;
+    grid-auto-rows: min-content max-content auto;
+    grid-gap: 1px;
+    grid-auto-rows: 100px;
+    grid-auto-rows: minmax(auto, 200px);
+    grid-template-rows: repeat(10, 1fr);
+    grid-auto-columns: fit-content(400px);
+    grid-auto-columns: min-content;
+    */
+  }
+
+  .gridItem_Instructions_sliderComboCSSGridWrapper {
+    /*
+    grid-row: 1;
+    */
+    grid-row: 1;
+    grid-column: 1 / 3;
+
+    text-align: left;
+
+    font-family: $used-font-family !important;
+    font-size: 1.7em !important;
+  }
 
   .gridItem_sliderCombo_randomizeStudentGroupCSSGridWrapper {
-    border-style: solid;
+    border-style: none;
     border-width: 3px;
     border-color: red;
 
@@ -813,18 +1008,20 @@ li.private {
     /*
     grid-row: 1;
     */
-    border-style: solid;
+
+    border-style: none;
     border-width: 3px;
     border-color: blue;
 
     overflow: hidden;
     min-width: 400px;
 
-    grid-row: 9 / 11;
-    grid-column: 1 / 7;
+    grid-row: 9 / auto;
+    grid-column: 1 / 6;
 
   }
   .studentListRandomizeStudentGroupCSSGridWrapper {
+    margin-top: 10px;
     position: relative;
     float: left;
     display: grid;
@@ -833,7 +1030,7 @@ li.private {
     grid-gap: 5px;
     /* grid-auto-rows: 100px;*/
     grid-auto-rows: minmax(100px, auto);
-    grid-template-rows: repeat(8, 1fr);
+    grid-template-rows: repeat(16, 1fr);
     /*
     grid-auto-columns: fit-content(400px);
     grid-auto-columns: min-content;
@@ -846,12 +1043,13 @@ li.private {
     */
 
     grid-row: 9 / 11;
-    grid-column: 1 / span 5;
+    grid-column: 1 / 5;
 
     /*
     margin-left: 5px;
     */
     margin-right: 10px;
+    margin-top: 10px;
 
     display: grid;
     grid-auto-flow: row;

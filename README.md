@@ -20,30 +20,6 @@ Do git clone on the project
 >git clone git@github.com:hkajava/s2g.git
 ```
 
-A custom version of react-rangeslider is needed.
-In s2g folder
-```
->npm install
->cd node_modules
->rm -rf react-rangeslider
->git clone git@github.com:hkajava/react-rangeslider
->cd react-rangeslider
->npm install
->npm run build
-```
-and then
-
-In s2g folder
-```
->npm install
->cd node_modules
->rm -rf react-rangeslider
->git clone git@github.com:hkajava/react-rangeslider
->cd react-rangeslider
->npm install
->npm run build
-```
-
 run
 go to s2g main level
 ```

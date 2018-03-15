@@ -1,14 +1,16 @@
 // import React from 'react';
 // import { shallow, mount, render } from 'enzyme';
+import RandomizeStudentGroup from '../ui/RandomizeStudentGroup.jsx';
+
 jest.mock('meteor/meteor');
 jest.mock('../api/studentGroups.js', () => {
 });
 // import PropTypes from 'prop-types'; // ES6
+/*
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import RandomizeStudentGroup from '../ui/RandomizeStudentGroup.jsx';
-
 configure({ adapter: new Adapter() });
+*/
 
 // debugger;
 

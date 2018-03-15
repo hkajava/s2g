@@ -356,9 +356,9 @@ export default class RandomizeStudentGroup extends Component {
         <div className="gridItem_studentGroupName_randomizeStudentGroupCSSGridWrapper">
           <h3>{this.props.studentGroupName}
           </h3>
-          <h5>Number of present students: {this.state.nbrPresentStudents}<br />
+          <h4>Number of present students: {this.state.nbrPresentStudents}<br />
             Number of absent students: {this.state.nbrAbsentStudents}
-          </h5>
+          </h4>
         </div>
         {this.state.selectedView === 'listView' &&
           this.props.currentUser &&

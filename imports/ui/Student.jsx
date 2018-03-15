@@ -43,7 +43,7 @@ export default class Student extends Component {
           {this.props.studentFirstName} {this.props.studentLastName}
         </button>
         {(this.props.parentView === 'EditStudentGroup') &&
-        <button className="deleteButton" onClick={this.deleteThisStudent}>
+        <button className="deleteStudentButton" onClick={this.deleteThisStudent}>
           Delete
         </button>
         }
