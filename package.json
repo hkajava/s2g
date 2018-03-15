@@ -1,6 +1,6 @@
 {
   "name": "s2g",
-  "version": "1.0.2",
+  "version": "1.0.2-husky",
   "private": true,
   "scripts": {
     "lint": "eslint .",
