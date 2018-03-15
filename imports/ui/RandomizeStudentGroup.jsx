@@ -73,11 +73,17 @@ export default class RandomizeStudentGroup extends Component {
       nbrOfGroups = (nbrPresentStudents / minGroupSize);
       return nbrOfGroups;
     }
+    // + 1 will make for example of 15 presents students and desired group size 4,
+    // 3 groups of 4 students and 1 group of 3 students. That is the
+    // use case from teacher Javier Ramos Lázaro
     nbrOfGroups = Math.floor(nbrPresentStudents / minGroupSize);
+    if (nbrPresentStudents % minGroupSize !== 0 &&
+        minGroupSize > 3) {
+      nbrOfGroups += 1;
+    }
     return nbrOfGroups;
   }
 
-  // New algorithm
   static generateRandomGroups(numberOfGroups, randomizedStudentArray) {
     const studentArrayOfArrays = [];
     for (let i = 0, j = 0; i < randomizedStudentArray.length; i += 1) {
@@ -92,6 +98,7 @@ export default class RandomizeStudentGroup extends Component {
         j += 1;
       }
     }
+
     return studentArrayOfArrays;
   }
 
@@ -117,6 +124,7 @@ export default class RandomizeStudentGroup extends Component {
 
     this.state =
     { selectedView: 'listView',
+      selectedAlgorithm: 'threeFourAlgorithm',
       studentArray: fetchedStudentArray,
       randomizedStudentArrayOfArrays: [],
       placeholderForEnteringNewStudentToClass: 'Add student',
@@ -290,7 +298,7 @@ export default class RandomizeStudentGroup extends Component {
       <div className="sliderComboCSSGridWrapper">
         <br />
         <div className="gridItem_Instructions_sliderComboCSSGridWrapper" >
-          Select minimum group size:
+          Desired group size:
         </div>
         <div className="gridItem_Slider_sliderComboCSSGridWrapper" >
           <Slider
