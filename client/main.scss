@@ -1,5 +1,6 @@
 /* CSS declarations go here */
 $interactivity-color: #f9d072;
+$hover-color: #476e9e;
 $used-font-family: Verdana;
 /*
 $interactivity-color: yellow;
@@ -132,7 +133,7 @@ h6 {
 }
 
 .loginCircle:hover {
-	background-color: #00aa77;
+	background-color: $hover-color;
 }
 
 #login-buttons {
@@ -243,7 +244,7 @@ h6 {
 }
 
 .goToMainViewButton:hover {
-	background-color: #00aa77;
+	background-color: $hover-color;
 }
 
 .goToMainViewButton:active {
@@ -420,7 +421,7 @@ h6 {
 }
 
 .randomizeStudentGroupButton:hover {
-	background-color: #00aa77;
+	background-color: $hover-color;
 }
 
 .randomizeStudentGroupButton:active {
@@ -523,7 +524,7 @@ h6 {
 	text-shadow: 0px 1px 0px #283966;
 }
 .selectGroupButton:hover {
-	background-color: #476e9e;
+	background-color: $hover-color;
 }
 .selectGroupButton:active {
 	position: relative;
@@ -593,7 +594,7 @@ h6 {
 	background-color: #0892a2;
 }
 .studentNameButton:hover {
-	background-color: #476e9e;
+	background-color: $hover-color;
 }
 .studentNameButton:active {
 	position: relative;
@@ -620,7 +621,7 @@ h6 {
 	text-shadow: 0px 1px 0px #283966;
 }
 .editStudentGroupButton:hover {
-	background-color: #476e9e;
+	background-color: $hover-color;
 }
 .editStudentGroupButton:active {
 	position: relative;
@@ -647,7 +648,7 @@ h6 {
 	text-shadow: 0px 1px 0px #283966;
 }
 .deleteStudentGroupButton:hover {
-	background-color: #476e9e;
+	background-color: $hover-color;
 }
 .deleteStudentGroupButton:active {
 	position: relative;
@@ -674,7 +675,7 @@ h6 {
 	text-shadow: 0px 1px 0px #283966;
 }
 .deleteStudentButton:hover {
-	background-color: #476e9e;
+	background-color: $hover-color;
 }
 .deleteStudentButton:active {
 	position: relative;
@@ -706,7 +707,7 @@ h6 {
 	text-shadow: 0px 1px 0px #283966;
 }
 .goToListViewButton:hover {
-	background-color: #00aa77;
+	background-color: $hover-color;
 }
 .goToListViewButton:active {
 	position: relative;
