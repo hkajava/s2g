@@ -503,7 +503,7 @@ h6 {
   align-items: center;
 
   grid-row: 3 / 6;
-  grid-column: 10 / 14;
+  grid-column: 7 / 14;
 
 }
 
@@ -611,7 +611,7 @@ h6 {
   margin: 5px;
   padding: 5px;
   */
-  min-width: 160px;
+  min-width: 140px;
   height: auto;
   border: 1px solid #555;
   margin-right: 5px;
@@ -1014,7 +1014,7 @@ li.private {
 
 /* CHECK THESE AND PUT SOMETHING THAT MAKES SENSE INTO @media */
 
-@media (max-width: 1300px) {
+@media (max-width: 1200px) {
 
   h1 {
     font-size: 2.3rem ! important;
@@ -1211,14 +1211,17 @@ li.private {
   .randomizeStudentGroupButton {
   	/* background-color:#00cc66;
     */
-    margin-left: 0px;
+    width: 200px;
+    margin-left: 5px;
 
     background-color: $interactivity-color;
   	-moz-border-radius: 4px;
   	-webkit-border-radius: 4px;
   	border-radius: 0px;
   	border:1px solid #4e6096;
-  	/*display:inline-block;*/
+  	display:inline-block;
+
+    /*
     display: flex;
       /*
     float: right;
@@ -1227,13 +1230,27 @@ li.private {
   	color: #000000;
 
   	font-family: $used-font-family;
-  	font-size: 40px;
+  	font-size: 30px;
     /*
   	padding:2px 4px;
     margin-left: 10px;
     */
   	text-decoration: none;
   	/* text-shadow: 0px 1px 0px #283966; */
+  }
+
+  .randomizeStudentGroupButton:hover {
+    /*
+  	background-color: $hover-color;
+    */
+    transform: scale(1.05);
+    border-width: 2px;
+    border-color: blue;
+  }
+
+  .randomizeStudentGroupButton:active {
+  	position: relative;
+  	top: 1px;
   }
 
   .gridItem_studentList_randomizeStudentGroupCSSGridWrapper {
