@@ -6,6 +6,43 @@ $used-font-family: Verdana;
 $interactivity-color: yellow;
 */
 
+/*
+let's use extend through placeholder
+*/
+.interactive-element %interactive-element {
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  transition-duration: 0.3s;
+  transition-property: transform;
+}
+
+.interactive-element:hover,
+.interactive-element:focus,
+.interactive-element:active {
+    transform: scale(1.1);
+}
+
+/* from https://github.com/IanLunn/Hover/blob/master/README.md#hovercss
+*/
+.hvr-grow {
+    display: inline-block;
+    vertical-align: middle;
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+
+.hvr-grow:hover,
+.hvr-grow:focus,
+.hvr-grow:active {
+    transform: scale(1.1);
+}
+
 body {
   font-family: $used-font-family;
   background-color: #f2994a;
@@ -51,7 +88,7 @@ h1 {
 }
 
 h3 {
-  font-size: 1.17em!important;
+  font-size: 2em!important;
   font-family: $used-font-family! important;
   padding-left: 5px;
 }
@@ -132,14 +169,86 @@ h6 {
   /* font: 150px Arial, sans-serif; */
 }
 
-.loginCircle:hover {
-	background-color: $hover-color;
+.loginCircle:hover,
+.loginCircle:focus,
+.loginCircle:active {
+  background-color: $hover-color;
+  /*
+  transform: scale(1.1);
+  */
 }
 
 #login-buttons {
   display: block;
   text-align: center;
   margin-top: 30px;
+}
+
+
+.selectStudentGroupCSSGridWrapper {
+  margin-top: 5px;
+  margin-left: 5px;
+ /*
+  min-width: 800px;
+  position:relative;
+  float:left;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+  grid-template-rows: repeat(7, 1fr);
+*/
+
+  position:relative;
+  float:left;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+  grid-template-rows: (30px, auto);
+
+  /*
+  grid-auto-rows: minmax(100px, auto);
+  grid-auto-columns: fit-content(400px);
+  grid-auto-columns: min-content;
+  */
+}
+
+.gridItem_row_selectStudentGroupCSSGridWrapper {
+ /*
+  min-width: 800px;
+  position:relative;
+  float:left;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+  grid-template-rows: repeat(7, 1fr);
+*/
+
+  position:relative;
+  float:left;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: minmax(200px, 1fr) 45px 45px;
+  grid-template-rows: 30px;
+
+  grid-column-gap: 20px;
+
+  justify-items: left;
+  align-items: center;
+/*
+  display: flex;
+  justify-content: center;
+  align-items: center;
+*/
+  /*
+  grid-auto-rows: minmax(100px, auto);
+  grid-auto-columns: fit-content(400px);
+  grid-auto-columns: min-content;
+  */
 }
 
 .editStudentGroupCSSGridWrapper {
@@ -188,8 +297,8 @@ h6 {
   display: grid;
   grid-auto-flow: column;
 
-  grid-template-columns: repeat(11, 100px);
-  grid-template-rows: repeat(6, 100px) auto;
+  grid-template-columns: repeat(14, 100px);
+  grid-template-rows: 70px 100px 100px 100px 100px 100px auto;
   /*
   grid-auto-rows: min-content max-content auto;
   grid-gap: 1px;
@@ -237,7 +346,7 @@ h6 {
 	font-family: $used-font-family;
 	font-size: 15px;
 	text-decoration: none;
-	text-shadow: 0px 1px 0px #283966;
+	/* text-shadow: 0px 1px 0px #283966; */
   /*
   transform: rotate(-90deg);
   */
@@ -386,25 +495,32 @@ h6 {
   border-width: 3px;
   border-color: grey;
 
+
   overflow: hidden;
 
-  grid-row: 4 / 6;
-  grid-column: 9 / span 5;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+
+  grid-row: 3 / 6;
+  grid-column: 10 / 14;
 
 }
 
 .randomizeStudentGroupButton {
-	/* background-color:#00cc66; */
+	/* background-color:#00cc66;
   margin-left: 15px;
-
+  */
+  width: 250px;
   background-color: $interactivity-color;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 	border-radius: 0px;
 	border:1px solid #4e6096;
-	/*display:inline-block;*/
+	display:inline-block;
+  /*
   display: flex;
-    /*
+
   float: right;
   margin-top: 200px; */
 	cursor: pointer;
@@ -417,11 +533,23 @@ h6 {
   margin-left: 10px;
   */
 	text-decoration: none;
-	text-shadow: 0px 1px 0px #283966;
+	/* text-shadow: 0px 1px 0px #283966; */
+
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  transition-duration: 0.3s;
+  transition-property: transform;
 }
 
 .randomizeStudentGroupButton:hover {
+  /*
 	background-color: $hover-color;
+  */
+  transform: scale(1.1);
+  border-width: 2px;
+  border-color: blue;
 }
 
 .randomizeStudentGroupButton:active {
@@ -483,7 +611,7 @@ h6 {
   margin: 5px;
   padding: 5px;
   */
-  min-width: 150px;
+  min-width: 160px;
   height: auto;
   border: 1px solid #555;
   margin-right: 5px;
@@ -504,8 +632,42 @@ h6 {
 
 }
 
-.selectGroupButton {
-	/*background-color:#7892a2;*/
+/* Reveal */
+.hvr-reveal {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  position: relative;
+  overflow: hidden;
+}
+.hvr-reveal:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-color: #2098D1;
+  border-style: solid;
+  border-width: 0;
+  -webkit-transition-property: border-width;
+  transition-property: border-width;
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.hvr-reveal:hover:before, .hvr-reveal:focus:before, .hvr-reveal:active:before {
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+  border-width: 4px;
+}
+
+
+.selectStudentGroupButton {
   background-color: $interactivity-color;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
@@ -521,13 +683,36 @@ h6 {
   padding: 2px 4px;
   margin-left: 10px;
 	text-decoration: none;
-	text-shadow: 0px 1px 0px #283966;
+  /* text-shadow: 0px 1px 0px #283966; */
+
+/*
+  @extend .interactive-element;
+
+  @extend %interactive-element;
+*/
+
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  transition-duration: 0.3s;
+  transition-property: transform;
+
 }
-.selectGroupButton:hover {
-	background-color: $hover-color;
+
+.selectStudentGroupButton:hover,
+.selectStudentGroupButton:focus {
+	/*
+  background-color: $hover-color;
+  */
+  transform: scale(1.05);
+  border-width: 2px;
+  border-color: blue;
+
 }
-.selectGroupButton:active {
+.selectStudentGroupButton:active {
 	position: relative;
+  transform: scale(1.1);
 	top: 1px;
 }
 
@@ -547,7 +732,7 @@ h6 {
   padding: 2px 4px;
   /*margin-left: 10px; */
 	text-decoration: none;
-	text-shadow: 0px 1px 0px #283966;
+	/* text-shadow: 0px 1px 0px #283966; */
 }
 
 .studentNameButton.canBeClicked {
@@ -587,7 +772,7 @@ h6 {
 
   padding: 2px 4px;
   /*margin-left: 10px; */
-	text-shadow: 0px 1px 0px #283966;
+	/* text-shadow: 0px 1px 0px #283966; */
   text-decoration: line-through;
 }
 .studentNameButton.checked:hover {
@@ -612,16 +797,22 @@ h6 {
 	cursor: pointer;
 	color: #000000;
 
+  width: 45px;
+  height: 20px;
+
 	font-family: $used-font-family;
 	font-size: 10px;
 
   padding: 2px 4px;
-  margin-left: 10px;
+  /*
+  margin-left: 15px;
+  */
 	text-decoration: none;
-	text-shadow: 0px 1px 0px #283966;
+	/* text-shadow: 0px 1px 0px #283966; */
 }
 .editStudentGroupButton:hover {
-	background-color: $hover-color;
+  background-color: $hover-color;
+
 }
 .editStudentGroupButton:active {
 	position: relative;
@@ -643,9 +834,14 @@ h6 {
 	font-size: 10px;
 
   padding: 2px 4px;
-  margin-left: 10px;
+
+  width: 45px;
+  height: 20px;
+  /*
+  margin-left: 15px;
+  */
 	text-decoration: none;
-	text-shadow: 0px 1px 0px #283966;
+	/* text-shadow: 0px 1px 0px #283966; */
 }
 .deleteStudentGroupButton:hover {
 	background-color: $hover-color;
@@ -672,7 +868,7 @@ h6 {
   padding: 2px 4px;
   margin-left: 10px;
 	text-decoration: none;
-	text-shadow: 0px 1px 0px #283966;
+	/* text-shadow: 0px 1px 0px #283966; */
 }
 .deleteStudentButton:hover {
 	background-color: $hover-color;
@@ -704,7 +900,7 @@ h6 {
   */
   margin-top: 5px;
 	text-decoration: none;
-	text-shadow: 0px 1px 0px #283966;
+	/* text-shadow: 0px 1px 0px #283966; */
 }
 .goToListViewButton:hover {
 	background-color: $hover-color;
@@ -818,7 +1014,7 @@ li.private {
 
 /* CHECK THESE AND PUT SOMETHING THAT MAKES SENSE INTO @media */
 
-@media (max-width: 1250px) {
+@media (max-width: 1300px) {
 
   h1 {
     font-size: 2.3rem ! important;
@@ -904,7 +1100,7 @@ li.private {
   	font-family: $used-font-family;
   	font-size: 15px;
   	text-decoration: none;
-  	text-shadow: 0px 1px 0px #283966;
+  	/* text-shadow: 0px 1px 0px #283966; */
     /*
     transform: rotate(-90deg);
     */
@@ -993,18 +1189,53 @@ li.private {
     grid-row: 5 / 7;
     grid-column: 1 / 5;
   }
+
   .gridItem_randomizeStudentGroupButton_randomizeStudentGroupCSSGridWrapper {
 
     border-style: none;
     border-width: 3px;
     border-color: grey;
 
+
     overflow: hidden;
+
+    display: grid;
+    justify-items: left;
+    align-items: center;
 
     grid-row: 7 / 9;
     grid-column: 1 / span 5;
 
   }
+
+  .randomizeStudentGroupButton {
+  	/* background-color:#00cc66;
+    */
+    margin-left: 0px;
+
+    background-color: $interactivity-color;
+  	-moz-border-radius: 4px;
+  	-webkit-border-radius: 4px;
+  	border-radius: 0px;
+  	border:1px solid #4e6096;
+  	/*display:inline-block;*/
+    display: flex;
+      /*
+    float: right;
+    margin-top: 200px; */
+  	cursor: pointer;
+  	color: #000000;
+
+  	font-family: $used-font-family;
+  	font-size: 40px;
+    /*
+  	padding:2px 4px;
+    margin-left: 10px;
+    */
+  	text-decoration: none;
+  	/* text-shadow: 0px 1px 0px #283966; */
+  }
+
   .gridItem_studentList_randomizeStudentGroupCSSGridWrapper {
     /*
     grid-row: 1;
@@ -1018,7 +1249,7 @@ li.private {
     min-width: 400px;
 
     grid-row: 9 / auto;
-    grid-column: 1 / 6;
+    grid-column: 1 / 8;
 
   }
   .studentListRandomizeStudentGroupCSSGridWrapper {
@@ -1065,32 +1296,5 @@ li.private {
     grid-auto-columns: fit-content(400px);
     grid-auto-columns: min-content;
     */
-  }
-  .randomizeStudentGroupButton {
-  	/* background-color:#00cc66;
-    */
-    margin-left: 0px;
-
-    background-color: $interactivity-color;
-  	-moz-border-radius: 4px;
-  	-webkit-border-radius: 4px;
-  	border-radius: 0px;
-  	border:1px solid #4e6096;
-  	/*display:inline-block;*/
-    display: flex;
-      /*
-    float: right;
-    margin-top: 200px; */
-  	cursor: pointer;
-  	color: #000000;
-
-  	font-family: $used-font-family;
-  	font-size: 40px;
-    /*
-  	padding:2px 4px;
-    margin-left: 10px;
-    */
-  	text-decoration: none;
-  	text-shadow: 0px 1px 0px #283966;
   }
 }

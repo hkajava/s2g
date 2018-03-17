@@ -24,19 +24,17 @@ export default class StudentGroup extends Component {
 
   render() {
     return (
-      <li>
-        <span className="text">
-          <button className="selectGroupButton" onClick={this.selectThisStudentGroup}>
-            {this.props.studentGroupName}
-          </button>
-          <button className="editStudentGroupButton" onClick={this.editThisStudentGroup}>
-             Edit
-          </button>
-          <button className="deleteStudentGroupButton" onClick={this.deleteThisStudentGroup}>
-             Delete
-          </button>
-        </span>
-      </li>
+      <div className="gridItem_row_selectStudentGroupCSSGridWrapper">
+        <button className="selectStudentGroupButton" onClick={this.selectThisStudentGroup}>
+          {this.props.studentGroupName}
+        </button>
+        <button className="editStudentGroupButton" onClick={this.editThisStudentGroup}>
+           Edit
+        </button>
+        <button className="deleteStudentGroupButton" onClick={this.deleteThisStudentGroup}>
+           Delete
+        </button>
+      </div>
     );
   }
 }

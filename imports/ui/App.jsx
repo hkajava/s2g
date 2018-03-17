@@ -134,7 +134,9 @@ class App extends Component {
         }
 
         { this.props.currentUser && this.state.selectedView === 'mainView' &&
-          this.renderStudentGroups()
+          <div className="selectStudentGroupCSSGridWrapper">
+            {this.renderStudentGroups()}
+          </div>
         }
 
         { this.props.currentUser && this.state.selectedView === 'editorView' &&
