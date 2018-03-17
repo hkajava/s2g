@@ -7,6 +7,7 @@ import { StudentGroups } from '../api/studentGroups.js';
 import StudentGroup from './StudentGroup.jsx';
 import EditStudentGroup from './EditStudentGroup.jsx';
 import RandomizeStudentGroup from './RandomizeStudentGroup.jsx';
+import Sketch from './Sketch.jsx';
 import { version } from '../../package.json';
 
 class App extends Component {
@@ -159,6 +160,7 @@ class App extends Component {
         <br />
         { !this.props.currentUser &&
           <div>
+            <Sketch />
             <h5>Student2Groups application user locations:</h5>
             <div className="revolvermapContainer" ref={(el) => { this.instance = el; return this.instance; }} />
           </div>
