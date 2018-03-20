@@ -93,7 +93,7 @@ export default class EditStudentGroup extends Component {
       if (error) {
         alert(error);
       } else {
-        console.log('studentGroup.addStudent successful', result);
+        // console.log('studentGroup.addStudent successful', result);
         const fetchedStudentArray = this.getStudentsInClient();
         let tempNbrEnrolledStudents = 0;
 
@@ -113,7 +113,7 @@ export default class EditStudentGroup extends Component {
         if (error) {
           alert(error);
         } else {
-          console.log('studentGroup.removeStudent successful', result);
+          // console.log('studentGroup.removeStudent successful', result);
           const fetchedStudentArray = this.getStudentsInClient();
           let tempNbrEnrolledStudents = 0;
 
@@ -128,7 +128,7 @@ export default class EditStudentGroup extends Component {
   }
 
   handleStudentClick(studentFirstName, studentLastName) {
-    console.log('handleStudentClick: ', studentFirstName, ' ', studentLastName, ' ', this.props.studentGroupName);
+    // console.log('handleStudentClick: ', studentFirstName, ' ', studentLastName, ' ', this.props.studentGroupName);
   }
 
   handleGoToMainView() {

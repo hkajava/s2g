@@ -5,22 +5,80 @@ import Slider from 'react-rangeslider';
 // To include the default styles
 import 'react-rangeslider/lib/index.css';
 // import { Button } from 'reactstrap';
-/**
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem } from 'reactstrap';
-*/
+
 import Student from './Student.jsx';
 import { StudentGroups } from '../api/studentGroups.js';
+
+const exampleStudentGroup = [
+  { absent: false,
+    firstName: 'Peter',
+    lastName: 'Helmerson',
+  },
+  { absent: false,
+    firstName: 'Pertti',
+    lastName: 'Kerttula',
+  },
+  { absent: false,
+    firstName: 'Maija',
+    lastName: 'Tuununen',
+  },
+  { absent: false,
+    firstName: 'Helena',
+    lastName: 'Riippala',
+  },
+  { absent: false,
+    firstName: 'Jussi',
+    lastName: 'Mäkikukka',
+  },
+  { absent: false,
+    firstName: 'Joonas',
+    lastName: 'Ryntynen',
+  },
+  { absent: false,
+    firstName: 'Herbert',
+    lastName: 'Granqvist',
+  },
+  { absent: false,
+    firstName: 'Hanna',
+    lastName: 'Kanttula',
+  },
+  { absent: false,
+    firstName: 'Olli',
+    lastName: 'Hontio',
+  },
+  { absent: false,
+    firstName: 'Tiina',
+    lastName: 'Jyväläinen',
+  },
+  { absent: false,
+    firstName: 'Riina',
+    lastName: 'Paanala',
+  },
+  { absent: false,
+    firstName: 'Ulla',
+    lastName: 'Runtula',
+  },
+  { absent: false,
+    firstName: 'Kari',
+    lastName: 'Haarala',
+  },
+  { absent: false,
+    firstName: 'Hannu',
+    lastName: 'Patala',
+  },
+  { absent: false,
+    firstName: 'Joe',
+    lastName: 'Schmuck',
+  },
+  { absent: false,
+    firstName: 'Peter',
+    lastName: 'Johnson',
+  },
+  { absent: false,
+    firstName: 'Greta',
+    lastName: 'Gibbons',
+  },
+];
 
 // RandomizeStudentGroup component - show a list of students belonging
 // to a course. Those that are not present today can be deselected.
@@ -135,6 +193,13 @@ export default class RandomizeStudentGroup extends Component {
   }
 
   getStudentsInClient() {
+    if (this.props.currentUser.user === 'exampleUser') {
+      // user is not logged in
+      // show example group to let user experiment and
+      // avoid signup wall
+      return exampleStudentGroup;
+    }
+
     let currentStudentArray = [];
     const query = {};
     query.studentGroupName = this.props.studentGroupName;
@@ -163,7 +228,7 @@ export default class RandomizeStudentGroup extends Component {
       if (error) {
         alert(error);
       } else {
-        console.log('incremented randomization count for a student group', result);
+        // console.log('incremented randomization count for a student group', result);
       }
     });
     mixpanel.track('User pressed randomize button.'); // eslint-disable-line no-undef
@@ -200,7 +265,9 @@ export default class RandomizeStudentGroup extends Component {
       randomizedStudentArrayOfArrays: tempStudentArrayOfArrays });
 
     // update statistics counter that is used to monitor how much s2g app is actually used
-    this.updateRandomizeStatistic();
+    if (this.props.loggedIn) {
+      this.updateRandomizeStatistic();
+    }
   }
 
   // deleteThisStudent is not used currently in RandomizeStudentGroup
@@ -211,7 +278,7 @@ export default class RandomizeStudentGroup extends Component {
         if (error) {
           alert(error);
         } else {
-          console.log('studentGroup.removeStudent successful', result);
+          // console.log('studentGroup.removeStudent successful', result);
           const fetchedStudentArray = this.getStudentsInClient();
           this.setState({ studentArray: fetchedStudentArray });
         }
@@ -249,9 +316,9 @@ export default class RandomizeStudentGroup extends Component {
 
   handleStudentClick(studentFirstName, studentLastName,
     studentGroupID, studentGroupName) {
-    console.log('handleStudentClick: ', studentFirstName, ' ', studentLastName,
-      ' ', studentGroupID, ' ', studentGroupName);
-
+    /* console.log('handleStudentClick: ', studentFirstName, ' ',
+    studentLastName,' ', studentGroupID, ' ', studentGroupName);
+    */
     const tempStudentArray = Array.from(this.state.studentArray);
     const tempIndex = this.findStudentIndex(studentFirstName, studentLastName);
 
@@ -406,6 +473,7 @@ export default class RandomizeStudentGroup extends Component {
 }
 
 RandomizeStudentGroup.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
   studentGroupID: PropTypes.string.isRequired,
   studentGroupName: PropTypes.string.isRequired,
   currentUser: PropTypes.object.isRequired,

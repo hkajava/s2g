@@ -17,6 +17,7 @@
     "react": "^16.2.0",
     "react-addons-pure-render-mixin": "^16.0.0-alpha.3",
     "react-dom": "^16.2.0",
+    "react-notification-system": "^0.2.17",
     "react-rangeslider": "github:hkajava/react-rangeslider",
     "react-test-renderer": "^16.2.0",
     "reactstrap": "^5.0.0-alpha.4"
