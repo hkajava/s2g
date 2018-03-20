@@ -1,5 +1,5 @@
 # s2g
-Students2Groups Meteor application. Noticed in Spanish conversation class that the teacher doesn't have a good method to divide students into small groups for conversation so this application will provide easy way to do that. Also testing Meteor/React technologies with this application.
+Students2Groups Meteor application. Noticed in Spanish conversation class that the teacher doesn't have a good method to divide students into small groups for conversation so this application will provide easy way to do that. Also enjoying Meteor.js/React.js technologies with this application.
 
 ![s2g screen cast](imports/filesforgithubREADME/s2g_screencast_20180320.gif)
 
@@ -17,10 +17,11 @@ jest v. 21.2+
 Do git clone on the project
 ```
 >git clone git@github.com:hkajava/s2g.git
+>cd s2g
+>npm install
 ```
 
-run
-go to s2g main level
+To run
 ```
 >meteor run
 ```
