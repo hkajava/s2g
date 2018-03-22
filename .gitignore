@@ -1,5 +1,4 @@
 node_modules/
 .deploy
 .safe_settings.json
-settings.json
 imports/ui/.temp.js
