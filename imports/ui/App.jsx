@@ -16,6 +16,7 @@ class App extends Component {
     this.openStudentGroupEditor = this.openStudentGroupEditor.bind(this);
     this.openRandomizeStudentGroupView = this.openRandomizeStudentGroupView.bind(this);
     this.openMainView = this.openMainView.bind(this);
+    this.renderLoggedInView = this.renderLoggedInView.bind(this);
 
     this.state = {
       selectedView: 'mainView',
@@ -53,8 +54,8 @@ class App extends Component {
       { selectedView: 'editorView',
         selectedGroupID: studentGroupID,
         selectedGroupName: studentGroupName });
-    console.log('openStudentGroupEditor: studentGroupID', studentGroupID);
-    console.log('openStudentGroupEditor: studentGroupName', studentGroupName);
+    // console.log('openStudentGroupEditor: studentGroupID', studentGroupID);
+    // console.log('openStudentGroupEditor: studentGroupName', studentGroupName);
   }
 
   openRandomizeStudentGroupView(studentGroupID, studentGroupName) {
@@ -62,8 +63,8 @@ class App extends Component {
       { selectedView: 'randomizeStudentGroupView',
         selectedGroupID: studentGroupID,
         selectedGroupName: studentGroupName });
-    console.log('openRandomizeStudentGroupView: studentGroupID', studentGroupID);
-    console.log('openRandomizeStudentGroupView: studentGroupName', studentGroupName);
+    // console.log('openRandomizeStudentGroupView: studentGroupID', studentGroupID);
+    // console.log('openRandomizeStudentGroupView: studentGroupName', studentGroupName);
   }
 
   openMainView() {
@@ -85,6 +86,77 @@ class App extends Component {
     });
   }
 
+  renderLoggedInView() {
+    if (this.state.selectedView === 'mainView') {
+      return (
+        <div>
+          <form className="new-studentGroup" onSubmit={this.handleSubmit} >
+            <input
+              type="text"
+              // this ref part is copied from tutorial. strange syntax
+              ref={(node) => { this.textInput = node; return this.textInput; }}
+              placeholder={this.state.placeholderForEnteringNewGroup}
+              onFocus={() => { return this.placeholderOnFocus(); }}
+              onBlur={() => { return this.placeholderOnBlur(); }}
+            />
+          </form>
+          <div className="selectStudentGroupCSSGridWrapper">
+            {this.renderStudentGroups()}
+          </div>
+        </div>
+      );
+    } else if (this.state.selectedView === 'editorView') {
+      return (
+        <EditStudentGroup
+          studentGroupID={this.state.selectedGroupID}
+          studentGroupName={this.state.selectedGroupName}
+          currentUser={this.props.currentUser}
+          cbGoToMainViewClicked={this.openMainView}
+        />);
+    } else if (this.state.selectedView === 'randomizeStudentGroupView') {
+      return (
+        <RandomizeStudentGroup
+          loggedIn={true}
+          studentGroupID={this.state.selectedGroupID}
+          studentGroupName={this.state.selectedGroupName}
+          currentUser={this.props.currentUser}
+          cbGoToMainViewClicked={this.openMainView}
+        />);
+    }
+    return '<h1>Internal error, selectedView no set</h1>';
+  }
+
+  renderNotLoggedInView() {
+    if (this.state.selectedView === 'mainView') {
+      return (
+        <div>
+          <p> This is an application to help teachers divive students into small
+            groups randomly. Built with Meteor.js. Free to use and open source.
+            <a href="https://github.com/hkajava/s2g/">
+              <img border="0" alt="GitHub Link" src="/images/Octocat.png" width="40" height="40" />
+            </a>
+          </p>
+          <div className="selectStudentGroupCSSGridWrapper">
+            {this.renderExampleStudentGroup()}
+          </div>
+          <br />
+          <br />
+          <div className="revolvermapContainer" ref={(el) => { this.instance = el; return this.instance; }} />
+        </div>
+      );
+    } else if (this.state.selectedView === 'randomizeStudentGroupView') {
+      return (
+        <RandomizeStudentGroup
+          loggedIn={false}
+          studentGroupID="ExampleStudentGroupId"
+          studentGroupName="Example Student Group"
+          currentUser={{ user: 'exampleUser' }}
+          cbGoToMainViewClicked={this.openMainView}
+        />);
+    }
+    return '<h1>Internal error, selectedView not set</h1>';
+  }
+
   renderStudentGroups() {
     const filteredStudentGroups = this.props.studentGroups;
     if (filteredStudentGroups === '' ||
@@ -99,6 +171,7 @@ class App extends Component {
         return (
           <StudentGroup
             key={studentGroup._id}
+            loggedIn={true}
             studentGroupID={studentGroup._id}
             studentGroupName={studentGroup.studentGroupName}
             cbSelect={this.openRandomizeStudentGroupView}
@@ -107,6 +180,33 @@ class App extends Component {
         );
       }
       return '';
+    });
+  }
+
+  renderExampleStudentGroup() {
+    const exampleStudentGroup = {
+      createdAt: 'Mon Mar 12 2018 10:01:04 GMT+0200 (EET)',
+      nbrOfRandomizations: '0',
+      owner: 'exampleOwner',
+      studentGroupName: 'Example Student Group',
+      username: 'exampleUser',
+      _id: 'exampleId',
+    };
+
+    const filteredStudentGroups = [];
+    filteredStudentGroups[0] = exampleStudentGroup;
+
+    return filteredStudentGroups.map((studentGroup) => {
+      return (
+        <StudentGroup
+          key={studentGroup._id}
+          loggedIn={false}
+          studentGroupID={studentGroup._id}
+          studentGroupName={studentGroup.studentGroupName}
+          cbSelect={this.openRandomizeStudentGroupView}
+          cbEdit={this.openStudentGroupEditor}
+        />
+      );
     });
   }
 
@@ -120,49 +220,16 @@ class App extends Component {
           <br />
         </header>
 
-        { this.props.currentUser && this.state.selectedView === 'mainView' &&
-          <form className="new-studentGroup" onSubmit={this.handleSubmit} >
-            <input
-              type="text"
-              // this ref part is copied from tutorial. strange syntax
-              ref={(node) => { this.textInput = node; return this.textInput; }}
-              placeholder={this.state.placeholderForEnteringNewGroup}
-              onFocus={() => { return this.placeholderOnFocus(); }}
-              onBlur={() => { return this.placeholderOnBlur(); }}
-            />
-          </form>
+        { this.props.currentUser &&
+            this.renderLoggedInView()
         }
-
-        { this.props.currentUser && this.state.selectedView === 'mainView' &&
-          <div className="selectStudentGroupCSSGridWrapper">
-            {this.renderStudentGroups()}
-          </div>
-        }
-
-        { this.props.currentUser && this.state.selectedView === 'editorView' &&
-          <EditStudentGroup
-            studentGroupID={this.state.selectedGroupID}
-            studentGroupName={this.state.selectedGroupName}
-            currentUser={this.props.currentUser}
-            cbGoToMainViewClicked={this.openMainView}
-          />
-        }
-        { this.props.currentUser && this.state.selectedView === 'randomizeStudentGroupView' &&
-          <RandomizeStudentGroup
-            studentGroupID={this.state.selectedGroupID}
-            studentGroupName={this.state.selectedGroupName}
-            currentUser={this.props.currentUser}
-            cbGoToMainViewClicked={this.openMainView}
-          /> }
-        <br />
-        <br />
-        <br />
         { !this.props.currentUser &&
-          <div>
-            <h5>Student2Groups application user locations:</h5>
-            <div className="revolvermapContainer" ref={(el) => { this.instance = el; return this.instance; }} />
-          </div>
+            this.renderNotLoggedInView()
         }
+
+        <br />
+        <br />
+        <br />
       </div>
     );
   }
