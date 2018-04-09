@@ -6,8 +6,8 @@ const translateMin = -48;
 const translateMax = -52;
 const scaleMin = 0.98;
 const scaleMax = 1.02;
-const rotateMin = -4;
-const rotateMax = 4;
+const rotateMin = -10;
+const rotateMax = 10;
 
 export default class Sketch extends Component {
   static rand(min, max) {
