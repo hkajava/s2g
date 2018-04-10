@@ -34,7 +34,7 @@ export default class Student extends Component {
     // console.log(studentClassName);
 
     return (
-      <div id="studentID">
+      <div id={this.props.studentID}>
         <button
           className={studentClassName}
           id={this.props.studentID}

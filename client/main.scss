@@ -385,7 +385,7 @@ h6 {
   min-width: 400px;
 
   grid-row: 3 / 9;
-  grid-column: 1 / 7;
+  grid-column: 1 / 14;
 
 }
 
@@ -413,7 +413,7 @@ h6 {
   overflow: hidden;
 
   grid-row: 2 / 6;
-  grid-column: 8 / 12;
+  grid-column: 14 / 16;
 }
 
 .sliderComboCSSGridWrapper {
@@ -496,7 +496,6 @@ h6 {
   border-width: 3px;
   border-color: grey;
 
-
   overflow: hidden;
 
   display: grid;
@@ -504,7 +503,7 @@ h6 {
   align-items: center;
 
   grid-row: 3 / 6;
-  grid-column: 7 / 14;
+  grid-column: 12 / 16;
 
 }
 
@@ -612,14 +611,17 @@ h6 {
   margin: 5px;
   padding: 5px;
   */
-  min-width: 140px;
+  min-width: 150px;
+  min-height: 250px;
   height: auto;
   border: 1px solid #555;
   margin-right: 5px;
   padding: 5px;
 
+  /*
   position:relative;
   float:left;
+  */
   display: grid;
   grid-auto-flow: row;
   grid-template-columns: 1fr;
@@ -734,6 +736,20 @@ h6 {
   /*margin-left: 10px; */
 	text-decoration: none;
 	/* text-shadow: 0px 1px 0px #283966; */
+
+  /*
+  prevent student name wrapping on two lines (firstName and lastName)
+
+  white-space: nowrap;
+  white-space: pre;
+  white-space: -moz-pre-wrap; // Firefox
+  white-space: -o-pre-wrap; // Opera
+
+  white-space: pre-wrap; // Chrome
+  */
+  white-space: nowrap;
+  white-space: -moz-pre-wrap; /* Firefox */
+  word-wrap: break-word; // IE
 }
 
 .studentNameButton.canBeClicked {
@@ -783,8 +799,7 @@ h6 {
 	background-color: $hover-color;
 }
 .studentNameButton:active {
-	position: relative;
-	top: 1px;
+  top: 1px;
 }
 
 .editStudentGroupButton {

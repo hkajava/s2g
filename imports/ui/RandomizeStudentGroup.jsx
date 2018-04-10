@@ -4,6 +4,8 @@ import { Meteor } from 'meteor/meteor';
 import Slider from 'react-rangeslider';
 // To include the default styles
 import 'react-rangeslider/lib/index.css';
+// typical import
+import { TweenMax, Power2, TimelineLite } from 'gsap';
 // import { Button } from 'reactstrap';
 
 import Student from './Student.jsx';
@@ -171,6 +173,12 @@ export default class RandomizeStudentGroup extends Component {
     this.randomizeStudentGroup = this.randomizeStudentGroup.bind(this);
     this.updateStudentCounts = this.updateStudentCounts.bind(this);
 
+    this.renderStudentSmallGroups = this.renderStudentSmallGroups.bind(this);
+    this.renderStudentGroup = this.renderStudentGroup.bind(this);
+    this.renderStudentSmallGroupContainers = this.renderStudentSmallGroupContainers.bind(this);
+
+    this.animateOneStudent = this.animateOneStudent.bind(this);
+
     const fetchedStudentArray = this.getStudentsInClient();
     // add local state variable to track absent students for this
     // particular class session. Initialize to false so that all students
@@ -337,23 +345,6 @@ export default class RandomizeStudentGroup extends Component {
     this.setState({ selectedView: 'listView' });
   }
 
-  renderStudentSmallGroups() {
-    if (this.state.randomizedStudentArrayOfArrays == null ||
-        this.state.randomizedStudentArrayOfArrays === undefined ||
-        this.state.randomizedStudentArrayOfArrays.length === 0) {
-      return (<h4>ERROR: Small groups were empty.</h4>);
-    }
-    const tempArrayOfArrays = this.state.randomizedStudentArrayOfArrays;
-
-    let returnString = '';
-
-    return tempArrayOfArrays.map((studentSmallGroup, index) => {
-      const tempGroupNumber = index + 1;
-      returnString = `Group ${tempGroupNumber} `;
-      return (<div className="smallGroup" key={returnString}> <h3>{returnString}</h3>{this.renderStudentGroup(tempArrayOfArrays[index], false)} </div>);
-    });
-  }
-
   renderSliderForMinGroupSize() {
     const horizontalLabels = {
       1: '1',
@@ -394,25 +385,121 @@ export default class RandomizeStudentGroup extends Component {
     let filteredStudents = Array.from(studentArrayParam);
     filteredStudents = filteredStudents.sort(RandomizeStudentGroup.sortAccordingToLastName);
 
-    return filteredStudents.map((student) => {
+    const studentsPerColumn = 8;
+    const vDistance = 30;
+    const hDistance = 200;
+
+    return filteredStudents.map((student, index) => {
+      // switch to next row if more than studentsPerColumn
+      const x = parseInt(index / studentsPerColumn, 10) * hDistance;
+      const y = (index * vDistance) - (parseInt(index / studentsPerColumn, 10) * studentsPerColumn * vDistance);
       return (
-        <Student
+        <foreignObject
+          id={'FOR' + this.props.studentGroupID + student.firstName + student.lastName}
           key={this.props.studentGroupID + student.firstName + student.lastName}
-          studentGroupID={this.props.studentGroupID}
-          studentGroupName={this.props.studentGroupName}
-          studentID={this.props.studentGroupID + student.firstName + student.lastName}
-          studentFirstName={student.firstName}
-          studentLastName={student.lastName}
-          studentAbsent={student.absent}
-          studentCanBeClicked={studentCanBeClickedParam}
-          parentView="RandomizeStudentGroup"
-          cbClick={this.handleStudentClick}
-          cbDelete={this.deleteThisStudent}
-        />
+          x={x}
+          y={y}
+        >
+          <Student
+            key={this.props.studentGroupID + student.firstName + student.lastName}
+            studentGroupID={this.props.studentGroupID}
+            studentGroupName={this.props.studentGroupName}
+            studentID={this.props.studentGroupID + student.firstName + student.lastName}
+            studentFirstName={student.firstName}
+            studentLastName={student.lastName}
+            studentAbsent={student.absent}
+            studentCanBeClicked={studentCanBeClickedParam}
+            parentView="RandomizeStudentGroup"
+            cbClick={this.handleStudentClick}
+            cbDelete={this.deleteThisStudent}
+          />
+        </foreignObject>
       );
     });
   }
 
+  renderStudentSmallGroupContainers() {
+    if (this.state.randomizedStudentArrayOfArrays == null ||
+        this.state.randomizedStudentArrayOfArrays === undefined ||
+        this.state.randomizedStudentArrayOfArrays.length === 0) {
+      return (<h4>ERROR: Small groups were empty.</h4>);
+    }
+    const tempArrayOfArrays = this.state.randomizedStudentArrayOfArrays;
+
+    let returnString = '';
+    const groupsPerRow = 4;
+
+    // offset to leave room for student list
+    const vDistanceOffset = 270;
+    const vDistance = 270;
+    const hDistance = 200;
+
+    return tempArrayOfArrays.map((studentSmallGroup, index) => {
+      const currentColumn = index % groupsPerRow;
+      const currentRow = parseInt((index / groupsPerRow), 10);
+      const x = currentColumn * hDistance;
+      const y = (currentRow * vDistance) + vDistanceOffset;
+
+      const tempGroupNumber = index + 1;
+      returnString = `Group ${tempGroupNumber} `;
+      return (
+        <foreignObject
+          key={returnString}
+          id={returnString}
+          x={x}
+          y={y}
+        >
+          <div
+            className="smallGroup"
+            key={returnString}
+          >
+            <h3>{returnString}</h3>
+          </div>
+        </foreignObject>
+      );
+    });
+  }
+
+  renderStudentSmallGroups() {
+    if (this.state.randomizedStudentArrayOfArrays == null ||
+        this.state.randomizedStudentArrayOfArrays === undefined ||
+        this.state.randomizedStudentArrayOfArrays.length === 0) {
+      return (<h4>ERROR: Small groups were empty.</h4>);
+    }
+    const tempArrayOfArrays = this.state.randomizedStudentArrayOfArrays;
+
+    let returnString = '';
+
+    return tempArrayOfArrays.map((studentSmallGroup, index) => {
+      const tempGroupNumber = index + 1;
+      returnString = `Group ${tempGroupNumber} `;
+      return (<div className="smallGroup" key={returnString}> <h3>{returnString}</h3>{this.renderStudentGroup(tempArrayOfArrays[index], false)} </div>);
+    });
+  }
+
+  animateOneStudent() {
+    this.yes = 'no';
+    const tempGroupNumber = 0;
+    const studentGroupId = `Group ${tempGroupNumber} `;
+    /*
+    location of group container
+
+    const position = document.getElementById(studentGroupId).offset();
+    const elemWidth = document.getElementById(studentGroupId).outerWidth();
+    const elemHeight = document.getElementById(studentGroupId).outerHeight();
+    const targetHeight = document.getElementById(studentGroupId).outerHeight();
+    const topCorrection = (targetHeight - elemHeight) / 2;
+    */
+    const studentNameId = 'FORExampleStudentGroupIdHerbertGranqvist';
+
+
+    // let tween = new TweenMax(document.getElementById(studentNameId), 2, {left: (position.left + elemWidth), top:(position.top - topCorrection)});
+    // tween.updateTo({x:300, y:0}, true);
+    // let tween = new TweenMax(document.getElementById(studentNameId), 2, { x: '200' });
+    // tween.updateTo({ x:300, y:0 }, true);
+    TweenMax.to(document.getElementById(studentNameId), 2, { x: '500' });
+    // `Group ${tempGroupNumber} `
+  }
 
   render() {
     return (
@@ -446,14 +533,28 @@ export default class RandomizeStudentGroup extends Component {
         this.props.currentUser &&
         <div className="gridItem_studentList_randomizeStudentGroupCSSGridWrapper">
           <div className="studentListRandomizeStudentGroupCSSGridWrapper">
-            { this.renderStudentGroup(this.state.studentArray, true) }
+            <svg
+              width="1000px"
+              height="800px"
+            >
+              { this.renderStudentGroup(this.state.studentArray, true) }
+            </svg>
           </div>
         </div>
         }
         {this.state.selectedView === 'randomizedView' &&
         this.props.currentUser &&
-        <div className="gridItem_smallGroupContainerGrid_randomizeStudentGroupCSSGridWrapper">
-          {this.renderStudentSmallGroups()}
+        <div className="gridItem_studentList_randomizeStudentGroupCSSGridWrapper">
+          <div className="studentListRandomizeStudentGroupCSSGridWrapper">
+            <svg
+              width="1000px"
+              height="800px"
+            >
+              { this.renderStudentGroup(this.state.studentArray, true) }
+              {this.renderStudentSmallGroupContainers()}
+              {this.animateOneStudent()}
+            </svg>
+          </div>
         </div>
         }
 
