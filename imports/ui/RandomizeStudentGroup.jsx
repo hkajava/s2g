@@ -200,6 +200,12 @@ export default class RandomizeStudentGroup extends Component {
       nbrAbsentStudents: 0 };
   }
 
+  componentDidUpdate() {
+    if (this.state.selectedView === 'randomizedView' && this.props.currentUser) {
+      this.animateOneStudent();
+    }
+  }
+
   getStudentsInClient() {
     if (this.props.currentUser.user === 'exampleUser') {
       // user is not logged in
