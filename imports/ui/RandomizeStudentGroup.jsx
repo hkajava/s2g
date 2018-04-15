@@ -5,11 +5,13 @@ import Slider from 'react-rangeslider';
 // To include the default styles
 import 'react-rangeslider/lib/index.css';
 // typical import
-import { TweenMax, Power2, TimelineLite } from 'gsap';
+import { TweenMax } from 'gsap';
 // import { Button } from 'reactstrap';
 
 import Student from './Student.jsx';
 import { StudentGroups } from '../api/studentGroups.js';
+
+let globalAnimatedStudentArray = []; /* keep track of students that have been animated */
 
 const exampleStudentGroup = [
   { absent: false,
@@ -178,6 +180,9 @@ export default class RandomizeStudentGroup extends Component {
     this.renderStudentSmallGroupContainers = this.renderStudentSmallGroupContainers.bind(this);
 
     this.animateOneStudent = this.animateOneStudent.bind(this);
+    this.animateStudents = this.animateStudents.bind(this);
+
+    this.onMouseMove = this.onMouseMove.bind(this);
 
     const fetchedStudentArray = this.getStudentsInClient();
     // add local state variable to track absent students for this
@@ -189,21 +194,26 @@ export default class RandomizeStudentGroup extends Component {
     }
 
     this.state =
-    { selectedView: 'listView',
+    {
+      x: 0,
+      y: 0,
+      selectedView: 'listView',
       selectedAlgorithm: 'threeFourAlgorithm',
       studentArray: fetchedStudentArray,
       randomizedStudentArrayOfArrays: [],
       placeholderForEnteringNewStudentToClass: 'Add student',
-      minGroupSize: 4,
+      minGroupSize: 4, /* default value when starting application */
       nbrEnrolledStudents: fetchedStudentArray.length,
       nbrPresentStudents: fetchedStudentArray.length,
       nbrAbsentStudents: 0 };
   }
 
   componentDidUpdate() {
-    if (this.state.selectedView === 'randomizedView' && this.props.currentUser) {
-      this.animateOneStudent();
-    }
+    this.animateStudents();
+  }
+
+  onMouseMove(e) {
+    this.setState({ x: e.screenX, y: e.screenY });
   }
 
   getStudentsInClient() {
@@ -230,6 +240,7 @@ export default class RandomizeStudentGroup extends Component {
     }
     return currentStudentArray;
   }
+
 
   handleSliderChange = (value) => {
     this.setState({
@@ -275,8 +286,17 @@ export default class RandomizeStudentGroup extends Component {
     // sense the students have been divided to random groups)
     tempStudentArrayOfArrays = RandomizeStudentGroup.randomizeArray(tempStudentArrayOfArrays);
 
-    this.setState({ selectedView: 'randomizedView',
-      randomizedStudentArrayOfArrays: tempStudentArrayOfArrays });
+    let tempArray = new Array(nbrOfSmallGroups);
+    tempArray = tempArray.fill(0);
+
+    // update global array
+    // not in state because that would result in forever update loop
+    globalAnimatedStudentArray = Array.from(tempArray);
+
+    this.setState({
+      selectedView: 'randomizedView',
+      randomizedStudentArrayOfArrays: tempStudentArrayOfArrays,
+    });
 
     // update statistics counter that is used to monitor how much s2g app is actually used
     if (this.props.loggedIn) {
@@ -405,6 +425,8 @@ export default class RandomizeStudentGroup extends Component {
           key={this.props.studentGroupID + student.firstName + student.lastName}
           x={x}
           y={y}
+          width="150px"
+          height="30px"
         >
           <Student
             key={this.props.studentGroupID + student.firstName + student.lastName}
@@ -436,9 +458,19 @@ export default class RandomizeStudentGroup extends Component {
     const groupsPerRow = 4;
 
     // offset to leave room for student list
+    // TODO: make these into responsive units
     const vDistanceOffset = 270;
     const vDistance = 270;
     const hDistance = 200;
+
+    const containerHandle = document.getElementById('studentListRandomizeStudentGroupCSSGridWrapperId').getBoundingClientRect();
+    const containerWidth = containerHandle.width;
+    // const containerHeight = containerHandle.height;
+    const groupWidth = (containerWidth / groupsPerRow) - 150;
+    // const groupInitialHeight = groupPosition.height;
+    const groupInitialHeight = '250';
+    // console.log('groupWidth: ' + groupWidth);
+    // console.log('groupInitialHeight: ' + groupInitialHeight);
 
     return tempArrayOfArrays.map((studentSmallGroup, index) => {
       const currentColumn = index % groupsPerRow;
@@ -454,6 +486,8 @@ export default class RandomizeStudentGroup extends Component {
           id={returnString}
           x={x}
           y={y}
+          width={groupWidth}
+          height={groupInitialHeight}
         >
           <div
             className="smallGroup"
@@ -483,28 +517,90 @@ export default class RandomizeStudentGroup extends Component {
     });
   }
 
-  animateOneStudent() {
+  animateOneStudent(studentNameId, smallGroupNbr) {
     this.yes = 'no';
-    const tempGroupNumber = 0;
-    const studentGroupId = `Group ${tempGroupNumber} `;
+
+    const studentGroupId = `Group ${smallGroupNbr} `;
+
+    const studentNameElement = document.getElementById(studentNameId);
+    const initialStudentNamePositionX = studentNameElement.getAttribute('x');
+    const initialStudentNamePositionY = studentNameElement.getAttribute('y');
+
+    const studentGroupElement = document.getElementById(studentGroupId);
+    const groupPositionX = studentGroupElement.getAttribute('x');
+    const groupPositionY = studentGroupElement.getAttribute('y');
+
+    const verticalOffsetForGroupTitle = 50;
+
+    // absolute target positions are not supported in TweenMax.to()
+    // see https://greensock.com/forums/topic/15731-animating-to-an-absolute-position/
+    const newRelativeStudentNamePositionX = groupPositionX - initialStudentNamePositionX;
+    let newRelativeStudentNamePositionY =
+      (groupPositionY - initialStudentNamePositionY) + verticalOffsetForGroupTitle;
+
+    // let's add offset to fit students into target group (otherwise all
+    // students belonging to same small group would be in one pile)
+    const verticalOffsetBetweenStudents = 40;
+    newRelativeStudentNamePositionY +=
+      globalAnimatedStudentArray[(smallGroupNbr - 1)] * verticalOffsetBetweenStudents;
+
     /*
-    location of group container
-
-    const position = document.getElementById(studentGroupId).offset();
-    const elemWidth = document.getElementById(studentGroupId).outerWidth();
-    const elemHeight = document.getElementById(studentGroupId).outerHeight();
-    const targetHeight = document.getElementById(studentGroupId).outerHeight();
-    const topCorrection = (targetHeight - elemHeight) / 2;
+    const groupPosition = document.getElementById(studentGroupId).getBoundingClientRect();
+    const groupPositionX = groupPosition.x;
+    const groupPositionY = groupPosition.y;
+    const groupPositionLeft = groupPosition.left;
+    const groupPositionTop = groupPosition.top;
+    const groupPositionRight = groupPosition.right;
+    const groupPositionBottom = groupPosition.bottom;
+    const groupPositionWidth = groupPosition.width;
+    const groupPositionHeight = groupPosition.height;
+    console.log(studentGroupId + ': groupPositionX: ' + groupPositionX);
+    console.log(studentGroupId + ': groupPositionY: ' + groupPositionY);
     */
-    const studentNameId = 'FORExampleStudentGroupIdHerbertGranqvist';
+
+    TweenMax.to(document.getElementById(studentNameId), 2,
+      { x: newRelativeStudentNamePositionX, y: newRelativeStudentNamePositionY });
+
+    // let's update indexing that is needed for positioning student name inside target group
+    globalAnimatedStudentArray[(smallGroupNbr - 1)] += 1;
+  }
+
+  animateStudents() {
+    if (this.state.selectedView === 'randomizedView' && this.props.currentUser) {
+
+      this.animateOneStudent('FORExampleStudentGroupIdPerttiKerttula', '1');
+      this.animateOneStudent('FORExampleStudentGroupIdUllaRuntula', '1');
+      this.animateOneStudent('FORExampleStudentGroupIdOlliHontio', '1');
+      this.animateOneStudent('FORExampleStudentGroupIdJoeSchmuck', '1');
+
+      this.animateOneStudent('FORExampleStudentGroupIdMaijaTuununen', '2');
+      this.animateOneStudent('FORExampleStudentGroupIdPeterJohnson', '2');
+      this.animateOneStudent('FORExampleStudentGroupIdHannuPatala', '2');
+
+      this.animateOneStudent('FORExampleStudentGroupIdHerbertGranqvist', '3');
+      this.animateOneStudent('FORExampleStudentGroupIdHannaKanttula', '3');
+      this.animateOneStudent('FORExampleStudentGroupIdGretaGibbons', '3');
+      this.animateOneStudent('FORExampleStudentGroupIdTiinaJyväläinen', '3');
+
+      this.animateOneStudent('FORExampleStudentGroupIdJoonasRyntynen', '4');
+      this.animateOneStudent('FORExampleStudentGroupIdRiinaPaanala', '4');
+      this.animateOneStudent('FORExampleStudentGroupIdPeterHelmerson', '4');
+
+      this.animateOneStudent('FORExampleStudentGroupIdKariHaarala', '5');
+      this.animateOneStudent('FORExampleStudentGroupIdJussiMäkikukka', '5');
+      this.animateOneStudent('FORExampleStudentGroupIdHelenaRiippala', '5');
 
 
-    // let tween = new TweenMax(document.getElementById(studentNameId), 2, {left: (position.left + elemWidth), top:(position.top - topCorrection)});
-    // tween.updateTo({x:300, y:0}, true);
-    // let tween = new TweenMax(document.getElementById(studentNameId), 2, { x: '200' });
-    // tween.updateTo({ x:300, y:0 }, true);
-    TweenMax.to(document.getElementById(studentNameId), 2, { x: '500' });
-    // `Group ${tempGroupNumber} `
+      // after all students have been animated to correct groups, let's move
+      // the groups upwards to fill the location previously occupied by the
+      // students
+      /*
+      this.animateOneStudent('FORExampleStudentGroupIdHerbertGranqvist', '1');
+      this.animateOneStudent('FORExampleStudentGroupIdKariHaarala', '1');
+      this.animateOneStudent('FORExampleStudentGroupIdPeterHelmerson', '1');
+      this.animateOneStudent('FORExampleStudentGroupIdOlliHontio', '1');
+      */
+    }
   }
 
   render() {
@@ -535,35 +631,30 @@ export default class RandomizeStudentGroup extends Component {
           </div>
         }
         <br />
-        { this.state.selectedView === 'listView' &&
-        this.props.currentUser &&
+        { this.props.currentUser &&
         <div className="gridItem_studentList_randomizeStudentGroupCSSGridWrapper">
-          <div className="studentListRandomizeStudentGroupCSSGridWrapper">
+          <div
+            id="studentListRandomizeStudentGroupCSSGridWrapperId"
+            className="studentListRandomizeStudentGroupCSSGridWrapper"
+          >
             <svg
               width="1000px"
               height="800px"
             >
-              { this.renderStudentGroup(this.state.studentArray, true) }
+              { this.state.selectedView === 'listView' &&
+                this.renderStudentGroup(this.state.studentArray, true)
+              }
+              { /* TODO: refactor into randomizedView stuff into one clause */
+                this.state.selectedView === 'randomizedView' &&
+                    this.renderStudentGroup(this.state.studentArray, true)
+              }
+              { this.state.selectedView === 'randomizedView' &&
+                    this.renderStudentSmallGroupContainers()
+              }
             </svg>
           </div>
         </div>
         }
-        {this.state.selectedView === 'randomizedView' &&
-        this.props.currentUser &&
-        <div className="gridItem_studentList_randomizeStudentGroupCSSGridWrapper">
-          <div className="studentListRandomizeStudentGroupCSSGridWrapper">
-            <svg
-              width="1000px"
-              height="800px"
-            >
-              { this.renderStudentGroup(this.state.studentArray, true) }
-              {this.renderStudentSmallGroupContainers()}
-              {this.animateOneStudent()}
-            </svg>
-          </div>
-        </div>
-        }
-
         <div className="gridItem_randomizeStudentGroupButton_randomizeStudentGroupCSSGridWrapper">
           <button
             className="randomizeStudentGroupButton"
