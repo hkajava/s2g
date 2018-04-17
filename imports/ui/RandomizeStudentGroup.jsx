@@ -228,7 +228,7 @@ export default class RandomizeStudentGroup extends Component {
       studentArray: fetchedStudentArray,
       randomizedStudentArrayOfArrays: [],
       placeholderForEnteringNewStudentToClass: 'Add student',
-      minGroupSize: 4, /* default value when starting application */
+      desGroupSize: 4, /* desired group size, default value when starting application */
       nbrEnrolledStudents: fetchedStudentArray.length,
       nbrPresentStudents: fetchedStudentArray.length,
       nbrAbsentStudents: 0 };
@@ -270,7 +270,7 @@ export default class RandomizeStudentGroup extends Component {
 
   handleSliderChange = (value) => {
     this.setState({
-      minGroupSize: value,
+      desGroupSize: value,
     });
   }
 
@@ -301,12 +301,12 @@ export default class RandomizeStudentGroup extends Component {
 
     tempStudentArray = RandomizeStudentGroup.randomizeArray(tempStudentArray);
     nbrOfSmallGroups = RandomizeStudentGroup.findNbrOfSmallGroups(this.state.nbrPresentStudents,
-      this.state.minGroupSize);
+      this.state.desGroupSize);
     tempStudentArrayOfArrays = RandomizeStudentGroup.generateRandomGroups(nbrOfSmallGroups,
       tempStudentArray);
 
     // Randomize the order of small groups. For example if there would be
-    // 19 present students and minGroupSize 3, there would be 5 groups of three
+    // 19 present students and desGroupSize 3, there would be 5 groups of three
     // and 1 groups of four. But that group of four with this algorithm would
     // always be groups number 1. And that doesn't look random (even though in a
     // sense the students have been divided to random groups)
@@ -534,7 +534,7 @@ export default class RandomizeStudentGroup extends Component {
 
     // TODO: make these into responsive units
     // vDistanceOffset to leave room for student list
-    // const vDistanceOffset = (this.state.minGroupSize * 30) + 250;
+    // const vDistanceOffset = (this.state.desGroupSize * 30) + 250;
     // const vDistanceOffset = 270;
     const vDistanceOffset = 0;
     const vDistance = ((maxNbrStudentsInGroup + 1) * 30) + 150;
@@ -601,7 +601,7 @@ export default class RandomizeStudentGroup extends Component {
         </div>
         <div className="gridItem_Slider_sliderComboCSSGridWrapper" >
           <Slider
-            value={this.state.minGroupSize}
+            value={this.state.desGroupSize}
             orientation="horizontal"
             labels={horizontalLabels}
             min={1}
@@ -611,7 +611,7 @@ export default class RandomizeStudentGroup extends Component {
         </div>
         <div className="gridItem_NumberBox_sliderComboCSSGridWrapper" >
           <div className="numberBox" >
-            {this.state.minGroupSize}
+            {this.state.desGroupSize}
           </div>
         </div>
       </div>);
