@@ -13,6 +13,8 @@ import { StudentGroups } from '../api/studentGroups.js';
 
 let globalAnimatedStudentArray = []; /* keep track of students that have been animated */
 
+let globalSmallScreen = false;
+
 const globalEasesArray = [
   {
     name: 'Back.easeOut',
@@ -221,6 +223,11 @@ export default class RandomizeStudentGroup extends Component {
       fetchedStudentArray[i].absent = false;
     }
 
+    // console.log('window.innerWidth: ' + window.innerWidth);
+    if (window.screen.availWidth <= 1000) {
+      globalSmallScreen = true;
+    }
+
     this.state =
     {
       selectedView: 'listView',
@@ -289,8 +296,6 @@ export default class RandomizeStudentGroup extends Component {
     let tempStudentArrayOfArrays = [];
     let nbrOfSmallGroups = 0;
     let tempStudentArray = [];
-
-    // debugger;
 
     // only take into account students that are present
     for (let i = 0; i < this.state.studentArray.length; i += 1) {
@@ -512,7 +517,19 @@ export default class RandomizeStudentGroup extends Component {
     const tempArrayOfArrays = this.state.randomizedStudentArrayOfArrays;
 
     let returnString = '';
-    const groupsPerRow = 4;
+
+    let groupsPerRow = 4;
+
+    // just in case user has changed zoom level;
+    if (window.matchMedia("(max-width: 1000px)")) {
+      globalSmallScreen = true;
+      // console.log('randomizeStudentGroup(), window.innerWidth: ' + window.innerWidth);
+    }
+
+    if (globalSmallScreen) {
+      // use less groups on mobile screen
+      groupsPerRow = 3;
+    }
 
     const containerHandle = document.getElementById('studentListRandomizeStudentGroupCSSGridWrapperId').getBoundingClientRect();
     const containerWidth = containerHandle.width;
