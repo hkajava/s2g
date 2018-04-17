@@ -534,7 +534,7 @@ export default class RandomizeStudentGroup extends Component {
     const containerHandle = document.getElementById('studentListRandomizeStudentGroupCSSGridWrapperId').getBoundingClientRect();
     const containerWidth = containerHandle.width;
     // const containerHeight = containerHandle.height;
-    const groupWidth = (containerWidth / groupsPerRow) - 150;
+    const groupWidth = (containerWidth / groupsPerRow) - 100;
     // const groupInitialHeight = groupPosition.height;
 
     const longestArrayIndex = tempArrayOfArrays.reduce(function(maxI, el, i, arr) {
@@ -669,7 +669,7 @@ export default class RandomizeStudentGroup extends Component {
             className="studentListRandomizeStudentGroupCSSGridWrapper"
           >
             <svg
-              width="1000px"
+              width="800px"
               height="1200px"
             >
               { this.state.selectedView === 'listView' &&
