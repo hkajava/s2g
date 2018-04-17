@@ -5,13 +5,36 @@ import Slider from 'react-rangeslider';
 // To include the default styles
 import 'react-rangeslider/lib/index.css';
 // typical import
-import { TweenMax } from 'gsap';
+import { TweenMax, Back, Bounce, SlowMo, Sine, RoughEase, Power0 } from 'gsap';
 // import { Button } from 'reactstrap';
 
 import Student from './Student.jsx';
 import { StudentGroups } from '../api/studentGroups.js';
 
 let globalAnimatedStudentArray = []; /* keep track of students that have been animated */
+
+const globalEasesArray = [
+  {
+    name: 'Back.easeOut',
+    ease: Back.easeOut.config(2.2),
+  },
+  {
+    name: 'Bounce.easeOut',
+    ease: Bounce.easeOut,
+  },
+  {
+    name: 'SlowMo',
+    ease: SlowMo.ease.config(0.6, 0.7, false),
+  },
+  {
+    name: 'Sine.easeOut',
+    ease: Sine.easeOut,
+  },
+  {
+    name: 'RoughEase',
+    ease: RoughEase.ease.config({ template: Power0.easeNone, strength: 2, points: 20, taper: 'out', randomize: true, clamp: false }),
+  },
+];
 
 const exampleStudentGroup = [
   { absent: false,
@@ -89,6 +112,12 @@ const exampleStudentGroup = [
 // The remaining students that are present in the class can be split
 // randomly into small groups.
 export default class RandomizeStudentGroup extends Component {
+
+  static selectRandomEase() {
+    const randomIndex = Math.floor(Math.random() * globalEasesArray.length);
+    console.log(`selected ease: ${globalEasesArray[randomIndex].name}`);
+    return globalEasesArray[randomIndex].ease;
+  }
   // TODO, should ES6 international collation features be used
   // here to get alphabets correctly sorted?
   // With brief testing it looks like Finnish alphabets (ä,ö) work correctly
@@ -480,7 +509,8 @@ export default class RandomizeStudentGroup extends Component {
     // TODO: make these into responsive units
     // vDistanceOffset to leave room for student list
     // const vDistanceOffset = (this.state.minGroupSize * 30) + 250;
-    const vDistanceOffset = 270;
+    // const vDistanceOffset = 270;
+    const vDistanceOffset = 0;
     const vDistance = ((maxNbrStudentsInGroup + 1) * 30) + 150;
     const hDistance = 200;
 
@@ -530,7 +560,7 @@ export default class RandomizeStudentGroup extends Component {
     });
   }
 
-  animateOneStudent(studentNameId, smallGroupNbr) {
+  animateOneStudent(studentNameId, smallGroupNbr, selectedEase) {
     this.yes = 'no';
 
     const studentGroupId = `Group ${smallGroupNbr} `;
@@ -575,14 +605,36 @@ export default class RandomizeStudentGroup extends Component {
     console.log(studentGroupId + ': groupPositionY: ' + groupPositionY);
     */
 
-    TweenMax.to(document.getElementById(studentNameId), 2,
-      { x: newRelativeStudentNamePositionX, y: newRelativeStudentNamePositionY });
+
+/*
+    TweenMax.to(document.getElementById(studentNameId), 5,
+      { ease: SlowMo.ease.config(0.7, 0.7, false),
+        x: newRelativeStudentNamePositionX,
+        y: newRelativeStudentNamePositionY,
+      });
+*/
+
+/*
+//Create a custom bounce ease:
+CustomBounce.create("myBounce", {strength:0.6, squash:3, squashID:"myBounce-squash"});
+//do the bounce by affecting the "y" property.
+TweenMax.from(".class", 2, {y:-200, ease:"myBounce"});
+//and do the squash/stretch at the same time:
+TweenMax.to(".class", 2, {scaleX:140, scaleY:60, ease:"myBounce-squash", transformOrigin:"center bottom"});
+*/
+    TweenMax.to(document.getElementById(studentNameId), 3,
+      { ease: selectedEase,
+        x: newRelativeStudentNamePositionX,
+        y: newRelativeStudentNamePositionY,
+      });
 
     // let's update indexing that is needed for positioning student name inside target group
     globalAnimatedStudentArray[(smallGroupNbr - 1)] += 1;
   }
 
   animateStudents() {
+    const selectedEase = RandomizeStudentGroup.selectRandomEase();
+
     if (this.state.selectedView === 'randomizedView' && this.props.currentUser) {
       // this.animateOneStudent('FO_ExampleStudentGroupId_PerttiKerttula', '1');
       const aOfA = Array.from(this.state.randomizedStudentArrayOfArrays);
@@ -590,7 +642,7 @@ export default class RandomizeStudentGroup extends Component {
       for (let i = 0; i < aOfA.length; i += 1) {
         for (let j = 0; j < aOfA[i].length; j += 1) {
           const currentStudentId = `FO_${this.props.studentGroupID}_${aOfA[i][j].firstName}${aOfA[i][j].lastName}`;
-          this.animateOneStudent(currentStudentId, (i + 1));
+          this.animateOneStudent(currentStudentId, (i + 1), selectedEase);
         }
       }
     }
