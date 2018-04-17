@@ -25,6 +25,12 @@ export default class Student extends Component {
     // Give student  a different className when they are checked off,
     // so that we can style them nicely in CSS
 
+    if (this.props.parentView === 'randomizedView' &&
+        this.props.studentAbsent) {
+      // absent students are not shown in randomizedview
+      return '';
+    }
+
     const studentClassName = classnames({
       studentNameButton: true,
       canBeClicked: this.props.studentCanBeClicked,

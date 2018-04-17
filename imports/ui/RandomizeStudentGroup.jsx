@@ -112,7 +112,6 @@ const exampleStudentGroup = [
 // The remaining students that are present in the class can be split
 // randomly into small groups.
 export default class RandomizeStudentGroup extends Component {
-
   static selectRandomEase() {
     const randomIndex = Math.floor(Math.random() * globalEasesArray.length);
     console.log(`selected ease: ${globalEasesArray[randomIndex].name}`);
@@ -224,8 +223,6 @@ export default class RandomizeStudentGroup extends Component {
 
     this.state =
     {
-      x: 0,
-      y: 0,
       selectedView: 'listView',
       selectedAlgorithm: 'threeFourAlgorithm',
       studentArray: fetchedStudentArray,
@@ -402,35 +399,63 @@ export default class RandomizeStudentGroup extends Component {
     this.setState({ selectedView: 'listView' });
   }
 
-  renderSliderForMinGroupSize() {
-    const horizontalLabels = {
-      1: '1',
-      5: '5',
-      10: '10',
-    };
 
-    return (
-      <div className="sliderComboCSSGridWrapper">
-        <br />
-        <div className="gridItem_Instructions_sliderComboCSSGridWrapper" >
-          Desired group size:
-        </div>
-        <div className="gridItem_Slider_sliderComboCSSGridWrapper" >
-          <Slider
-            value={this.state.minGroupSize}
-            orientation="horizontal"
-            labels={horizontalLabels}
-            min={1}
-            max={10}
-            onChange={this.handleSliderChange}
-          />
-        </div>
-        <div className="gridItem_NumberBox_sliderComboCSSGridWrapper" >
-          <div className="numberBox" >
-            {this.state.minGroupSize}
-          </div>
-        </div>
-      </div>);
+  animateOneStudent(studentNameId, smallGroupNbr, selectedEase) {
+    this.yes = 'no';
+
+    const studentGroupId = `Group ${smallGroupNbr} `;
+
+    const studentNameElement = document.getElementById(studentNameId);
+    const initialStudentNamePositionX = studentNameElement.getAttribute('x');
+    const initialStudentNamePositionY = studentNameElement.getAttribute('y');
+
+    const studentGroupElement = document.getElementById(studentGroupId);
+    const groupPositionX = studentGroupElement.getAttribute('x');
+    const groupPositionY = studentGroupElement.getAttribute('y');
+
+    const verticalOffsetForGroupTitle = 50;
+
+    // this put student names inside the group box. without this
+    // student name would be attached to left border
+    const indentationOffsetX = 10;
+
+    // absolute target positions are not supported in TweenMax.to()
+    // see https://greensock.com/forums/topic/15731-animating-to-an-absolute-position/
+    const newRelativeStudentNamePositionX = (groupPositionX - initialStudentNamePositionX) +
+      indentationOffsetX;
+    let newRelativeStudentNamePositionY =
+      (groupPositionY - initialStudentNamePositionY) + verticalOffsetForGroupTitle;
+
+    // let's add offset to fit students into target group (otherwise all
+    // students belonging to same small group would be in one pile)
+    const verticalOffsetBetweenStudents = 40;
+    newRelativeStudentNamePositionY +=
+      globalAnimatedStudentArray[(smallGroupNbr - 1)] * verticalOffsetBetweenStudents;
+
+    TweenMax.to(document.getElementById(studentNameId), 3,
+      { ease: selectedEase,
+        x: newRelativeStudentNamePositionX,
+        y: newRelativeStudentNamePositionY,
+      });
+
+    // let's update indexing that is needed for positioning student name inside target group
+    globalAnimatedStudentArray[(smallGroupNbr - 1)] += 1;
+  }
+
+  animateStudents() {
+    const selectedEase = RandomizeStudentGroup.selectRandomEase();
+
+    if (this.state.selectedView === 'randomizedView' && this.props.currentUser) {
+      // this.animateOneStudent('FO_ExampleStudentGroupId_PerttiKerttula', '1');
+      const aOfA = Array.from(this.state.randomizedStudentArrayOfArrays);
+
+      for (let i = 0; i < aOfA.length; i += 1) {
+        for (let j = 0; j < aOfA[i].length; j += 1) {
+          const currentStudentId = `FO_${this.props.studentGroupID}_${aOfA[i][j].firstName}${aOfA[i][j].lastName}`;
+          this.animateOneStudent(currentStudentId, (i + 1), selectedEase);
+        }
+      }
+    }
   }
 
   renderStudentGroup(studentArrayParam, studentCanBeClickedParam) {
@@ -449,7 +474,8 @@ export default class RandomizeStudentGroup extends Component {
     return filteredStudents.map((student, index) => {
       // switch to next row if more than studentsPerColumn
       const x = parseInt(index / studentsPerColumn, 10) * hDistance;
-      const y = (index * vDistance) - (parseInt(index / studentsPerColumn, 10) * studentsPerColumn * vDistance);
+      const y = (index * vDistance) - (parseInt(index / studentsPerColumn, 10)
+        * studentsPerColumn * vDistance);
       return (
         <foreignObject
           id={`FO_${this.props.studentGroupID}_${student.firstName}${student.lastName}`}
@@ -468,7 +494,7 @@ export default class RandomizeStudentGroup extends Component {
             studentLastName={student.lastName}
             studentAbsent={student.absent}
             studentCanBeClicked={studentCanBeClickedParam}
-            parentView="RandomizeStudentGroup"
+            parentView={this.state.selectedView}
             cbClick={this.handleStudentClick}
             cbDelete={this.deleteThisStudent}
           />
@@ -560,92 +586,35 @@ export default class RandomizeStudentGroup extends Component {
     });
   }
 
-  animateOneStudent(studentNameId, smallGroupNbr, selectedEase) {
-    this.yes = 'no';
+  renderSliderForMinGroupSize() {
+    const horizontalLabels = {
+      1: '1',
+      5: '5',
+      10: '10',
+    };
 
-    const studentGroupId = `Group ${smallGroupNbr} `;
-
-    const studentNameElement = document.getElementById(studentNameId);
-    const initialStudentNamePositionX = studentNameElement.getAttribute('x');
-    const initialStudentNamePositionY = studentNameElement.getAttribute('y');
-
-    const studentGroupElement = document.getElementById(studentGroupId);
-    const groupPositionX = studentGroupElement.getAttribute('x');
-    const groupPositionY = studentGroupElement.getAttribute('y');
-
-    const verticalOffsetForGroupTitle = 50;
-
-    // this put student names inside the group box. without this
-    // student name would be attached to left border
-    const indentationOffsetX = 10;
-
-    // absolute target positions are not supported in TweenMax.to()
-    // see https://greensock.com/forums/topic/15731-animating-to-an-absolute-position/
-    const newRelativeStudentNamePositionX = (groupPositionX - initialStudentNamePositionX) + indentationOffsetX;
-    let newRelativeStudentNamePositionY =
-      (groupPositionY - initialStudentNamePositionY) + verticalOffsetForGroupTitle;
-
-    // let's add offset to fit students into target group (otherwise all
-    // students belonging to same small group would be in one pile)
-    const verticalOffsetBetweenStudents = 40;
-    newRelativeStudentNamePositionY +=
-      globalAnimatedStudentArray[(smallGroupNbr - 1)] * verticalOffsetBetweenStudents;
-
-    /*
-    const groupPosition = document.getElementById(studentGroupId).getBoundingClientRect();
-    const groupPositionX = groupPosition.x;
-    const groupPositionY = groupPosition.y;
-    const groupPositionLeft = groupPosition.left;
-    const groupPositionTop = groupPosition.top;
-    const groupPositionRight = groupPosition.right;
-    const groupPositionBottom = groupPosition.bottom;
-    const groupPositionWidth = groupPosition.width;
-    const groupPositionHeight = groupPosition.height;
-    console.log(studentGroupId + ': groupPositionX: ' + groupPositionX);
-    console.log(studentGroupId + ': groupPositionY: ' + groupPositionY);
-    */
-
-
-/*
-    TweenMax.to(document.getElementById(studentNameId), 5,
-      { ease: SlowMo.ease.config(0.7, 0.7, false),
-        x: newRelativeStudentNamePositionX,
-        y: newRelativeStudentNamePositionY,
-      });
-*/
-
-/*
-//Create a custom bounce ease:
-CustomBounce.create("myBounce", {strength:0.6, squash:3, squashID:"myBounce-squash"});
-//do the bounce by affecting the "y" property.
-TweenMax.from(".class", 2, {y:-200, ease:"myBounce"});
-//and do the squash/stretch at the same time:
-TweenMax.to(".class", 2, {scaleX:140, scaleY:60, ease:"myBounce-squash", transformOrigin:"center bottom"});
-*/
-    TweenMax.to(document.getElementById(studentNameId), 3,
-      { ease: selectedEase,
-        x: newRelativeStudentNamePositionX,
-        y: newRelativeStudentNamePositionY,
-      });
-
-    // let's update indexing that is needed for positioning student name inside target group
-    globalAnimatedStudentArray[(smallGroupNbr - 1)] += 1;
-  }
-
-  animateStudents() {
-    const selectedEase = RandomizeStudentGroup.selectRandomEase();
-
-    if (this.state.selectedView === 'randomizedView' && this.props.currentUser) {
-      // this.animateOneStudent('FO_ExampleStudentGroupId_PerttiKerttula', '1');
-      const aOfA = Array.from(this.state.randomizedStudentArrayOfArrays);
-
-      for (let i = 0; i < aOfA.length; i += 1) {
-        for (let j = 0; j < aOfA[i].length; j += 1) {
-          const currentStudentId = `FO_${this.props.studentGroupID}_${aOfA[i][j].firstName}${aOfA[i][j].lastName}`;
-          this.animateOneStudent(currentStudentId, (i + 1), selectedEase);
-        }
-      }
-    }
+    return (
+      <div className="sliderComboCSSGridWrapper">
+        <br />
+        <div className="gridItem_Instructions_sliderComboCSSGridWrapper" >
+          Desired group size:
+        </div>
+        <div className="gridItem_Slider_sliderComboCSSGridWrapper" >
+          <Slider
+            value={this.state.minGroupSize}
+            orientation="horizontal"
+            labels={horizontalLabels}
+            min={1}
+            max={10}
+            onChange={this.handleSliderChange}
+          />
+        </div>
+        <div className="gridItem_NumberBox_sliderComboCSSGridWrapper" >
+          <div className="numberBox" >
+            {this.state.minGroupSize}
+          </div>
+        </div>
+      </div>);
   }
 
   render() {
