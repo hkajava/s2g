@@ -421,7 +421,7 @@ export default class RandomizeStudentGroup extends Component {
       const y = (index * vDistance) - (parseInt(index / studentsPerColumn, 10) * studentsPerColumn * vDistance);
       return (
         <foreignObject
-          id={'FOR' + this.props.studentGroupID + student.firstName + student.lastName}
+          id={`FO_${this.props.studentGroupID}_${student.firstName}${student.lastName}`}
           key={this.props.studentGroupID + student.firstName + student.lastName}
           x={x}
           y={y}
@@ -457,20 +457,30 @@ export default class RandomizeStudentGroup extends Component {
     let returnString = '';
     const groupsPerRow = 4;
 
-    // offset to leave room for student list
-    // TODO: make these into responsive units
-    const vDistanceOffset = 270;
-    const vDistance = 270;
-    const hDistance = 200;
-
     const containerHandle = document.getElementById('studentListRandomizeStudentGroupCSSGridWrapperId').getBoundingClientRect();
     const containerWidth = containerHandle.width;
     // const containerHeight = containerHandle.height;
     const groupWidth = (containerWidth / groupsPerRow) - 150;
     // const groupInitialHeight = groupPosition.height;
-    const groupInitialHeight = '250';
+
+    const longestArrayIndex = tempArrayOfArrays.reduce(function(maxI, el, i, arr) {
+      return el.length > arr[maxI].length ? i : maxI;
+    }, 0);
+    const maxNbrStudentsInGroup = tempArrayOfArrays[longestArrayIndex].length;
+    const groupInitialHeight = ((maxNbrStudentsInGroup + 1) * 30) + 80;
+
+    // let's also modify the inner class height to be responsive
+    // document.getElementsByClassName('smallGroup').setAttribute(groupInitialHeight, 'min-height');
+
     // console.log('groupWidth: ' + groupWidth);
     // console.log('groupInitialHeight: ' + groupInitialHeight);
+
+    // TODO: make these into responsive units
+    // vDistanceOffset to leave room for student list
+    // const vDistanceOffset = (this.state.minGroupSize * 30) + 250;
+    const vDistanceOffset = 270;
+    const vDistance = ((maxNbrStudentsInGroup + 1) * 30) + 150;
+    const hDistance = 200;
 
     return tempArrayOfArrays.map((studentSmallGroup, index) => {
       const currentColumn = index % groupsPerRow;
@@ -491,6 +501,7 @@ export default class RandomizeStudentGroup extends Component {
         >
           <div
             className="smallGroup"
+            height={groupInitialHeight}
             key={returnString}
           >
             <h3>{returnString}</h3>
@@ -532,9 +543,13 @@ export default class RandomizeStudentGroup extends Component {
 
     const verticalOffsetForGroupTitle = 50;
 
+    // this put student names inside the group box. without this
+    // student name would be attached to left border
+    const indentationOffsetX = 10;
+
     // absolute target positions are not supported in TweenMax.to()
     // see https://greensock.com/forums/topic/15731-animating-to-an-absolute-position/
-    const newRelativeStudentNamePositionX = groupPositionX - initialStudentNamePositionX;
+    const newRelativeStudentNamePositionX = (groupPositionX - initialStudentNamePositionX) + indentationOffsetX;
     let newRelativeStudentNamePositionY =
       (groupPositionY - initialStudentNamePositionY) + verticalOffsetForGroupTitle;
 
@@ -567,39 +582,15 @@ export default class RandomizeStudentGroup extends Component {
 
   animateStudents() {
     if (this.state.selectedView === 'randomizedView' && this.props.currentUser) {
+      // this.animateOneStudent('FO_ExampleStudentGroupId_PerttiKerttula', '1');
+      const aOfA = Array.from(this.state.randomizedStudentArrayOfArrays);
 
-      this.animateOneStudent('FORExampleStudentGroupIdPerttiKerttula', '1');
-      this.animateOneStudent('FORExampleStudentGroupIdUllaRuntula', '1');
-      this.animateOneStudent('FORExampleStudentGroupIdOlliHontio', '1');
-      this.animateOneStudent('FORExampleStudentGroupIdJoeSchmuck', '1');
-
-      this.animateOneStudent('FORExampleStudentGroupIdMaijaTuununen', '2');
-      this.animateOneStudent('FORExampleStudentGroupIdPeterJohnson', '2');
-      this.animateOneStudent('FORExampleStudentGroupIdHannuPatala', '2');
-
-      this.animateOneStudent('FORExampleStudentGroupIdHerbertGranqvist', '3');
-      this.animateOneStudent('FORExampleStudentGroupIdHannaKanttula', '3');
-      this.animateOneStudent('FORExampleStudentGroupIdGretaGibbons', '3');
-      this.animateOneStudent('FORExampleStudentGroupIdTiinaJyväläinen', '3');
-
-      this.animateOneStudent('FORExampleStudentGroupIdJoonasRyntynen', '4');
-      this.animateOneStudent('FORExampleStudentGroupIdRiinaPaanala', '4');
-      this.animateOneStudent('FORExampleStudentGroupIdPeterHelmerson', '4');
-
-      this.animateOneStudent('FORExampleStudentGroupIdKariHaarala', '5');
-      this.animateOneStudent('FORExampleStudentGroupIdJussiMäkikukka', '5');
-      this.animateOneStudent('FORExampleStudentGroupIdHelenaRiippala', '5');
-
-
-      // after all students have been animated to correct groups, let's move
-      // the groups upwards to fill the location previously occupied by the
-      // students
-      /*
-      this.animateOneStudent('FORExampleStudentGroupIdHerbertGranqvist', '1');
-      this.animateOneStudent('FORExampleStudentGroupIdKariHaarala', '1');
-      this.animateOneStudent('FORExampleStudentGroupIdPeterHelmerson', '1');
-      this.animateOneStudent('FORExampleStudentGroupIdOlliHontio', '1');
-      */
+      for (let i = 0; i < aOfA.length; i += 1) {
+        for (let j = 0; j < aOfA[i].length; j += 1) {
+          const currentStudentId = `FO_${this.props.studentGroupID}_${aOfA[i][j].firstName}${aOfA[i][j].lastName}`;
+          this.animateOneStudent(currentStudentId, (i + 1));
+        }
+      }
     }
   }
 
@@ -639,7 +630,7 @@ export default class RandomizeStudentGroup extends Component {
           >
             <svg
               width="1000px"
-              height="800px"
+              height="1200px"
             >
               { this.state.selectedView === 'listView' &&
                 this.renderStudentGroup(this.state.studentArray, true)

@@ -612,8 +612,11 @@ h6 {
   padding: 5px;
   */
   min-width: 150px;
+  /*
   min-height: 250px;
-  height: auto;
+  */
+  height: inherit;
+
   border: 1px solid #555;
   margin-right: 5px;
   padding: 5px;
