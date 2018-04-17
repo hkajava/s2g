@@ -469,7 +469,7 @@ export default class RandomizeStudentGroup extends Component {
       return el.length > arr[maxI].length ? i : maxI;
     }, 0);
     const maxNbrStudentsInGroup = tempArrayOfArrays[longestArrayIndex].length;
-    const groupInitialHeight = ((maxNbrStudentsInGroup + 1) * 30) + 80;
+    const groupInitialHeight = ((maxNbrStudentsInGroup + 1) * 40) + 20;
 
     // let's also modify the inner class height to be responsive
     // document.getElementsByClassName('smallGroup').setAttribute(groupInitialHeight, 'min-height');
