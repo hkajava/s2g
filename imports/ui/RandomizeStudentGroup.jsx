@@ -256,7 +256,7 @@ export default class RandomizeStudentGroup extends Component {
         // console.log('incremented randomization count for a student group', result);
       }
     });
-    mixpanel.track('User pressed randomize button.'); // eslint-disable-line no-undef
+    mixpanel.track('Logged-in user pressed randomize button.'); // eslint-disable-line no-undef
   }
 
   randomizeStudentGroup() {
@@ -301,6 +301,8 @@ export default class RandomizeStudentGroup extends Component {
     // update statistics counter that is used to monitor how much s2g app is actually used
     if (this.props.loggedIn) {
       this.updateRandomizeStatistic();
+    } else {
+      mixpanel.track('Not-logged-in user, randomize button.'); // eslint-disable-line no-undef
     }
   }
 
