@@ -15,6 +15,10 @@ let globalAnimatedStudentArray = []; /* keep track of students that have been an
 
 let globalSmallScreen = false;
 
+// TODO: get rid of this!. For some bizarre reason there is vertical offset when rendering
+// actual groups with a logged-in user and students coming from database...
+let globalAwfulHackOffsetY = 0;
+
 const globalEasesArray = [
   {
     name: 'Back.easeOut',
@@ -205,7 +209,7 @@ export default class RandomizeStudentGroup extends Component {
     this.randomizeStudentGroup = this.randomizeStudentGroup.bind(this);
     this.updateStudentCounts = this.updateStudentCounts.bind(this);
 
-    this.renderStudentSmallGroups = this.renderStudentSmallGroups.bind(this);
+    // this.renderStudentSmallGroups = this.renderStudentSmallGroups.bind(this);
     this.renderStudentGroup = this.renderStudentGroup.bind(this);
     this.renderStudentSmallGroupContainers = this.renderStudentSmallGroupContainers.bind(this);
 
@@ -406,6 +410,7 @@ export default class RandomizeStudentGroup extends Component {
 
 
   animateOneStudent(studentNameId, smallGroupNbr, selectedEase) {
+    // TODO: clean this away when ready
     this.yes = 'no';
 
     const studentGroupId = `Group ${smallGroupNbr} `;
@@ -420,7 +425,7 @@ export default class RandomizeStudentGroup extends Component {
 
     const verticalOffsetForGroupTitle = 50;
 
-    // this put student names inside the group box. without this
+    // this puts student names inside the group box. without this
     // student name would be attached to left border
     const indentationOffsetX = 10;
 
@@ -436,6 +441,12 @@ export default class RandomizeStudentGroup extends Component {
     const verticalOffsetBetweenStudents = 40;
     newRelativeStudentNamePositionY +=
       globalAnimatedStudentArray[(smallGroupNbr - 1)] * verticalOffsetBetweenStudents;
+
+    // TODO: get rid of this!. For some bizarre reason there is vertical offset when rendering
+    // actual groups with a logged-in user and students coming from database...
+    if (this.props.currentUser.user !== 'exampleUser') {
+      newRelativeStudentNamePositionY -= (globalAwfulHackOffsetY / 2);
+    }
 
     TweenMax.to(document.getElementById(studentNameId), 3,
       { ease: selectedEase,
@@ -521,7 +532,7 @@ export default class RandomizeStudentGroup extends Component {
     let groupsPerRow = 4;
 
     // just in case user has changed zoom level;
-    if (window.matchMedia("(max-width: 1000px)")) {
+    if (window.matchMedia("(max-width: 800px)")) {
       globalSmallScreen = true;
       // console.log('randomizeStudentGroup(), window.innerWidth: ' + window.innerWidth);
     }
@@ -555,6 +566,11 @@ export default class RandomizeStudentGroup extends Component {
     // const vDistanceOffset = 270;
     const vDistanceOffset = 0;
     const vDistance = ((maxNbrStudentsInGroup + 1) * 30) + 150;
+
+    // TODO: get rid of this!. For some bizarre reason there is vertical offset when rendering
+    // actual groups with a logged-in user and students coming from database...
+    globalAwfulHackOffsetY = vDistance;
+
     const hDistance = 200;
 
     return tempArrayOfArrays.map((studentSmallGroup, index) => {
@@ -588,6 +604,8 @@ export default class RandomizeStudentGroup extends Component {
     });
   }
 
+/*
+animation replaced this
   renderStudentSmallGroups() {
     if (this.state.randomizedStudentArrayOfArrays == null ||
         this.state.randomizedStudentArrayOfArrays === undefined ||
@@ -601,9 +619,11 @@ export default class RandomizeStudentGroup extends Component {
     return tempArrayOfArrays.map((studentSmallGroup, index) => {
       const tempGroupNumber = index + 1;
       returnString = `Group ${tempGroupNumber} `;
-      return (<div className="smallGroup" key={returnString}> <h3>{returnString}</h3>{this.renderStudentGroup(tempArrayOfArrays[index], false)} </div>);
+      return (<div className="smallGroup" key={returnString}> <h3>{returnString}</h3>
+      {this.renderStudentGroup(tempArrayOfArrays[index], false)} </div>);
     });
   }
+*/
 
   renderSliderForMinGroupSize() {
     const horizontalLabels = {
@@ -677,12 +697,12 @@ export default class RandomizeStudentGroup extends Component {
               { this.state.selectedView === 'listView' &&
                 this.renderStudentGroup(this.state.studentArray, true)
               }
+              { this.state.selectedView === 'randomizedView' &&
+                    this.renderStudentSmallGroupContainers()
+              }
               { /* TODO: refactor into randomizedView stuff into one clause */
                 this.state.selectedView === 'randomizedView' &&
                     this.renderStudentGroup(this.state.studentArray, true)
-              }
-              { this.state.selectedView === 'randomizedView' &&
-                    this.renderStudentSmallGroupContainers()
               }
             </svg>
           </div>
