@@ -573,10 +573,12 @@ export default class RandomizeStudentGroup extends Component {
           y={y}
           width={groupWidth}
           height={groupInitialHeight}
+          // style={{ border: '1px solid black' }}
         >
           <div
             className="smallGroup"
-            height={groupInitialHeight}
+            // height={groupInitialHeight}
+            // min-height="auto"
             key={returnString}
           >
             <h3>{returnString}</h3>
