@@ -29,7 +29,6 @@ class App extends Component {
   componentDidMount() {
     // enabled only when user is not logged in
     // TODO enable revolver map when animation development done!
-    /*
     if (!this.props.currentUser) {
       const s = document.createElement('script');
       s.type = 'text/javascript';
@@ -38,7 +37,6 @@ class App extends Component {
       s.innerHTML = '';
       this.instance.appendChild(s);
     }
-    */
   }
 
   handleSubmit(event) {
@@ -144,10 +142,9 @@ class App extends Component {
           </div>
           <br />
           <br />
-          { /**
-            TODO: enable revolvermap when development with animation is done!
+          {
             <div className="revolvermapContainer" ref={(el) => { this.instance = el; return this.instance; }} />
-          */ }
+          }
         </div>
       );
     } else if (this.state.selectedView === 'randomizeStudentGroupView') {
@@ -232,7 +229,6 @@ class App extends Component {
         { !this.props.currentUser &&
             this.renderNotLoggedInView()
         }
-
         <br />
         <br />
         <br />
