@@ -465,7 +465,7 @@ export default class RandomizeStudentGroup extends Component {
         this.state.randomizedStudentArrayOfArrays[longestArrayIndex].length;
       if (this.state.randomizedStudentArrayOfArrays[smallGroupNbr - 1].length < longestArrayLength) {
         // TODO: get rid of this! another horrible hack, root cause probably related
-        newRelativeStudentNamePositionY += 50;
+        newRelativeStudentNamePositionY += 70;
       }
     }
 
@@ -594,7 +594,7 @@ export default class RandomizeStudentGroup extends Component {
     // TODO: get rid of this!. For some bizarre reason there is vertical offset when rendering
     // actual groups with a logged-in user and students coming from database...
     // 50 for the small group title area
-    globalAwfulHackOffsetY = vDistance - 80;
+    globalAwfulHackOffsetY = vDistance - 90;
     // globalAwfulHackOffsetY = 0;
 
     const hDistance = 200;
