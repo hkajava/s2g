@@ -269,9 +269,7 @@ export default class RandomizeStudentGroup extends Component {
     if (currentStudentGroup === undefined ||
         currentStudentGroup === null) {
       currentStudentArray = [];
-    }
-
-    if (currentStudentGroup.students !== undefined &&
+    } else if (currentStudentGroup.students !== undefined &&
         currentStudentGroup.students !== null) {
       currentStudentArray = Array.from(currentStudentGroup.students);
     }

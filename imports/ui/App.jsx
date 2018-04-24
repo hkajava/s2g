@@ -28,7 +28,6 @@ class App extends Component {
 
   componentDidMount() {
     // enabled only when user is not logged in
-    // TODO enable revolver map when animation development done!
     if (!this.props.currentUser) {
       const s = document.createElement('script');
       s.type = 'text/javascript';
@@ -36,6 +35,16 @@ class App extends Component {
       s.src = '//ra.revolvermaps.com/0/0/8.js?i=0paxcz5fm5z&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33';
       s.innerHTML = '';
       this.instance.appendChild(s);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // needed because of "exampleUser"
+    if ((this.props.currentUser === undefined ||
+          this.props.currentUser === null) &&
+        (nextProps.currentUser !== undefined &&
+         nextProps.currentUser !== null)) {
+      this.openMainView();
     }
   }
 
@@ -134,7 +143,7 @@ class App extends Component {
           <p> This is an application to help teachers divive students into small
             groups randomly. Built with Meteor.js. Free to use and open source.
             <a href="https://github.com/hkajava/s2g/">
-              <img border="0" alt="GitHub Link" src="/images/Octocat.png" width="40" height="40" />
+            <img border="0" alt="GitHub Link" src="/images/Octocat.png" width="40" height="40" />
             </a>
           </p>
           <div className="selectStudentGroupCSSGridWrapper">
