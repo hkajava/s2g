@@ -245,9 +245,17 @@ export default class RandomizeStudentGroup extends Component {
       nbrAbsentStudents: 0 };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.studentGroupID !== nextProps.studentGroupID) {
+      // reset globalAnimatedStudentArray
+      globalAnimatedStudentArray = [];
+    }
+  }
+
   componentDidUpdate() {
     this.animateStudents();
   }
+
 
   onMouseMove(e) {
     this.setState({ x: e.screenX, y: e.screenY });
@@ -442,8 +450,23 @@ export default class RandomizeStudentGroup extends Component {
 
     // TODO: get rid of this!. For some bizarre reason there is vertical offset when rendering
     // actual groups with a logged-in user and students coming from database...
+    // UPDATE 2018-04-24: investigated for an hour. no luck. for some reason GSAP
+    // does wrong transform matrix when user is logged-in. Did debug a little inside
+    // GSAP but no luck yet. Somehow the coordinate system context gets switched
+    // inside GSAP
     if (this.props.currentUser.user !== 'exampleUser') {
-      newRelativeStudentNamePositionY -= (globalAwfulHackOffsetY / 2);
+      newRelativeStudentNamePositionY -= globalAwfulHackOffsetY;
+
+      const longestArrayIndex =
+      this.state.randomizedStudentArrayOfArrays.reduce(function(maxI, el, i, arr) {
+        return el.length > arr[maxI].length ? i : maxI;
+      }, 0);
+      const longestArrayLength =
+        this.state.randomizedStudentArrayOfArrays[longestArrayIndex].length;
+      if (this.state.randomizedStudentArrayOfArrays[smallGroupNbr - 1].length < longestArrayLength) {
+        // TODO: get rid of this! another horrible hack, root cause probably related
+        newRelativeStudentNamePositionY += 50;
+      }
     }
 
     TweenMax.to(document.getElementById(studentNameId), 3,
@@ -530,7 +553,7 @@ export default class RandomizeStudentGroup extends Component {
     let groupsPerRow = 4;
 
     // just in case user has changed zoom level;
-    if (window.matchMedia("(max-width: 800px)")) {
+    if (window.matchMedia('(max-width: 800px)')) {
       globalSmallScreen = true;
       // console.log('randomizeStudentGroup(), window.innerWidth: ' + window.innerWidth);
     }
@@ -563,11 +586,16 @@ export default class RandomizeStudentGroup extends Component {
     // const vDistanceOffset = (this.state.desGroupSize * 30) + 250;
     // const vDistanceOffset = 270;
     const vDistanceOffset = 0;
-    const vDistance = ((maxNbrStudentsInGroup + 1) * 30) + 150;
+    // const vDistance = ((maxNbrStudentsInGroup + 1) * 30) + 150;
+    // that 100 in the end should cover small group title area and distance
+    // between small groups
+    const vDistance = ((maxNbrStudentsInGroup + 1) * 30) + 100;
 
     // TODO: get rid of this!. For some bizarre reason there is vertical offset when rendering
     // actual groups with a logged-in user and students coming from database...
-    globalAwfulHackOffsetY = vDistance;
+    // 50 for the small group title area
+    globalAwfulHackOffsetY = vDistance - 80;
+    // globalAwfulHackOffsetY = 0;
 
     const hDistance = 200;
 
@@ -602,7 +630,7 @@ export default class RandomizeStudentGroup extends Component {
     });
   }
 
-/*
+  /*
 animation replaced this
   renderStudentSmallGroups() {
     if (this.state.randomizedStudentArrayOfArrays == null ||
