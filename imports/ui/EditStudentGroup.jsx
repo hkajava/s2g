@@ -89,27 +89,30 @@ export default class EditStudentGroup extends Component {
     const lastName = textArray[1];
 
 
-    Meteor.call('studentGroup.addStudent', firstName, lastName, this.props.studentGroupName, this.props.studentGroupID, function(error, result) {
-      if (error) {
-        alert(error);
-      } else {
-        // console.log('studentGroup.addStudent successful', result);
-        const fetchedStudentArray = this.getStudentsInClient();
-        let tempNbrEnrolledStudents = 0;
+    Meteor.call('studentGroup.addStudent',
+      firstName, lastName, this.props.studentGroupName,
+      this.props.studentGroupID, function(error, result) { // eslint-disable-line no-unused-vars
+        if (error) {
+          alert(error);
+        } else {
+          // console.log('studentGroup.addStudent successful', result);
+          const fetchedStudentArray = this.getStudentsInClient();
+          let tempNbrEnrolledStudents = 0;
 
-        if (fetchedStudentArray !== null &&
-            fetchedStudentArray !== []) {
-          tempNbrEnrolledStudents = fetchedStudentArray.length;
+          if (fetchedStudentArray !== null &&
+              fetchedStudentArray !== []) {
+            tempNbrEnrolledStudents = fetchedStudentArray.length;
+          }
+          this.setState({ studentArray: fetchedStudentArray,
+            nbrEnrolledStudents: tempNbrEnrolledStudents });
         }
-        this.setState({ studentArray: fetchedStudentArray,
-          nbrEnrolledStudents: tempNbrEnrolledStudents });
-      }
-    }.bind(this));
+      }.bind(this));
   }
 
   deleteThisStudent(studentFirstName, studentLastName) {
     Meteor.call('studentGroup.removeStudent', studentFirstName, studentLastName,
-      this.props.studentGroupName, this.props.studentGroupID, function(error, result) {
+      this.props.studentGroupName, this.props.studentGroupID,
+      function(error, result) { // eslint-disable-line no-unused-vars
         if (error) {
           alert(error);
         } else {
@@ -127,8 +130,10 @@ export default class EditStudentGroup extends Component {
       }.bind(this));
   }
 
-  handleStudentClick(studentFirstName, studentLastName) {
-    // console.log('handleStudentClick: ', studentFirstName, ' ', studentLastName, ' ', this.props.studentGroupName);
+  handleStudentClick(studentFirstName, // eslint-disable-line class-methods-use-this
+    studentLastName) { // eslint-disable-line no-unused-vars
+    // console.log('handleStudentClick: ', studentFirstName, ' ', studentLastName, ' ',
+    // this.props.studentGroupName);
   }
 
   handleGoToMainView() {

@@ -126,7 +126,7 @@ class App extends Component {
     } else if (this.state.selectedView === 'randomizeStudentGroupView') {
       return (
         <RandomizeStudentGroup
-          loggedIn={true}
+          loggedIn={true} // eslint-disable-line react/jsx-boolean-value
           studentGroupID={this.state.selectedGroupID}
           studentGroupName={this.state.selectedGroupName}
           currentUser={this.props.currentUser}
@@ -142,7 +142,7 @@ class App extends Component {
         <div>
           <p> This is an application to help teachers divive students into small
             groups randomly. Built with Meteor.js. Free to use and open source.
-            <a href="https://github.com/hkajava/s2g/">
+          <a href="https://github.com/hkajava/s2g/"> { /** eslint-disable-line indent */}
             <img border="0" alt="GitHub Link" src="/images/Octocat.png" width="40" height="40" />
             </a>
           </p>
@@ -183,7 +183,7 @@ class App extends Component {
         return (
           <StudentGroup
             key={studentGroup._id}
-            loggedIn={true}
+            loggedIn={true} // eslint-disable-line react/jsx-boolean-value
             studentGroupID={studentGroup._id}
             studentGroupName={studentGroup.studentGroupName}
             cbSelect={this.openRandomizeStudentGroupView}

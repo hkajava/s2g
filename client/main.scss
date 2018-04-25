@@ -1,5 +1,9 @@
 /* CSS declarations go here */
 $interactivity-color: #f9d072;
+/*
+$student-inactive-background-color: #00cc66;
+*/
+$student-inactive-background-color: #339966;
 $hover-color: #476e9e;
 $used-font-family: Verdana;
 /*
@@ -265,17 +269,19 @@ h6 {
   grid-gap: 10px;
   grid-auto-rows: minmax(100px, auto);
   grid-template-rows: repeat(7, 1fr);
-*/
+
 
   position:relative;
   float:left;
+  */
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 5px;
-  /* grid-auto-rows: 100px;*/
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 2px;
+  /* grid-auto-rows: 100px;
   grid-auto-rows: minmax(100px, auto);
-  grid-template-rows: repeat(8, 1fr);
+  */
+  grid-template-rows: 40px 40px 40px 40px 40px 40px 40px 40px;
 
   /*
   grid-auto-columns: fit-content(400px);
@@ -728,14 +734,14 @@ h6 {
   width: 150px;
   height: 30px;
 
-	background-color: green;
+	background-color: $student-inactive-background-color;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 	border-radius: 0px;
 	border: 1px solid #4e6096;
 	display: inline-block;
 	cursor: pointer;
-	color: #ffffff;
+	color: black;
 
 	font-family: $used-font-family;
 	font-size: 14px;
@@ -1143,19 +1149,27 @@ li.private {
     grid-gap: 10px;
     grid-auto-rows: minmax(100px, auto);
     grid-template-rows: repeat(7, 1fr);
-  */
+
 
     position:relative;
     float:left;
+    */
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr 1fr;
+
+    grid-template-rows: repeat(16, 1fr);
     grid-gap: 5px;
     /* grid-auto-rows: 100px;*/
+
+
+    /*
+    grid-template-rows: 100px 100px 100px 100px 100px 100px 100px 100px;
+
     grid-auto-rows: minmax(100px, auto);
     grid-template-rows: repeat(16, 1fr);
 
-    /*
+
     grid-auto-columns: fit-content(400px);
     grid-auto-columns: min-content;
     */
