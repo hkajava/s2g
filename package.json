@@ -1,6 +1,6 @@
 {
   "name": "s2g",
-  "version": "1.0.5-animated",
+  "version": "1.0.6-animated",
   "private": true,
   "scripts": {
     "lint": "eslint .",
