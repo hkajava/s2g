@@ -469,10 +469,18 @@ export default class RandomizeStudentGroup extends Component {
       }
     }
 
-    TweenMax.to(document.getElementById(studentNameId), 3,
+    // let's add some sound
+    const audioplay = document.createElement('audio');
+    // audioplay.setAttribute('src', '/sounds/www.grsites.com.cartoon023.bizarre.GREAT.wav');
+    audioplay.setAttribute('src', '/sounds/www.grsites.com.cartoon024.bizarre.GREAT.wav');
+
+
+    TweenMax.to(document.getElementById(studentNameId), 2,
       { ease: selectedEase,
         x: newRelativeStudentNamePositionX,
         y: newRelativeStudentNamePositionY,
+        onStart: function(){ audioplay.play(); },
+        // onComplete: function() { audioplay.play(); }
       });
 
     // let's update indexing that is needed for positioning student name inside target group
