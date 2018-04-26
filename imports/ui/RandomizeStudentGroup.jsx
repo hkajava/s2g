@@ -474,10 +474,13 @@ export default class RandomizeStudentGroup extends Component {
     }
 
     // let's add some sound
+    /*
+    After some discussion with Janne Koivula, decided to disable audioplay.
+    It doesn't add value at least yet and might be dispelling some users.
     const audioplay = document.createElement('audio');
     // audioplay.setAttribute('src', '/sounds/www.grsites.com.cartoon023.bizarre.GREAT.wav');
     audioplay.setAttribute('src', '/sounds/www.grsites.com.cartoon024.bizarre.GREAT.wav');
-
+    */
 
     TweenMax.to(document.getElementById(studentNameId), 1.5,
       { ease: selectedEase,
