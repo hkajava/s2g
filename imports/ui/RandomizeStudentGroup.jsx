@@ -475,7 +475,7 @@ export default class RandomizeStudentGroup extends Component {
     audioplay.setAttribute('src', '/sounds/www.grsites.com.cartoon024.bizarre.GREAT.wav');
 
 
-    TweenMax.to(document.getElementById(studentNameId), 2,
+    TweenMax.to(document.getElementById(studentNameId), 1.5,
       { ease: selectedEase,
         x: newRelativeStudentNamePositionX,
         y: newRelativeStudentNamePositionY,
