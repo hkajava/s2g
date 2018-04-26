@@ -486,7 +486,7 @@ export default class RandomizeStudentGroup extends Component {
       { ease: selectedEase,
         x: newRelativeStudentNamePositionX,
         y: newRelativeStudentNamePositionY,
-        onStart: function(){ audioplay.play(); },
+        // onStart: function(){ audioplay.play(); },
         // onComplete: function() { audioplay.play(); }
       });
 
