@@ -36,11 +36,15 @@ const globalEasesArray = [
     name: 'Sine.easeOut',
     ease: Sine.easeOut,
   },
-  {
-    name: 'RoughEase',
-    ease: RoughEase.ease.config({ template: Power0.easeNone, strength: 2, points: 20, taper: 'out', randomize: true, clamp: false }),
-  },
 ];
+
+/*
+removed RoughEase {
+  name: 'RoughEase',
+  ease: RoughEase.ease.config({ template: Power0.easeNone,
+  strength: 2, points: 20, taper: 'out', randomize: true, clamp: false }),
+},
+*/
 
 const exampleStudentGroup = [
   { absent: false,
