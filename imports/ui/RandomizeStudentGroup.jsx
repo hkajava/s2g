@@ -733,7 +733,7 @@ animation replaced this
           >
             <svg
               width="800px"
-              height="1200px"
+              height="800px"
             >
               { this.state.selectedView === 'listView' &&
                 this.renderStudentGroup(this.state.studentArray, true)
