@@ -732,7 +732,7 @@ animation replaced this
   render() {
     return (
       <div className="randomizeStudentGroupCSSGridWrapper">
-        <div className="gridItem_goToMainViewButton_randomizeStudentGroupCSSGridWrapper">
+        <div className="gridItem_navigationButtons_randomizeStudentGroupCSSGridWrapper">
           <button className="goToMainViewButton" onClick={this.handleGoToMainView}>
             MainView
           </button>
