@@ -283,7 +283,7 @@ h6 {
   /* grid-auto-rows: 100px;
   grid-auto-rows: minmax(100px, auto);
   */
-  grid-template-rows: 40px 40px 40px 40px 40px 40px 40px 40px;
+  grid-template-rows: 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px;
 
   /*
   grid-auto-columns: fit-content(400px);
@@ -1184,6 +1184,7 @@ li.private {
     border-width: 5px;
     border-color: black;
 
+    min-width: 300px;
     width: auto;
     /*
     min-height: 450px;
