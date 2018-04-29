@@ -72,8 +72,8 @@ header {
   /* background: #d2edf4;*/
   /* background: #e2994a; */
   /* background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%); */
-  padding: 2px 15px 15px 5px;
-  margin-top: 20px;
+  padding: 2px 15px 2px 5px;
+  margin-top: 5px;
   position: relative;
 }
 
@@ -1050,6 +1050,15 @@ li.private {
 
 @media (max-width: 1200px) {
 
+  header {
+    /* background: #d2edf4;*/
+    /* background: #e2994a; */
+    /* background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%); */
+    padding: 2px 15px 10px 5px;
+    margin-top: 5px;
+    position: relative;
+  }
+
   h1 {
     font-size: 2.3rem ! important;
     font-family: $used-font-family;
@@ -1128,7 +1137,7 @@ li.private {
     */
     margin-right: 50px;
     margin-left: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
   	cursor: pointer;
   	color: #000000;
   	font-family: $used-font-family;
@@ -1286,14 +1295,16 @@ li.private {
     /*
   	background-color: $hover-color;
     */
-    transform: scale(1.05);
+    transform: scale(1.03);
     border-width: 2px;
     border-color: blue;
   }
 
   .randomizeStudentGroupButton:active {
-  	position: relative;
-  	top: 1px;
+  	/*
+    position: relative;
+    */
+    top: 2px;
   }
 
   .gridItem_studentList_randomizeStudentGroupCSSGridWrapper {

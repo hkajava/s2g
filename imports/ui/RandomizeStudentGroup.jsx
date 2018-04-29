@@ -613,7 +613,7 @@ export default class RandomizeStudentGroup extends Component {
     const containerHandle = document.getElementById('studentListRandomizeStudentGroupCSSGridWrapperId').getBoundingClientRect();
     const containerWidth = containerHandle.width;
     // const containerHeight = containerHandle.height;
-    const groupWidth = (containerWidth / groupsPerRow) - 100;
+    const groupWidth = (containerWidth / groupsPerRow) - 90;
     // const groupInitialHeight = groupPosition.height;
 
     const longestArrayIndex = tempArrayOfArrays.reduce(function(maxI, el, i, arr) {
