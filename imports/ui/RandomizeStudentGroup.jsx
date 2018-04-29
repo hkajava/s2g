@@ -246,7 +246,8 @@ export default class RandomizeStudentGroup extends Component {
       desGroupSize: 4, /* desired group size, default value when starting application */
       nbrEnrolledStudents: fetchedStudentArray.length,
       nbrPresentStudents: fetchedStudentArray.length,
-      nbrAbsentStudents: 0 };
+      nbrAbsentStudents: 0,
+      svgHeight: '800px' };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -337,6 +338,22 @@ export default class RandomizeStudentGroup extends Component {
     // update global array
     // not in state because that would result in forever update loop
     globalAnimatedStudentArray = Array.from(tempArray);
+
+    const groupsPerRow = 3;
+
+    const longestArrayIndex = tempStudentArrayOfArrays.reduce(function(maxI, el, i, arr) {
+      return el.length > arr[maxI].length ? i : maxI;
+    }, 0);
+    const maxNbrStudentsInGroup = tempStudentArrayOfArrays[longestArrayIndex].length;
+    const vDistance = ((maxNbrStudentsInGroup + 1) * 45) + 20;
+
+    // let's make the svg area itself responsive
+    const newSvgHeight = ((nbrOfSmallGroups / groupsPerRow) * vDistance) + 200;
+    if (newSvgHeight !== this.state.svgHeight) {
+      this.setState({
+        svgHeight: newSvgHeight,
+      });
+    }
 
     this.setState({
       selectedView: 'randomizedView',
@@ -480,7 +497,8 @@ export default class RandomizeStudentGroup extends Component {
       }, 0);
       const longestArrayLength =
         this.state.randomizedStudentArrayOfArrays[longestArrayIndex].length;
-      if (this.state.randomizedStudentArrayOfArrays[smallGroupNbr - 1].length < longestArrayLength) {
+      if (this.state.randomizedStudentArrayOfArrays[smallGroupNbr - 1].length <
+        longestArrayLength) {
         // TODO: get rid of this! another horrible hack, root cause probably related
         newRelativeStudentNamePositionY += 70;
       }
@@ -532,12 +550,12 @@ export default class RandomizeStudentGroup extends Component {
     let filteredStudents = Array.from(studentArrayParam);
     filteredStudents = filteredStudents.sort(RandomizeStudentGroup.sortAccordingToLastName);
 
-    const studentsPerColumn = 8;
-    const vDistance = 30;
-    const hDistance = 200;
+    const studentsPerColumn = 15;
+    const vDistance = 35;
+    const hDistance = 180;
 
     return filteredStudents.map((student, index) => {
-      // switch to next row if more than studentsPerColumn
+      // switch to next column if more than studentsPerColumn
       const x = parseInt(index / studentsPerColumn, 10) * hDistance;
       const y = (index * vDistance) - (parseInt(index / studentsPerColumn, 10)
         * studentsPerColumn * vDistance);
@@ -575,6 +593,7 @@ export default class RandomizeStudentGroup extends Component {
       return (<h4>ERROR: Small groups were empty.</h4>);
     }
     const tempArrayOfArrays = this.state.randomizedStudentArrayOfArrays;
+    const nbrOfSmallGroups = this.state.randomizedStudentArrayOfArrays.length;
 
     let returnString = '';
 
@@ -746,7 +765,7 @@ animation replaced this
           >
             <svg
               width="800px"
-              height="800px"
+              height={this.state.svgHeight}
             >
               { this.state.selectedView === 'listView' &&
                 this.renderStudentGroup(this.state.studentArray, true)
