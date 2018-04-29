@@ -115,6 +115,18 @@ const exampleStudentGroup = [
     firstName: 'Erja',
     lastName: 'Lyytinen',
   },
+  { absent: false,
+    firstName: 'Joan',
+    lastName: 'Jett',
+  },
+  { absent: false,
+    firstName: 'Mary',
+    lastName: 'Ford',
+  },
+  { absent: false,
+    firstName: 'Liona',
+    lastName: 'Boyd',
+  },
 ];
 
 // RandomizeStudentGroup component - show a list of students belonging
