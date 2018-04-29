@@ -4,7 +4,7 @@ Students2Groups Meteor application. Noticed in Spanish conversation class that t
 Running live in DigitalOcean:
 http://students2groups.com/
 
-![s2g screen cast](imports/filesforgithubREADME/s2g_screencast_20180320.gif)
+![s2g screen cast](imports/filesforgithubREADME/s2g_screencast_20180429.gif)
 
 ## Prerequisites for installation
 
