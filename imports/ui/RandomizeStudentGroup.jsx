@@ -345,10 +345,10 @@ export default class RandomizeStudentGroup extends Component {
       return el.length > arr[maxI].length ? i : maxI;
     }, 0);
     const maxNbrStudentsInGroup = tempStudentArrayOfArrays[longestArrayIndex].length;
-    const vDistance = ((maxNbrStudentsInGroup + 1) * 45) + 20;
+    const vDistance = ((maxNbrStudentsInGroup + 1) * 50) + 30;
 
     // let's make the svg area itself responsive
-    const newSvgHeight = ((nbrOfSmallGroups / groupsPerRow) * vDistance) + 200;
+    const newSvgHeight = (Math.ceil(nbrOfSmallGroups / groupsPerRow) * vDistance) + 200;
     if (newSvgHeight !== this.state.svgHeight) {
       this.setState({
         svgHeight: newSvgHeight,
@@ -550,7 +550,11 @@ export default class RandomizeStudentGroup extends Component {
     let filteredStudents = Array.from(studentArrayParam);
     filteredStudents = filteredStudents.sort(RandomizeStudentGroup.sortAccordingToLastName);
 
-    const studentsPerColumn = 15;
+    let studentsPerColumn = 8;
+    if (filteredStudents.length > 24) {
+      studentsPerColumn = 15;
+    }
+
     const vDistance = 35;
     const hDistance = 180;
 
