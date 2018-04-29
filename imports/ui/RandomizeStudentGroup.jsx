@@ -343,6 +343,19 @@ export default class RandomizeStudentGroup extends Component {
       randomizedStudentArrayOfArrays: tempStudentArrayOfArrays,
     });
 
+    // let's scroll view so that all small groups should be visible
+    window.scroll({
+      top: 290,
+      left: 0,
+      behavior: 'smooth',
+    });
+    /*
+    document.querySelector('.gridItem_studentGroupName_randomizeStudentGroupCSSGridWrapper').
+      scrollIntoView({
+      behavior: 'smooth',
+    });
+    */
+
     // update statistics counter that is used to monitor how much s2g app is actually used
     if (this.props.loggedIn) {
       this.updateRandomizeStatistic();
