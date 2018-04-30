@@ -11,30 +11,12 @@ $student-inactive-background-color: #339966;
 $hover-color: #476e9e;
 $used-font-family: Verdana;
 
-
 $button-font-size-desktop: 15px;
 $button-font-size-cell-phone: 25px;
 
 $input-field-font-size-desktop: 10px;
 $input-field-font-size-cell-phone: 15px;
 
-/*
-let's use extend through placeholder
-*/
-.interactive-element %interactive-element {
-  transform: translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  backface-visibility: hidden;
-  -moz-osx-font-smoothing: grayscale;
-  transition-duration: 0.3s;
-  transition-property: transform;
-}
-
-.interactive-element:hover,
-.interactive-element:focus,
-.interactive-element:active {
-    transform: scale(1.1);
-}
 
 /* from https://github.com/IanLunn/Hover/blob/master/README.md#hovercss
 */
@@ -725,12 +707,6 @@ h6 {
   margin-left: 10px;
 	text-decoration: none;
   /* text-shadow: 0px 1px 0px #283966; */
-
-/*
-  @extend .interactive-element;
-
-  @extend %interactive-element;
-*/
 
   transform: translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
