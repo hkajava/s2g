@@ -141,7 +141,8 @@ class App extends Component {
       return (
         <div>
           <p> This is an application to help teachers divive students into small
-            groups randomly. Built with Meteor.js. Free to use and open source. <a target="_blank" rel="noopener noreferrer" href="https://github.com/hkajava/s2g/"><img border="0" alt="GitHub Link" src="/images/Octocat_scaled.png" width="40" height="40" /></a>
+            groups randomly. Built with Meteor.js. Free to use and open source. <a target="_blank" rel="noopener noreferrer" href="https://github.com/hkajava/s2g/"><img border="0" alt="GitHub Link" src="/images/Octocat_scaled.png" width="40" height="40" /></a><br />
+            To create own groups, you need to sign-up. Those groups will be visible to you only.
           </p>
           <div className="selectStudentGroupCSSGridWrapper">
             {this.renderExampleStudentGroup()}
