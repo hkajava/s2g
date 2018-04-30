@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'; // ES6
 import { Meteor } from 'meteor/meteor';
 import Slider from 'react-rangeslider';
+import NotificationSystem from 'react-notification-system';
 // To include the default styles
 import 'react-rangeslider/lib/index.css';
 // typical import
@@ -225,6 +226,10 @@ export default class RandomizeStudentGroup extends Component {
     this.randomizeStudentGroup = this.randomizeStudentGroup.bind(this);
     this.updateStudentCounts = this.updateStudentCounts.bind(this);
 
+    this.showErrorNotification = this.showErrorNotification.bind(this);
+    this.showSuccessNotification = this.showSuccessNotification.bind(this);
+    this.addNotification = this.addNotification.bind(this);
+
     // this.renderStudentSmallGroups = this.renderStudentSmallGroups.bind(this);
     this.renderStudentGroup = this.renderStudentGroup.bind(this);
     this.renderStudentSmallGroupContainers = this.renderStudentSmallGroupContainers.bind(this);
@@ -271,6 +276,7 @@ export default class RandomizeStudentGroup extends Component {
 
   componentDidUpdate() {
     this.animateStudents();
+    this.notificationSystem = this.refs.notificationSystem;
   }
 
 
@@ -442,6 +448,12 @@ export default class RandomizeStudentGroup extends Component {
     /* console.log('handleStudentClick: ', studentFirstName, ' ',
     studentLastName,' ', studentGroupID, ' ', studentGroupName);
     */
+
+    if (this.state.selectedView === 'randomizedView') {
+      this.showErrorNotification('Return to list view first before marking student as absent');
+      return;
+    }
+
     const tempStudentArray = Array.from(this.state.studentArray);
     const tempIndex = this.findStudentIndex(studentFirstName, studentLastName);
 
@@ -551,6 +563,30 @@ export default class RandomizeStudentGroup extends Component {
         }
       }
     }
+  }
+
+  showErrorNotification(errorMessage) {
+    // console.log(errorMessage);
+    this.notificationSystem.addNotification({
+      message: errorMessage,
+      level: 'error',
+    });
+  }
+
+  showSuccessNotification(successMessage) {
+    // console.log(successMessage);
+    this.notificationSystem.addNotification({
+      message: successMessage,
+      level: 'success',
+    });
+  }
+
+  addNotification(event) {
+    event.preventDefault();
+    this.notificationSystem.addNotification({
+      message: 'Notification message',
+      level: 'success',
+    });
   }
 
   renderStudentGroup(studentArrayParam, studentCanBeClickedParam) {
@@ -807,6 +843,7 @@ animation replaced this
               'Randomize AGAIN!' }
           </button>
         </div>
+        <NotificationSystem ref="notificationSystem" />
       </div>
     );
   }
