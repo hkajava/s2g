@@ -475,11 +475,7 @@ export default class RandomizeStudentGroup extends Component {
     this.setState({ selectedView: 'listView' });
   }
 
-
   animateOneStudent(studentNameId, smallGroupNbr, selectedEase) {
-    // TODO: clean this away when ready
-    this.yes = 'no';
-
     const studentGroupId = `Group ${smallGroupNbr} `;
 
     const studentNameElement = document.getElementById(studentNameId);
