@@ -17,7 +17,7 @@ export default class StudentGroup extends Component {
   }
 
   componentDidMount() {
-    this.notificationSystem = this.refs.notificationSystem;
+    // this.notificationSystem = this.refs.notificationSystem;
   }
 
   selectThisStudentGroup() {
@@ -77,7 +77,7 @@ export default class StudentGroup extends Component {
         <button className="deleteStudentGroupButton" onClick={this.deleteThisStudentGroup}>
            Delete
         </button>
-        <NotificationSystem ref="notificationSystem" />
+        <NotificationSystem ref={(c) => { this.notificationSystem = c; }} />
       </div>
     );
   }

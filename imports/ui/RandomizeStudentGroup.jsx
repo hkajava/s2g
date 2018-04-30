@@ -6,7 +6,8 @@ import NotificationSystem from 'react-notification-system';
 // To include the default styles
 import 'react-rangeslider/lib/index.css';
 // typical import
-import { TweenMax, Back, Bounce, SlowMo, Sine, RoughEase, Power0 } from 'gsap';
+import { TweenMax, Back, Bounce, SlowMo, Sine } from 'gsap';
+// import { TweenMax, Back, Bounce, SlowMo, Sine, RoughEase, Power0 } from 'gsap';
 // import { Button } from 'reactstrap';
 
 import Student from './Student.jsx';
@@ -276,7 +277,7 @@ export default class RandomizeStudentGroup extends Component {
 
   componentDidUpdate() {
     this.animateStudents();
-    this.notificationSystem = this.refs.notificationSystem;
+    // this.notificationSystem = this.notificationSystem;
   }
 
 
@@ -315,7 +316,7 @@ export default class RandomizeStudentGroup extends Component {
   }
 
   updateRandomizeStatistic() {
-    Meteor.call('studentGroups.updateRandomizeStatistic', this.props.studentGroupID, function(error, result) {
+    Meteor.call('studentGroups.updateRandomizeStatistic', this.props.studentGroupID, function(error, result) { // eslint-disable-line no-unused-vars
       if (error) {
         alert(error);
       } else {
@@ -402,8 +403,10 @@ export default class RandomizeStudentGroup extends Component {
   // deleteThisStudent is not used currently in RandomizeStudentGroup
   deleteThisStudent(studentFirstName, studentLastName,
     studentGroupID, studentGroupName) {
-    Meteor.call('studentGroup.removeStudent', studentFirstName, studentLastName,
-      studentGroupName, studentGroupID, function(error, result) {
+    Meteor.call('studentGroup.removeStudent',
+      studentFirstName, studentLastName,
+      studentGroupName, studentGroupID,
+      function(error, result) { // eslint-disable-line no-unused-vars
         if (error) {
           alert(error);
         } else {
@@ -444,13 +447,13 @@ export default class RandomizeStudentGroup extends Component {
   }
 
   handleStudentClick(studentFirstName, studentLastName,
-    studentGroupID, studentGroupName) {
+    studentGroupID, studentGroupName) { // eslint-disable-line no-unused-vars
     /* console.log('handleStudentClick: ', studentFirstName, ' ',
     studentLastName,' ', studentGroupID, ' ', studentGroupName);
     */
 
     if (this.state.selectedView === 'randomizedView') {
-      this.showErrorNotification('Return to list view first before marking student as absent');
+      this.showErrorNotification('Return to ListView first before marking student as absent');
       return;
     }
 
@@ -645,7 +648,7 @@ export default class RandomizeStudentGroup extends Component {
       return (<h4>ERROR: Small groups were empty.</h4>);
     }
     const tempArrayOfArrays = this.state.randomizedStudentArrayOfArrays;
-    const nbrOfSmallGroups = this.state.randomizedStudentArrayOfArrays.length;
+    // const nbrOfSmallGroups = this.state.randomizedStudentArrayOfArrays.length;
 
     let returnString = '';
 
@@ -843,7 +846,7 @@ animation replaced this
               'Randomize AGAIN!' }
           </button>
         </div>
-        <NotificationSystem ref="notificationSystem" />
+        <NotificationSystem ref={(c) => { this.notificationSystem = c; }} />
       </div>
     );
   }
