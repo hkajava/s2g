@@ -366,6 +366,15 @@ export default class RandomizeStudentGroup extends Component {
     const maxNbrStudentsInGroup = tempStudentArrayOfArrays[longestArrayIndex].length;
     const vDistance = ((maxNbrStudentsInGroup + 1) * 50) + 30;
 
+    // something fun
+    if (maxNbrStudentsInGroup === 1) {
+      this.showSuccessNotification("You're not so enthusiastic about group work, are you?");
+      mixpanel.track('randomize button. maxNbrStudentsInGroup === 1'); // eslint-disable-line no-undef
+    } else if (nbrOfSmallGroups === 1) {
+      this.showSuccessNotification('Your idea of group work is revolutionary!');
+      mixpanel.track('randomize button. nbrOfSmallGroups === 1'); // eslint-disable-line no-undef
+    }
+
     // let's make the svg area itself responsive
     const newSvgHeight = (Math.ceil(nbrOfSmallGroups / groupsPerRow) * vDistance) + 200;
     if (newSvgHeight !== this.state.svgHeight) {
@@ -386,7 +395,7 @@ export default class RandomizeStudentGroup extends Component {
       behavior: 'smooth',
     });
     /*
-    document.querySelector('.gridItem_studentGroupName_randomizeStudentGroupCSSGridWrapper').
+    document.querySelector('.randomizeStudentGroupCSSGridWrapper__gridItem--studentGroupName').
       scrollIntoView({
       behavior: 'smooth',
     });
@@ -759,10 +768,10 @@ animation replaced this
     return (
       <div className="sliderComboCSSGridWrapper">
         <br />
-        <div className="gridItem_Instructions_sliderComboCSSGridWrapper" >
+        <div className="sliderComboCSSGridWrapper__gridItem--Instructions" >
           Desired group size:
         </div>
-        <div className="gridItem_Slider_sliderComboCSSGridWrapper" >
+        <div className="sliderComboCSSGridWrapper__gridItem--Slider" >
           <Slider
             value={this.state.desGroupSize}
             orientation="horizontal"
@@ -772,7 +781,7 @@ animation replaced this
             onChange={this.handleSliderChange}
           />
         </div>
-        <div className="gridItem_NumberBox_sliderComboCSSGridWrapper" >
+        <div className="sliderComboCSSGridWrapper__gridItem--NumberBox" >
           <div className="numberBox" >
             {this.state.desGroupSize}
           </div>
@@ -783,7 +792,7 @@ animation replaced this
   render() {
     return (
       <div className="randomizeStudentGroupCSSGridWrapper">
-        <div className="gridItem_navigationButtons_randomizeStudentGroupCSSGridWrapper">
+        <div className="randomizeStudentGroupCSSGridWrapper__gridItem--navigationButtons">
           <button className="goToMainViewButton" onClick={this.handleGoToMainView}>
             MainView
           </button>
@@ -794,7 +803,7 @@ animation replaced this
           </button>
           }
         </div>
-        <div className="gridItem_studentGroupName_randomizeStudentGroupCSSGridWrapper">
+        <div className="randomizeStudentGroupCSSGridWrapper__gridItem--studentGroupName">
           <h3>{this.props.studentGroupName}
           </h3>
           <h4>Number of present students: {this.state.nbrPresentStudents}<br />
@@ -803,13 +812,13 @@ animation replaced this
         </div>
         {this.state.selectedView === 'listView' &&
           this.props.currentUser &&
-          <div className="gridItem_sliderCombo_randomizeStudentGroupCSSGridWrapper">
+          <div className="randomizeStudentGroupCSSGridWrapper__gridItem--sliderCombo">
             {this.renderSliderForMinGroupSize()}
           </div>
         }
         <br />
         { this.props.currentUser &&
-        <div className="gridItem_studentList_randomizeStudentGroupCSSGridWrapper">
+        <div className="randomizeStudentGroupCSSGridWrapper__gridItem--studentList">
           <div
             id="studentListRandomizeStudentGroupCSSGridWrapperId"
             className="studentListRandomizeStudentGroupCSSGridWrapper"
@@ -832,7 +841,7 @@ animation replaced this
           </div>
         </div>
         }
-        <div className="gridItem_randomizeStudentGroupButton_randomizeStudentGroupCSSGridWrapper">
+        <div className="randomizeStudentGroupCSSGridWrapper__gridItem--randomizeStudentGroupButton">
           <button
             className="randomizeStudentGroupButton"
             onClick={this.randomizeStudentGroup}

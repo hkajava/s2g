@@ -67,7 +67,7 @@ export default class StudentGroup extends Component {
 
   render() {
     return (
-      <div className="gridItem_row_selectStudentGroupCSSGridWrapper">
+      <div className="selectStudentGroupCSSGridWrapper__gridItem--row">
         <button className="selectStudentGroupButton" onClick={this.selectThisStudentGroup}>
           {this.props.studentGroupName}
         </button>

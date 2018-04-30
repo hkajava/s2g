@@ -1,6 +1,6 @@
 {
   "name": "s2g",
-  "version": "1.0.11-hotjar",
+  "version": "1.0.12-bem",
   "private": true,
   "scripts": {
     "lint": "eslint .",
