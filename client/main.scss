@@ -1,5 +1,3 @@
-/* CSS declarations go here */
-
 /*
 $interactivity-color: yellow;
 */
@@ -17,32 +15,9 @@ $button-font-size-cell-phone: 25px;
 $input-field-font-size-desktop: 10px;
 $input-field-font-size-cell-phone: 15px;
 
-
-/* from https://github.com/IanLunn/Hover/blob/master/README.md#hovercss
-*/
-.hvr-grow {
-    display: inline-block;
-    vertical-align: middle;
-    transform: translateZ(0);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    backface-visibility: hidden;
-    -moz-osx-font-smoothing: grayscale;
-    transition-duration: 0.3s;
-    transition-property: transform;
-}
-
-.hvr-grow:hover,
-.hvr-grow:focus,
-.hvr-grow:active {
-    transform: scale(1.1);
-}
-
 body {
   font-family: $used-font-family;
   background-color: #f2994a;
-  /*
-  background-color: #315481;
-  */
   background-image: linear-gradient(to bottom, #315481, #918e82 100%);
 
   background-attachment: fixed;
@@ -57,9 +32,6 @@ body {
 }
 
 header {
-  /* background: #d2edf4;*/
-  /* background: #e2994a; */
-  /* background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%); */
   padding: 2px 15px 2px 5px;
   margin-top: 5px;
   position: relative;
@@ -70,13 +42,11 @@ header .hide-completed {
 }
 
 h1 {
-  font-size: 5rem !important;
+  font-size: 7rem !important;
   font-family: $used-font-family!important;
   color: black;
   margin: 0;
-  /*
-  margin-bottom: 10px;
-  */
+
   display: inline-block;
   margin-right: 1em;
 }
@@ -104,50 +74,28 @@ h6 {
   font-size: 0.8em!important;
   font-family: $used-font-family! important;
   padding-left: 5px;
-  /* margin-top: -15px; */
 }
 
-.container {
-  min-width: 1000px;
-  width: auto ! important;
-  /* max-width: 1200px; */
-  /* margin: 0 auto; */
-  min-height: 650px;
-  height: auto;
-  background: #f2894a;
-  /*
-  overflow: hidden;
-  background: white; */
-}
-
-.container_test {
+.container_s2g {
   margin: 5%;
   padding: 2%;
-  /*
-  min-width: 1000px;
-  */
+
   width: auto ! important;
-  /*
-  max-width: 1400px;
-  */
-  /* margin: 0 auto; */
+
   min-height: 650px;
   height: auto;
   background: #f2894a;
-  /*
-  overflow: hidden;
-  background: white; */
 }
 
 .loginCircle {
 
   width: 80px;
   height: 80px;
-  /*padding: 8px;*/
+
   position: relative;
   margin-top: 5px;
   margin-right: 60px;
-  /* margin-right: 100px; */
+
   float: right;
 
   background: $interactivity-color;
@@ -155,22 +103,12 @@ h6 {
   -webkit-border-radius: 4px;
   border-radius: 100%;
 
-  /* background: #a50d11; */
-  /*
-  border: 2px solid #666;
-  color: #000000;
-  text-align: center;
-  */
-  /* font: 150px Arial, sans-serif; */
 }
 
 .loginCircle:hover,
 .loginCircle:focus,
 .loginCircle:active {
   background-color: $hover-color;
-  /*
-  transform: scale(1.1);
-  */
 }
 
 #login-buttons {
@@ -183,17 +121,6 @@ h6 {
 .selectStudentGroupCSSGridWrapper {
   margin-top: 5px;
   margin-left: 5px;
- /*
-  min-width: 800px;
-  position:relative;
-  float:left;
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
-  grid-auto-rows: minmax(100px, auto);
-  grid-template-rows: repeat(7, 1fr);
-*/
 
   position:relative;
   float:left;
@@ -203,26 +130,9 @@ h6 {
   grid-gap: 10px;
   grid-template-rows: (30px, auto);
 
-  /*
-  grid-auto-rows: minmax(100px, auto);
-  grid-auto-columns: fit-content(400px);
-  grid-auto-columns: min-content;
-  */
 }
 
 .gridItem_row_selectStudentGroupCSSGridWrapper {
- /*
-  min-width: 800px;
-  position:relative;
-  float:left;
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
-  grid-auto-rows: minmax(100px, auto);
-  grid-template-rows: repeat(7, 1fr);
-*/
-
   position:relative;
   float:left;
   display: grid;
@@ -234,49 +144,17 @@ h6 {
 
   justify-items: left;
   align-items: center;
-/*
-  display: flex;
-  justify-content: center;
-  align-items: center;
-*/
-  /*
-  grid-auto-rows: minmax(100px, auto);
-  grid-auto-columns: fit-content(400px);
-  grid-auto-columns: min-content;
-  */
 }
 
 .editStudentGroupCSSGridWrapper {
   margin-top: 5px;
   margin-left: 5px;
- /*
-  min-width: 800px;
-  position:relative;
-  float:left;
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
-  grid-auto-rows: minmax(100px, auto);
-  grid-template-rows: repeat(7, 1fr);
 
-
-  position:relative;
-  float:left;
-  */
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 2px;
-  /* grid-auto-rows: 100px;
-  grid-auto-rows: minmax(100px, auto);
-  */
   grid-template-rows: 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px;
-
-  /*
-  grid-auto-columns: fit-content(400px);
-  grid-auto-columns: min-content;
-  */
 }
 
 .randomizeStudentGroupCSSGridWrapper {
@@ -287,24 +165,12 @@ h6 {
   min-width: 1100px;
   width: auto;
   min-height: 450px;
-  /*
-  position:relative;
-  float:left;
-  */
+
   display: grid;
   grid-auto-flow: column;
 
   grid-template-columns: repeat(14, 100px);
   grid-template-rows: 70px 100px 100px 100px 100px 100px auto;
-  /*
-  grid-auto-rows: min-content max-content auto;
-  grid-gap: 1px;
-  grid-auto-rows: 100px;
-  grid-auto-rows: minmax(auto, 200px);
-  grid-template-rows: repeat(10, 1fr);
-  grid-auto-columns: fit-content(400px);
-  grid-auto-columns: min-content;
-  */
 }
 
 .gridItem_goToMainViewButton_randomizeStudentGroupCSSGridWrapper   {
@@ -336,8 +202,6 @@ h6 {
 }
 
 .goToMainViewButton {
-  /* background-color:#00cc66; */
-
   background-color: $interactivity-color;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
@@ -347,13 +211,7 @@ h6 {
   width: 95px;
   height: 30px;
   position: relative;
-  /*
-  float:left;
-  display: flex;
-  padding:2px 4px;
-  margin-left: -35px;
-  margin-top: 100px;
-  */
+
   margin-right: 50px;
   margin-left: 5px;
 	cursor: pointer;
@@ -361,10 +219,6 @@ h6 {
 	font-family: $used-font-family;
 	font-size: 15px;
 	text-decoration: none;
-	/* text-shadow: 0px 1px 0px #283966; */
-  /*
-  transform: rotate(-90deg);
-  */
 }
 
 .goToMainViewButton:hover {
@@ -377,9 +231,6 @@ h6 {
 }
 
 .gridItem_studentGroupName_randomizeStudentGroupCSSGridWrapper {
-  /*
-  grid-row: 1;
-  */
   border-style: none;
   border-width: 3px;
   border-color: green;
@@ -388,9 +239,6 @@ h6 {
 }
 
 .gridItem_studentList_randomizeStudentGroupCSSGridWrapper {
-  /*
-  grid-row: 1;
-  */
   border-style: none;
   border-width: 3px;
   border-color: blue;
@@ -410,15 +258,7 @@ h6 {
   grid-auto-flow: column;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
-  /* grid-auto-rows: 100px;*/
   grid-auto-rows: minmax(100px, auto);
-
-  /*
-  grid-template-rows: repeat(8, 1fr);
-
-  grid-auto-columns: fit-content(400px);
-  grid-auto-columns: min-content;
-  */
 }
 
 .gridItem_sliderCombo_randomizeStudentGroupCSSGridWrapper {
@@ -437,31 +277,15 @@ h6 {
   border-width: 3px;
   border-color: orange;
 
-  /*
-  width: 50%;
-  */
   position:relative;
-  /*
-  float:right;
-  */
+
   display: grid;
-  /*
-  grid-template-columns: 100px 100px 100px;
-  */
+
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 100px 50px;
-
-/*
-  grid-auto-rows: minmax(100px, auto);
-  grid-auto-columns: fit-content(400px);
-  grid-auto-columns: min-content;
-  */
 }
 
 .gridItem_Instructions_sliderComboCSSGridWrapper {
-  /*
-  grid-row: 1;
-  */
   grid-row: 1;
   grid-column: 1 / 3;
 
@@ -472,19 +296,14 @@ h6 {
 }
 
 .gridItem_NumberBox_sliderComboCSSGridWrapper {
-  /*
-  grid-row: 1;
-  */
   grid-row: 1;
   grid-column: 3;
 }
 
 .numberBox {
-  /* border-radius: 50%; */
   width: 100px;
   height: 100px;
 
-  /*padding: 8px;*/
   position: relative;
   float: right;
 
@@ -524,9 +343,6 @@ h6 {
 }
 
 .randomizeStudentGroupButton {
-	/* background-color:#00cc66;
-  margin-left: 15px;
-  */
   width: 250px;
   background-color: $interactivity-color;
 	-moz-border-radius: 4px;
@@ -534,22 +350,14 @@ h6 {
 	border-radius: 0px;
 	border:1px solid #4e6096;
 	display:inline-block;
-  /*
-  display: flex;
 
-  float: right;
-  margin-top: 200px; */
 	cursor: pointer;
 	color: #000000;
 
 	font-family: $used-font-family;
 	font-size: 40px;
-  /*
-	padding:2px 4px;
-  margin-left: 10px;
-  */
+
 	text-decoration: none;
-	/* text-shadow: 0px 1px 0px #283966; */
 
   transform: translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
@@ -560,9 +368,7 @@ h6 {
 }
 
 .randomizeStudentGroupButton:hover {
-  /*
-	background-color: $hover-color;
-  */
+
   transform: scale(1.1);
   border-width: 2px;
   border-color: blue;
@@ -576,27 +382,12 @@ h6 {
 .revolvermapContainer {
     width: 341px;
     height: 341px;
-    /*padding: 8px;*/
+
     position: relative;
     float: left;
-/*
-    background:$interactivity-color;
-    -moz-border-radius:4px;
-    -webkit-border-radius:4px;
-    border-radius: 100%;
-
-    border: 2px solid #666;
-    color: #000000;
-    text-align: center;
-    */
 }
 
 .gridItem_smallGroupContainerGrid_randomizeStudentGroupCSSGridWrapper {
-  /*
-  display: flex;
-  flex-direction: row;
-  */
-
   grid-row: 3 / auto;
   grid-column: 1 / span 5;
 
@@ -607,88 +398,22 @@ h6 {
   grid-auto-flow: row;
   grid-template-columns:  1fr 1fr 1fr 1fr 1fr;
   grid-gap: 5px;
-  /* grid-auto-rows: 100px;
-  grid-auto-rows: minmax(100px, auto);
-  */
-  /*
-  grid-template-rows: repeat(8, 1fr);
-
-  grid-auto-columns: fit-content(400px);
-  grid-auto-columns: min-content;
-  */
 }
 
 .smallGroup {
-
-  /*
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #555;
-  margin: 5px;
-  padding: 5px;
-  */
   min-width: 150px;
-  /*
-  min-height: 250px;
-  */
   height: inherit;
-
 
   border: 1px solid #555;
   margin-right: 5px;
   padding: 5px;
 
-  /*
-  position:relative;
-  float:left;
-  */
   display: grid;
   grid-auto-flow: row;
   grid-template-columns: 1fr;
   grid-gap: 5px;
-  /* grid-auto-rows: 100px;*/
   grid-auto-rows: minmax(30px, auto);
-
-  /*
-  grid-template-rows: repeat(8, 1fr);
-  */
-
 }
-
-/* Reveal */
-.hvr-reveal {
-  display: inline-block;
-  vertical-align: middle;
-  -webkit-transform: perspective(1px) translateZ(0);
-  transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px transparent;
-  position: relative;
-  overflow: hidden;
-}
-.hvr-reveal:before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  border-color: #2098D1;
-  border-style: solid;
-  border-width: 0;
-  -webkit-transition-property: border-width;
-  transition-property: border-width;
-  -webkit-transition-duration: 0.1s;
-  transition-duration: 0.1s;
-  -webkit-transition-timing-function: ease-out;
-  transition-timing-function: ease-out;
-}
-.hvr-reveal:hover:before, .hvr-reveal:focus:before, .hvr-reveal:active:before {
-  -webkit-transform: translateY(0);
-  transform: translateY(0);
-  border-width: 4px;
-}
-
 
 .selectStudentGroupButton {
   background-color: $interactivity-color;
@@ -719,9 +444,6 @@ h6 {
 
 .selectStudentGroupButton:hover,
 .selectStudentGroupButton:focus {
-	/*
-  background-color: $hover-color;
-  */
   transform: scale(1.05);
   border-width: 2px;
   border-color: blue;
@@ -751,20 +473,9 @@ h6 {
 	font-size: 14px;
 
   padding: 2px 4px;
-  /*margin-left: 10px; */
+
 	text-decoration: none;
-	/* text-shadow: 0px 1px 0px #283966; */
 
-  /*
-  prevent student name wrapping on two lines (firstName and lastName)
-
-  white-space: nowrap;
-  white-space: pre;
-  white-space: -moz-pre-wrap; // Firefox
-  white-space: -o-pre-wrap; // Opera
-
-  white-space: pre-wrap; // Chrome
-  */
   white-space: nowrap;
   white-space: -moz-pre-wrap; /* Firefox */
   word-wrap: break-word; // IE
@@ -784,11 +495,7 @@ h6 {
 	font-size: 14px;
 
   padding: 2px 4px;
-  /*margin-left: 10px; */
 	text-decoration: none;
-	/*
-  text-shadow:0px 1px 0px #283966;
-  */
 }
 
 .studentNameButton.checked {
@@ -806,8 +513,6 @@ h6 {
 	font-size: 14px;
 
   padding: 2px 4px;
-  /*margin-left: 10px; */
-	/* text-shadow: 0px 1px 0px #283966; */
   text-decoration: line-through;
 }
 .studentNameButton.checked:hover {
@@ -838,11 +543,7 @@ h6 {
 	font-size: 10px;
 
   padding: 2px 4px;
-  /*
-  margin-left: 15px;
-  */
 	text-decoration: none;
-	/* text-shadow: 0px 1px 0px #283966; */
 }
 .editStudentGroupButton:hover {
   background-color: $hover-color;
@@ -854,7 +555,6 @@ h6 {
 }
 
 .deleteStudentGroupButton {
-  /*background-color:#7892a2;*/
   background-color: $interactivity-color;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
@@ -866,16 +566,12 @@ h6 {
 
 	font-family: $used-font-family;
 	font-size: 10px;
+  text-decoration: none;
 
   padding: 2px 4px;
 
   width: 45px;
   height: 20px;
-  /*
-  margin-left: 15px;
-  */
-	text-decoration: none;
-	/* text-shadow: 0px 1px 0px #283966; */
 }
 .deleteStudentGroupButton:hover {
 	background-color: $hover-color;
@@ -886,7 +582,6 @@ h6 {
 }
 
 .deleteStudentButton {
-  /*background-color:#7892a2;*/
   background-color: $interactivity-color;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
@@ -902,7 +597,6 @@ h6 {
   padding: 2px 4px;
   margin-left: 10px;
 	text-decoration: none;
-	/* text-shadow: 0px 1px 0px #283966; */
 }
 .deleteStudentButton:hover {
 	background-color: $hover-color;
@@ -924,7 +618,6 @@ h6 {
 }
 
 .goToListViewButton {
-  /* background-color:#00cc66; */
   width: 95px;
   height: 30px;
   margin-left: 5px;
@@ -942,13 +635,8 @@ h6 {
 
 	font-family: $used-font-family;
 	font-size: 15px;
-	/*
-  padding:2px 4px;
 
-  margin-top: 5px;
-  */
 	text-decoration: none;
-	/* text-shadow: 0px 1px 0px #283966; */
 }
 .goToListViewButton:hover {
 	background-color: $hover-color;
@@ -961,7 +649,6 @@ h6 {
 label {
   /* display: block; */
   padding-left: 10px;
-  /* text-indent: -15px; */
 }
 
 input {
@@ -975,7 +662,6 @@ input {
   overflow: hidden;
 }
 
-
 form {
   margin-top: 10px;
   margin-bottom: 5px;
@@ -983,7 +669,6 @@ form {
 }
 
 .new-studentGroup input {
-
   box-sizing: border-box;
   height: 30px;
   padding-left: 5px;
@@ -1035,7 +720,6 @@ form {
 ul {
   margin: 0;
   padding: 0;
-  /* background: white; */
 }
 
 li {
@@ -1060,14 +744,19 @@ li.private {
   border-color: #ddd;
 }
 
-/* CHECK THESE AND PUT SOMETHING THAT MAKES SENSE INTO @media */
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+SMALL SCREEN SETTINGS START HERE
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
 
 @media (max-width: 1200px) {
 
   header {
-    /* background: #d2edf4;*/
-    /* background: #e2994a; */
-    /* background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%); */
     padding: 2px 15px 10px 5px;
     margin-top: 5px;
     position: relative;
@@ -1078,15 +767,12 @@ li.private {
     font-family: $used-font-family;
     color: black;
     margin: 0;
-    /*
-    margin-bottom: 10px;
-    */
+
     display: inline-block;
     margin-right: 1em;
   }
 
   .new-studentGroup input {
-
     box-sizing: border-box;
     height: 30px;
     padding-left: 5px;
@@ -1158,15 +844,10 @@ li.private {
     grid-template-columns: 145px 145px;
     grid-template-rows: auto;
 
-    /*
-    display: flex;
-    */
     align-items: center; /* align vertical */
   }
 
   .goToMainViewButton {
-    /* background-color:#00cc66; */
-
     background-color: $interactivity-color;
   	-moz-border-radius: 4px;
   	-webkit-border-radius: 4px;
@@ -1176,15 +857,6 @@ li.private {
     width: 120px;
     height: auto;
     position: relative;
-    /*
-    float:left;
-    display: flex;
-    padding:2px 4px;
-    margin-left: -35px;
-    margin-top: 100px;
-
-    margin-right: 50px;
-    */
 
     margin-right: 5px;
     margin-left: 5px;
@@ -1194,10 +866,6 @@ li.private {
   	font-family: $used-font-family;
   	font-size: $button-font-size-cell-phone;
   	text-decoration: none;
-  	/* text-shadow: 0px 1px 0px #283966; */
-    /*
-    transform: rotate(-90deg);
-    */
   }
 
   .gridItem_row_selectStudentGroupCSSGridWrapper {
@@ -1224,59 +892,27 @@ li.private {
   }
 
   .goToListViewButton {
-    /* background-color:#00cc66; */
     width: 120px;
     height: auto;
 
   	font-family: $used-font-family;
   	font-size: $button-font-size-cell-phone;
-  	/*
-    padding:2px 4px;
-    margin-top: 5px;
-    */
+
     margin-top: 0px;
     margin-bottom: 5px;
   	text-decoration: none;
-  	/* text-shadow: 0px 1px 0px #283966; */
   }
 
   .editStudentGroupCSSGridWrapper {
     margin-top: 5px;
     margin-left: 5px;
-   /*
-    min-width: 800px;
-    position:relative;
-    float:left;
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
-    grid-template-rows: repeat(7, 1fr);
 
-
-    position:relative;
-    float:left;
-    */
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: 1fr 1fr 1fr;
 
     grid-template-rows: repeat(16, 1fr);
     grid-gap: 5px;
-    /* grid-auto-rows: 100px;*/
-
-
-    /*
-    grid-template-rows: 100px 100px 100px 100px 100px 100px 100px 100px;
-
-    grid-auto-rows: minmax(100px, auto);
-    grid-template-rows: repeat(16, 1fr);
-
-
-    grid-auto-columns: fit-content(400px);
-    grid-auto-columns: min-content;
-    */
   }
 
   .randomizeStudentGroupCSSGridWrapper {
@@ -1286,33 +922,15 @@ li.private {
 
     min-width: 300px;
     width: auto;
-    /*
-    min-height: 450px;
 
-    position:relative;
-    float:left;
-    */
     display: grid;
     grid-auto-flow: column;
 
     grid-template-columns: repeat(7, 100px);
     grid-template-rows: auto;
-    /*
-    grid-template-rows: repeat(6, 100px) auto;
-    grid-auto-rows: min-content max-content auto;
-    grid-gap: 1px;
-    grid-auto-rows: 100px;
-    grid-auto-rows: minmax(auto, 200px);
-    grid-template-rows: repeat(10, 1fr);
-    grid-auto-columns: fit-content(400px);
-    grid-auto-columns: min-content;
-    */
   }
 
   .gridItem_Instructions_sliderComboCSSGridWrapper {
-    /*
-    grid-row: 1;
-    */
     grid-row: 1;
     grid-column: 1 / 3;
 
@@ -1339,7 +957,6 @@ li.private {
     border-width: 3px;
     border-color: grey;
 
-
     overflow: hidden;
 
     display: grid;
@@ -1348,13 +965,10 @@ li.private {
 
     grid-row: 7 / 9;
     grid-column: 1 / span 5;
-
   }
 
   .randomizeStudentGroupButton {
-  	/* background-color:#00cc66;
-    */
-    width: 200px;
+  	width: 200px;
     margin-left: 5px;
 
     background-color: $interactivity-color;
@@ -1364,28 +978,16 @@ li.private {
   	border:1px solid #4e6096;
   	display:inline-block;
 
-    /*
-    display: flex;
-      /*
-    float: right;
-    margin-top: 200px; */
-  	cursor: pointer;
+    cursor: pointer;
   	color: #000000;
 
   	font-family: $used-font-family;
   	font-size: 30px;
-    /*
-  	padding:2px 4px;
-    margin-left: 10px;
-    */
-  	text-decoration: none;
-  	/* text-shadow: 0px 1px 0px #283966; */
+
+    text-decoration: none;
   }
 
   .randomizeStudentGroupButton:hover {
-    /*
-  	background-color: $hover-color;
-    */
     transform: scale(1.03);
     border-width: 2px;
     border-color: blue;
@@ -1399,10 +1001,6 @@ li.private {
   }
 
   .gridItem_studentList_randomizeStudentGroupCSSGridWrapper {
-    /*
-    grid-row: 1;
-    */
-
     border-style: none;
     border-width: 3px;
     border-color: blue;
@@ -1422,27 +1020,12 @@ li.private {
     grid-auto-flow: column;
     grid-template-columns: 1fr 1fr;
     grid-gap: 5px;
-    /* grid-auto-rows: 100px;*/
     grid-auto-rows: minmax(100px, auto);
-    /*
-    grid-template-rows: repeat(16, 1fr);
-
-    grid-auto-columns: fit-content(400px);
-    grid-auto-columns: min-content;
-    */
   }
   .gridItem_smallGroupContainerGrid_randomizeStudentGroupCSSGridWrapper {
-    /*
-    display: flex;
-    flex-direction: row;
-    */
-
     grid-row: 9 / 11;
     grid-column: 1 / 5;
 
-    /*
-    margin-left: 5px;
-    */
     margin-right: 10px;
     margin-top: 10px;
 
@@ -1450,14 +1033,5 @@ li.private {
     grid-auto-flow: row;
     grid-template-columns:  1fr;
     grid-gap: 5px;
-    /* grid-auto-rows: 100px;
-    grid-auto-rows: minmax(100px, auto);
-    */
-    /*
-    grid-template-rows: repeat(8, 1fr);
-
-    grid-auto-columns: fit-content(400px);
-    grid-auto-columns: min-content;
-    */
   }
 }
