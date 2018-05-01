@@ -8,7 +8,6 @@ import 'react-rangeslider/lib/index.css';
 // typical import
 import { TweenMax, Back, Bounce, SlowMo, Sine } from 'gsap';
 // import { TweenMax, Back, Bounce, SlowMo, Sine, RoughEase, Power0 } from 'gsap';
-// import { Button } from 'reactstrap';
 
 import Student from './Student.jsx';
 import { StudentGroups } from '../api/studentGroups.js';
