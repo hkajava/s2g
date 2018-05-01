@@ -142,7 +142,8 @@ class App extends Component {
         <div>
           <p> This is an application to help teachers divive students into small
             groups randomly. Built with Meteor.js. Free to use and open source. <a target="_blank" rel="noopener noreferrer" href="https://github.com/hkajava/s2g/"><img border="0" alt="GitHub Link" src="/images/Octocat_scaled.png" width="40" height="40" /></a><br />
-            To create own groups, you need to sign-up. Those groups will be visible to you only and you can delete own groups permanently when you want to. { /* eslint-disable-line max-len */ }
+            To create own groups, you need to sign-up. Those groups will be visible to you only and you can delete own groups permanently when you want to. <br /> { /* eslint-disable-line max-len */ }
+            Tested to work with Chrome 60+, Safari 11+, Firefox 59+. Might not work with Microsoft browsers.{ /* eslint-disable-line max-len */ }
           </p>
           <div className="selectStudentGroupCSSGridWrapper">
             {this.renderExampleStudentGroup()}
